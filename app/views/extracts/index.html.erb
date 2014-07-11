@@ -1,0 +1,39 @@
+<h1>Extracts for the <%=@collection.name.titleize%> Collection </h1>
+
+<table>
+  <thead>
+   <!-- <!--  <tr>
+    <th>Lda</th>
+      <th>Num of topics</th>
+      <th>Ner people</th>
+      <th>Ner organizations</th>
+      <th>Ner places</th>
+      <th>Ner dates</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr> -->
+  </thead>
+
+  <tbody>
+    <% @extracts.each do |extract| %>
+      <tr>
+        <td><%= extract.lda %></td>
+        <td><%= extract.num_of_topics %></td>
+        <td><%= extract.ner_people %></td>
+        <td><%= extract.ner_organizations %></td>
+        <td><%= extract.ner_places %></td>
+        <td><%= extract.ner_dates %></td>
+        <td><%= link_to 'Show', extract %></td>
+        <td><%= link_to 'Edit', edit_collection_extract_path(extract) %></td>
+        <td><%= link_to 'Destroy', extract, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<div class="new_link">
+<%= link_to 'Add a New Extract',  new_collection_extract_path %>
+</div>

@@ -1,0 +1,28 @@
+<%= simple_form_for([@collection, @preprocess]) do |f| %>
+<%= f.error_notification %>
+
+<div class="form-inputs">
+<div class="preform">
+  <h3> Stop Word Filtering </h3>
+  </br>
+  <%= f.input :stopwords, label: "Removes Stop Words: Removes common words like the, a, it", as: :radio_buttons, :label_html => { :class => 'field' }  %>
+  <%= f.input :rarewords,  label:"Removes Rare Words: Removes words that only appear once in the document",  as: :radio_buttons, :label_html => { :class => 'field' }%>
+  <%=f.input :custom_stoplist,  label:"Upload a Custom Stoplist: Removes words that apear in the uploaded list",  as: :file, :label_html => { :class => 'field' } %>
+   </br>
+  <h3> Tagging - Part of Speech Filtering </h3>
+     </br>
+  <%= f.input :pos, label:"Tagging: Include ONLY the part of speech words selected", :collection => [[ 'Nouns', "NN"] ,['Verbs', "VB"], ['Adjectives', "JJ"], ['Proper Names', "NR"]], :as=> :check_boxes, :label_html => { :class => 'field' } %>
+  <%= f.input :tagged_no_ner, :input_html => { :wrap => :soft, :rows => 2},  label:"Removes Named Entities When Tagging: Removes words that are indentified as named entities and dates", as: :radio_buttons, :label_html => { :class => 'field' }%>
+</br>
+<h3> Stem and TF-IDF Filtering </h3>
+   </br>
+  <%= f.input :stemmed,   label:"Stem: Turn each word into its stem", as: :radio_buttons, :label_html => { :class => 'field' }%>
+   <%= f.input  :tfidf,  label:"TF-IDF: Filter words based on their importance in the document. Scores each word in the collection based on how frequently the word appears and how infrequently the word appears in other documents",  as: :radio_buttons , :label_html => { :class => 'field' }%>
+ 
+  <div class="form-actions">
+  <%= f.button :submit,  'Submit'%>
+  </div>
+</div>
+</div>
+
+<% end %>

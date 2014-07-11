@@ -1,0 +1,30 @@
+#set up JAVA_Home
+
+export JAVA_HOME=/usr/lib/jvm/java-1.7.0-openjdk-amd64
+export PATH=$PATH:/usr/lib/jvm/java-1.7.0-openjdk-amd64/bin
+
+#set up mallet home
+export MALLET_HOME=/home/j9/Mallet/
+export PATH=$PATH:export PATH=$PATH:/home/j9/Mallet/bin
+
+#set up mysql 
+CREATE USER 'janine'@'localhost' IDENTIFIED BY 'yr_passwd_here';
+GRANT ALL PRIVILEGES ON *archextract_development* TO 'janine'@'localhost' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+
+#set up rails dbs:
+
+CREATE USER 'myrailsbuddy'@'localhost' IDENTIFIED BY 'mypass';
+create database archextract_development;
+create database archextract_test;
+create database archextract_production;
+create database ca_election_costs_development;
+create database ca_election_costs_test;
+create database ca_election_costs_production;
+
+GRANT ALL PRIVILEGES ON archextract_development.* TO 'myrailsbuddy'@'localhost';
+GRANT ALL PRIVILEGES ON archextract_test.* TO 'myrailsbuddy'@'localhost';
+GRANT ALL PRIVILEGES ON archextract_production.* TO 'myrailsbuddy'@'localhost';
+GRANT ALL PRIVILEGES ON ca_election_costs_development.* TO 'myrailsbuddy'@'localhost';
+GRANT ALL PRIVILEGES ON ca_election_costs_test.* TO 'myrailsbuddy'@'localhost';
+GRANT ALL PRIVILEGES ON ca_election_costs_production.* TO 'myrailsbuddy'@'localhost';

@@ -1,0 +1,23 @@
+
+
+<div id="collection_all" >
+
+<h1>Enter a New Collection</h1>
+
+<%= render 'form' %>
+
+<%= link_to 'Collections Home', collections_path %>
+
+
+<% if @collection.errors.any? %>
+<div id="error_explanation">
+  <h2><%= pluralize(@collection.errors.count, "error") %> prohibited this collection from being saved:</h2>
+  <ul>
+    <% @collection.errors.full_messages.each do |msg| %>
+    <li><%= msg %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+
+</div>

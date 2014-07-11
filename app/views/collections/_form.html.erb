@@ -1,0 +1,40 @@
+<%= form_for(@collection) do |f| %>
+<div class="field">
+<%= f.label "Collection Name" %>
+  <%= f.text_field :name %> 
+</div>
+
+
+<div class="field">
+ <%= f.label "Acquisition Source" %>
+  <%= f.text_field :acquisition_source %>
+</div>
+
+
+<div class="field">
+  <strong><%= f.label 'Acquisition Date' %>
+  <%= f.date_select :acquisition_date %>
+</div>
+</br>
+<div class="field">
+  <strong><%= f.label "Select a file to upload" %>
+  <%= f.file_field :src_datadir %>
+</div>
+</br>
+<div class="field">
+ <%= f.label "File upload is a zipped directory of the collection" %>
+  <%=  f.check_box :isdir %>
+</div>
+</br>
+<div class="field">
+  <%= f.label "Collection Notes" %>
+  <%= f.text_area :notes,  rows: 5, cols: 5 %>
+</div>
+</br>
+
+
+<div class="actions">
+  <%= f.submit %>
+</div>
+
+<% end %>
