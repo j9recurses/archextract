@@ -16,6 +16,7 @@ class PreprocessesController < ApplicationController
   # GET /preprocesses/1
   # GET /preprocesses/1.json
   def show
+    puts params
   end
 
   # GET /preprocesses/new
@@ -33,22 +34,32 @@ class PreprocessesController < ApplicationController
     pp = Preprocesscollectionopts.new(preprocess_params, @collection )
     @preprocess = pp.get_preprocess_stem_tag_cmd_short
     if pp.check_if_preprocess_exists?
-      flash[:error] =  "Error: Your Preprocess routine exists!"
+      flash[:error] =  'Error: Your Preprocess routine for the ' + @collection[:name] + 'already exists!'
       redirect_to collection_preprocesses_path
     else
-      #Delayed::Job.enqueue Preprocesscollection.new(preprocess_params, params[:collection_id] )
+      @preprocess[:status] = "processing"
       @preprocess = Preprocess.new(@preprocess)
       if @preprocess.save
-        flash[:notice] =  'Thank you for submission: The Pre-Process job is now running'
+        flash[:notice] =  'Thank you for your submission: The Pre-Process job for the '+  @collection[:name] + ' is now running. You will be sent an email when the job is done.'
+        Delayed::Job.enqueue Preprocesscollection.new(preprocess_params, params[:collection_id], @preprocess )
         redirect_to collection_preprocesses_path
       else
-        flash[:error] =  "Error: Your Preprocess routine could not be completed!"
+        flash[:error] =  'Error: Your Preprocess routine for the ' + @collection[:name] + ' could not be completed!'
         redirect_to collection_preprocesses_path
       end
     end
   end
 
-  # PATCH/PUT /preprocesses/1
+  # DELETE /preprocesses/1
+  # DELETE /preprocesses/1.json
+  def destroy
+    flash[:notice] = "The  " + @collection[:name] + "collection is being deleted. An email will be sent when this job is done."
+    cool = Delayed::Job.enqueue Deletepreprocess.new(@preprocess[:id])
+    puts cool
+    redirect_to collection_preprocesses_path
+  end
+
+    # PATCH/PUT /preprocesses/1
   # PATCH/PUT /preprocesses/1.json
   def update
     respond_to do |format|
@@ -62,15 +73,8 @@ class PreprocessesController < ApplicationController
     end
   end
 
-  # DELETE /preprocesses/1
-  # DELETE /preprocesses/1.json
-  def destroy
-    @preprocess.destroy
-    respond_to do |format|
-      format.html { redirect_to preprocesses_url }
-      format.json { head :no_content }
-    end
-  end
+
+
 
   private
   # Use callbacks to share common setup or constraints between actions.
@@ -90,7 +94,10 @@ class PreprocessesController < ApplicationController
       :collection_id,
       :file_dir,
       :fname_base,
+      :collection_id,
+      :id,
+      :status,
       :pos => []
-    )
+    ).merge(id: params[:id], collection_id: params[:collection_id])
   end
 end

@@ -37,21 +37,33 @@ class Preprocesscollectionopts
   end
 
   def get_pos
-    if @preprocess[:pos].size > 0
-      new_pos = @preprocess[:pos].join('_')
+    if @preprocess[:pos].size > 1
+      the_pos =@preprocess[:pos]
+      new_pos =  the_pos.join('_')
       new_pos = new_pos.chomp("_")
-      # @preprocess.update_attribute(:pos, new_pos)
-      @preprocess[:pos] = new_pos
+      thepos = new_pos
       @outdir << "tagged"
       @outdir << new_pos
-      @routine  << "tagged"
+      myroutine = "Tagged-"
+      if the_pos.include? "NN"
+         myroutine =  myroutine + "-Nouns-"
+      end
+      if the_pos.include? "VB"
+         myroutine =  myroutine + "-Verbs-"
+      end
+      if  the_pos.include? "JJ"
+        myroutine =  myroutine + "-Adjectives-"
+      end
+      myroutine = myroutine[0..-2]
+      puts myroutine
+      @routine  << myroutine
     end
   end
 
   def no_ner
     if @preprocess[:tagged_no_ner]
       @outdir << "no_ner"
-      @routine << "removed named entities"
+      @routine << "Removed Named Entities"
     end
   end
 
@@ -65,14 +77,14 @@ class Preprocesscollectionopts
   def stopwords
     if @preprocess[:stopwords]
       @outdir << "stopwords"
-      @routine << "removed stop word"
+      @routine << "Removed Stop Words"
     end
   end
 
   def rarewords
     if @preprocess[:rarewords]
       @outdir << "rare_words"
-      @routine << "removed rare words"
+      @routine << "Removed Rare Words"
     end
   end
 

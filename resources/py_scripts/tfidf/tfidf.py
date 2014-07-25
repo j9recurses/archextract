@@ -4,10 +4,11 @@ from __future__ import division
 import os
 import sys, re, math, unicodedata
 from optparse import OptionParser
+from nltk.stem.wordnet import WordNetLemmatizer
+from nltk.tokenize.punkt import PunktWordTokenizer
+
 """
 File: tfidf.py
-Author: Yasser Ebrahim edited by Janine Heiser to make some improvements and added functionality
-Date: Oct 2012
 
 Generate the TF-IDF ratings for a collection of documents.
 
@@ -143,6 +144,8 @@ parser.add_option('-o', '--outdir', dest='outdir_f',
         help='output dir to write output tf-idf files')
 parser.add_option('-q', '--remove_stopwords', dest='stopwords',
         help='remove stopwords')
+parser.add_option('-s', '--tfidfscore', dest='score',
+        help='remove words that fall below a tfidf score')
 parser.add_option('-b', '--remove_mean', dest='btm',
         help='remove all words that are below the mean tf-idf score-default is false')
 (options, args) = parser.parse_args()
@@ -166,6 +169,9 @@ stopwords = False
 if options.stopwords:
    stopwords = True
 remove_rare = False
+score = 0
+if options.score
+    score = options.score
 if options.removerare:
     remove_rare = True
 results_write_to_f = False
@@ -192,48 +198,36 @@ if not args:
 
 basedir = args[0]
 all_files = [os.path.join(dp, f) for dp, dn, filenames in os.walk(basedir) for f in filenames if os.path.splitext(f)[1] == '.txt']
-
+all_files = all_files[:20]
 
 num_docs  = len(all_files)
 
-from nltk.stem.wordnet import WordNetLemmatizer
-from nltk.tokenize.punkt import PunktWordTokenizer
 
 print('initializing..')
 for f in all_files:
-
     # local term frequency map
     terms_in_doc = {}
-
     doc_words    = open(f).read().lower()
     #print 'words:\n', doc_words
     if stopwords:
         doc_words    = remove_stopwords(doc_words)
-    #print 'after stopwords:\n', doc_words
     doc_words    = tokenize(doc_words)
-    #print 'after tokenize:\n', doc_words
-
-    #quit()
-
     # increment local count
     for word in doc_words:
         if word in terms_in_doc:
             terms_in_doc[word] += 1
         else:
             terms_in_doc[word]  = 1
-
     # increment global frequency
     for (word,freq) in terms_in_doc.items():
         if word in global_term_freq:
             global_term_freq[word] += 1
         else:
             global_term_freq[word]  = 1
-
     global_terms_in_doc[f] = terms_in_doc
+    print('working through documents.. ')
 
-
-print('working through documents.. ')
-
+#####Check to see if the user wants to exclude words that fall below the mean tf-idf score
 if  below_tm :
     median_list = []
     ##iterate through to get the mean tf-idf score
@@ -250,7 +244,6 @@ if  below_tm :
         new_result =  []
         result = get_tf_idf_score(f, global_terms_in_doc, num_docs)
         result = sorted(result, reverse=True)
-
         #if the tf-idf is above the mean, put it into the results list
         for k in result:
             sublist = k[0]
@@ -260,7 +253,7 @@ if  below_tm :
         if results_write_to_f or len(outdir) > 0:
             write_tf_idf_to_file(new_result, outdir, display_mode, f)
 
-    #now that we have a mean tf_idf score, eliminate words that fail befor the mean
+#or if peeps want all the words above a tf-idf score, then do that
 else:
     for f in all_files:
         result = get_tf_idf_score(f, global_terms_in_doc, num_docs)
@@ -268,8 +261,6 @@ else:
         ##write them to a file if necessary
         if results_write_to_f  or len(outdir) > 0:
             write_tf_idf_to_file(result, outdir, display_mode, f)
-
-
 
 #print mean_tfidf
 print('success, with ' + str(num_docs) + ' documents.')

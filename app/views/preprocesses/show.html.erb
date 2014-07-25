@@ -1,4 +1,4 @@
 <p id="notice"><%= notice %></p>
 
-<%= link_to 'Edit', edit_preprocess_path(@preprocess) %> |
-<%= link_to 'Back', preprocesses_path %>
+<%= link_to 'Edit', edit_collection_preprocess_path(@collection[:id], @preprocess) %> |
+<%= link_to 'Back', collection_preprocesses_path(@collection[:id]) %>

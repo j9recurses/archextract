@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140707215053) do
+ActiveRecord::Schema.define(version: 20140725022217) do
 
   create_table "collections", force: true do |t|
     t.string   "name"
@@ -44,6 +44,13 @@ ActiveRecord::Schema.define(version: 20140707215053) do
   end
 
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
+
+  create_table "delayed_workers", force: true do |t|
+    t.string   "name"
+    t.datetime "last_heartbeat_at"
+  end
+
+  add_index "delayed_workers", ["name"], name: "index_delayed_workers_on_name", unique: true, using: :btree
 
   create_table "extracts", force: true do |t|
     t.boolean  "lda"
@@ -83,6 +90,9 @@ ActiveRecord::Schema.define(version: 20140707215053) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "routine_name"
+    t.string   "status"
+    t.boolean  "tfidf_btm"
+    t.decimal  "tfidf_score",     precision: 10, scale: 0
   end
 
   add_index "preprocesses", ["collection_id"], name: "index_preprocesses_on_collection_id", using: :btree

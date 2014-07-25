@@ -1,7 +1,7 @@
 class Preprocess < ActiveRecord::Base
   belongs_to :collection
-
-  #{"stopwords"=>"true", "rarewords"=>"true", "tagged_no_ner"=>"true", "tfidf"=>"true", "stemmed"=>"true", "pos"=>["NN", ""]}
-
+  validates :tfidf_score, numericality: {
+    greater_than_or_equal_to: 0, less_than_or_equal_to: 1
+  }
 
 end
