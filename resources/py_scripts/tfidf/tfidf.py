@@ -57,13 +57,15 @@ def remove_diacritic(words):
         words[i] = w.lower()
     return words
 
+def check_score(score):
+    if score > 2:
+        sys.exit()
+
 # function to tokenize text, and put words back to their roots
 def tokenize(text):
-
-    text = ' '.join(text)
+    #text = ' '.join(text)
     tokens = PunktWordTokenizer().tokenize(text)
-
-    # lemmatize words. try both noun and verb lemmatizations
+     # lemmatize words. try both noun and verb lemmatizations
     lmtzr = WordNetLemmatizer()
     for i in range(0,len(tokens)):
         #tokens[i] = tokens[i].strip("'")
@@ -76,13 +78,11 @@ def tokenize(text):
                 tokens[i] = lmtzr.lemmatize(tokens[i], 'v')
             else:
                 tokens[i] = res
-
     # don't return any single letters
     tokens = [t for t in tokens if len(t) > 1 and not t.isdigit()]
     return tokens
 
 def remove_stopwords(text):
-
     # remove punctuation
     chars = ['.', '/', "'", '"', '?', '!', '#', '$', '%', '^', '&',
             '*', '(', ')', ' - ', '_', '+' ,'=', '@', ':', '\\', ',',
@@ -90,9 +90,7 @@ def remove_stopwords(text):
             '»', '«', '°', '’']
     for c in chars:
         text = text.replace(c, ' ')
-
     text = text.split()
-
     import nltk
     if lang == 'english':
         stopwords = nltk.corpus.stopwords.words('english')
@@ -125,6 +123,17 @@ def write_tf_idf_to_file(result, outdir, display_mode, f):
         else:
             writer.write(term + '\n')
 
+def write_results_to_file(result, outdir, f, mycmdopts_fname):
+    fsplit = f.split("/")
+    f = fsplit.pop()
+    fname = outdir  + f + "_" + mycmdopts_fname + ".txt"
+    #writer =  open(fname, "w")
+    fnew = open(fname,'w')
+    fnew.write(f + "\n\n")
+    for l in result:
+        fnew.write(l + '\n')
+    fnew.close()
+
 # __main__ execution
 
 
@@ -148,6 +157,9 @@ parser.add_option('-s', '--tfidfscore', dest='score',
         help='remove words that fall below a tfidf score')
 parser.add_option('-b', '--remove_mean', dest='btm',
         help='remove all words that are below the mean tf-idf score-default is false')
+parser.add_option('-f', '--filename', dest='fname',
+        help='filename/extension to write preprocessed files as')
+
 (options, args) = parser.parse_args()
 
 if options.language:
@@ -170,13 +182,18 @@ if options.stopwords:
    stopwords = True
 remove_rare = False
 score = 0
-if options.score
+if options.score:
     score = options.score
+    score = float(score)
+    check_score(score)
 if options.removerare:
     remove_rare = True
 results_write_to_f = False
 if options.wtf:
     results_write_to_f = True
+mycmdopts_fname = ''
+if options.fname:
+    mycmdopts_fname = options.fname
 outdir = ''
 if options.outdir_f:
     outdir = options.outdir_f +"/"
@@ -193,22 +210,21 @@ if not args:
     parser.print_help()
     quit()
 
-#reader = open(args[0])
-#all_files = reader.read().splitlines()
+
 
 basedir = args[0]
 all_files = [os.path.join(dp, f) for dp, dn, filenames in os.walk(basedir) for f in filenames if os.path.splitext(f)[1] == '.txt']
-all_files = all_files[:20]
+all_files = all_files[:5]
 
+#capture the number of docs
 num_docs  = len(all_files)
-
 
 print('initializing..')
 for f in all_files:
+    print f
     # local term frequency map
     terms_in_doc = {}
     doc_words    = open(f).read().lower()
-    #print 'words:\n', doc_words
     if stopwords:
         doc_words    = remove_stopwords(doc_words)
     doc_words    = tokenize(doc_words)
@@ -245,22 +261,18 @@ if  below_tm :
         result = get_tf_idf_score(f, global_terms_in_doc, num_docs)
         result = sorted(result, reverse=True)
         #if the tf-idf is above the mean, put it into the results list
-        for k in result:
-            sublist = k[0]
-            if sublist > mean_tfidf:
-                new_result.append(k)
-        #finally, write it to a file if necessary
-        if results_write_to_f or len(outdir) > 0:
-            write_tf_idf_to_file(new_result, outdir, display_mode, f)
+        new_result = [t[1] for t in result if t[0] > mean_tfidf]
+        #write it to a file
+        write_results_to_file(new_result, outdir, f, mycmdopts_fname)
 
 #or if peeps want all the words above a tf-idf score, then do that
 else:
     for f in all_files:
         result = get_tf_idf_score(f, global_terms_in_doc, num_docs)
         result = sorted(result, reverse=True)
-        ##write them to a file if necessary
-        if results_write_to_f  or len(outdir) > 0:
-            write_tf_idf_to_file(result, outdir, display_mode, f)
+         #if the tf-idf is above the mean, put it into the results list
+        new_result = [t[1] for t in result if t[0] >score]
+        #write it to a file
+        write_results_to_file(new_result, outdir, f, mycmdopts_fname)
 
-#print mean_tfidf
 print('success, with ' + str(num_docs) + ' documents.')

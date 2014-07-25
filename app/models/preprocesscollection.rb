@@ -2,6 +2,8 @@
 
 Preprocesscollection  = Struct.new( :preprocess, :collection_id, :preprocessdb) do
   #{"stopwords"=>"true", "rarewords"=>"true", "pos"=>["NN", ""], "tagged_no_ner"=>"true", "stemmed"=>"true", "tfidf"=>"true"},
+#python /home/j9/Desktop/archextract/resources/py_scripts/tfidf/tfidf.py /home/j9/Desktop/archextract/public/src_corpora/John_Muir_Letters/input  -l english -b True -o /home/j9/Desktop/test_tfidf -f tfidf_btm
+#python /home/j9/Desktop/archextract/resources/py_scripts/tfidf/tfidf.py /home/j9/Desktop/archextract/public/src_corpora/John_Muir_Letters/input  -l english -s .5 -o /home/j9/Desktop/test_tfidf -f score_05
 
   #def initialize(preprocess, collection_id)
   def perform
@@ -105,6 +107,7 @@ Preprocesscollection  = Struct.new( :preprocess, :collection_id, :preprocessdb) 
     return true
   end
 
+
   #runs the python command
   def run_pyjob
     cmd_complete = system(@cmdline_arg_st)
@@ -119,5 +122,4 @@ Preprocesscollection  = Struct.new( :preprocess, :collection_id, :preprocessdb) 
       @new_preprocessdb.update_column(:status, "failed")
     end
   end
-
 end

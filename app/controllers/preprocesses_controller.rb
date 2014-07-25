@@ -31,6 +31,11 @@ class PreprocessesController < ApplicationController
   # POST /preprocesses
   # POST /preprocesses.json
   def create
+    flash[:error] = params
+    redirect_to collection_preprocesses_path
+  end
+
+  def create_notnow
     pp = Preprocesscollectionopts.new(preprocess_params, @collection )
     @preprocess = pp.get_preprocess_stem_tag_cmd_short
     if pp.check_if_preprocess_exists?
@@ -97,6 +102,8 @@ class PreprocessesController < ApplicationController
       :collection_id,
       :id,
       :status,
+      :tfidf_btm,
+      :tfidf_score,
       :pos => []
     ).merge(id: params[:id], collection_id: params[:collection_id])
   end

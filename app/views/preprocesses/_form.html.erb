@@ -14,11 +14,17 @@
   <%= f.input :pos, label:"Tagging: Include ONLY the part of speech words selected", :collection => [[ 'Nouns', "NN"] ,['Verbs', "VB"], ['Adjectives', "JJ"], ['Proper Names', "NR"]], :as=> :check_boxes, :label_html => { :class => 'field' } %>
   <%= f.input :tagged_no_ner, :input_html => { :wrap => :soft, :rows => 2},  label:"Removes Named Entities When Tagging: Removes words that are indentified as named entities and dates", as: :radio_buttons, :label_html => { :class => 'field' }%>
 </br>
-<h3> Stem and TF-IDF Filtering </h3>
+<h3> Stemming </h3>
    </br>
   <%= f.input :stemmed,   label:"Stem: Turn each word into its stem", as: :radio_buttons, :label_html => { :class => 'field' }%>
-   <%= f.input  :tfidf,  label:"TF-IDF: Filter words based on their importance in the document. Scores each word in the collection based on how frequently the word appears and how infrequently the word appears in other documents",  as: :radio_buttons , :label_html => { :class => 'field' }%>
- 
+</br>
+<h3> TF-IDF Filtering</h3>
+<h4> (Note: This option cannot be combined with stemming or tagging) </h4>
+<p class"field">TF-IDF: Filter words based on their importance in the document. Scores each word in the collection based on how frequently the word appears and how infrequently the word appears in other documents</p>
+   <%= f.input  :tfidf_btm,  label:"Filter out words that are below the mean tfi-idf score for the entire collection",  as: :radio_buttons , :label_html => { :class => 'field' }%>
+        <h4> --OR--</h4>
+   <%= f.input  :tfidf_score, label:"Filter out words that have scores below certain tfidf score for entire collection (must enter a tf-idf score below 3.0 to filter by)",  :label_html => { :class => 'field' }%>
+
   <div class="form-actions">
   <%= f.button :submit,  'Submit'%>
   </div>
