@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  status: MyString
+  fname_base: MyString
+  file_dir: MyString
+  status: MyString
+
+two:
+  status: MyString
+  fname_base: MyString
+  file_dir: MyString
+  status: MyString

@@ -18,7 +18,7 @@
           <td><%= link_to collection.name, collection %></td>
           <td><%= collection.acquisition_date %></td>
           <td><%= link_to "PreProcess", collection_preprocesses_path(collection.id) %></td>
-          <td><%= link_to "Extract",  collection_extracts_path(collection.id) %></td>
+          <td><%= link_to "Extract Topics",   collection_extract_topics_path(collection.id) %></td>
           <td><%= link_to 'Edit', edit_collection_path(collection) %></td>
           <td><%= link_to 'Delete', collection, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         </tr>

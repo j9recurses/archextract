@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140725022217) do
+ActiveRecord::Schema.define(version: 20140725231653) do
 
   create_table "collections", force: true do |t|
     t.string   "name"
@@ -52,20 +52,36 @@ ActiveRecord::Schema.define(version: 20140725022217) do
 
   add_index "delayed_workers", ["name"], name: "index_delayed_workers_on_name", unique: true, using: :btree
 
-  create_table "extracts", force: true do |t|
-    t.boolean  "lda"
-    t.integer  "num_of_topics"
-    t.boolean  "ner_people"
-    t.boolean  "ner_organizations"
+  create_table "extract_ners", force: true do |t|
+    t.string   "status"
+    t.string   "fname_base"
+    t.string   "file_dir"
+    t.boolean  "ner_peeps"
     t.boolean  "ner_places"
+    t.boolean  "ner_orgs"
     t.boolean  "ner_dates"
-    t.string   "routine_name"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "collection_id"
   end
 
-  add_index "extracts", ["collection_id"], name: "index_extracts_on_collection_id", using: :btree
+  add_index "extract_ners", ["collection_id"], name: "index_extract_ners_on_collection_id", using: :btree
+
+  create_table "extract_topics", force: true do |t|
+    t.boolean  "lda"
+    t.integer  "num_of_topics"
+    t.string   "routine_name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "collection_id"
+    t.integer  "preprocess_id"
+    t.string   "status"
+    t.string   "fname_base"
+    t.string   "file_dir"
+  end
+
+  add_index "extract_topics", ["collection_id"], name: "index_extract_topics_on_collection_id", using: :btree
+  add_index "extract_topics", ["preprocess_id"], name: "index_extract_topics_on_preprocess_id", unique: true, using: :btree
 
   create_table "preassignments", force: true do |t|
     t.integer "collection_id"

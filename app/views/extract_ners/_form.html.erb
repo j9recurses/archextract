@@ -1,25 +1,20 @@
-<%= simple_form_for( [@collection, @extract]) do |f| %>
+<%= simple_form_for(@extract_ner) do |f| %>
+  <%= f.error_notification %>
 
-<%= f.error_notification %>
+  <div class="form-inputs">
+    <%= f.input :status %>
+    <%= f.input :fname_base %>
+    <%= f.input :file_dir %>
+    <%= f.input :status %>
+  </div>
 
-
-<div class="form-inputs">
-
-<div class="preform">
-<H3> Topic Modeling </H3>
-  <%= f.input :lda, label: "Build A Topic Model", as: :radio_buttons, :label_html => { :class => 'field' }  %>
-  <%= f.input :num_of_topics, label: "Number of Topics to Generate", :label_html => { :class => 'field' }  %>
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>
 <h3> Named Entity Recognition </h3>
 <%= f.input :ner_people, label:"Extract Names", as: :radio_buttons, :label_html => { :class => 'field' }%>
 <%= f.input :ner_places, label:"Extract Places", as: :radio_buttons, :label_html => { :class => 'field' }%>
 <%= f.input :ner_organizations, label:"Extract Organizational Entities", as: :radio_buttons, :label_html => {:class => 'field' }%>
 <%= f.input :ner_dates, label:"Extract Dates", as: :radio_buttons, :label_html => { :class => 'field' }%>
 
-
-  <div class="form-actions">
-   <%= f.button :submit,  'Submit'%>
-  </div>
-</div>
-</div>
-
-<% end %>

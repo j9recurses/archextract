@@ -1,0 +1,33 @@
+<h1>Listing extract_ners</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Status</th>
+      <th>Fname base</th>
+      <th>File dir</th>
+      <th>Status</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @extract_ners.each do |extract_ner| %>
+      <tr>
+        <td><%= extract_ner.status %></td>
+        <td><%= extract_ner.fname_base %></td>
+        <td><%= extract_ner.file_dir %></td>
+        <td><%= extract_ner.status %></td>
+        <td><%= link_to 'Show', extract_ner %></td>
+        <td><%= link_to 'Edit', edit_extract_ner_path(extract_ner) %></td>
+        <td><%= link_to 'Destroy', extract_ner, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Extract ner', new_extract_ner_path %>

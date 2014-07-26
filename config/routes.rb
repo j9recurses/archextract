@@ -2,11 +2,10 @@ Archextract::Application.routes.draw do
 
   resources :collections do
     resources :preprocesses
+      resources :extract_topics
+    resources :extract_ners
   end
 
-  resources :collections do
-    resources :extracts
-  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
