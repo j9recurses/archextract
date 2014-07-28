@@ -1,29 +1,32 @@
-<div class="collection_all">
-<h1>Pre-Processes for the <%=@collection.name.titleize%> Collection</h1>
-<div class = "collection_table">
-<table>
-  <thead>
-    <tr>
-      <th>Routine Name </th>
-      <th> Status </th>
-      <th>Delete</th>
-  </thead>
-
-  <tbody>
-    <% @preprocesses.each do |preprocess| %>
-      <tr>
-        <td><%= link_to preprocess[:routine_name], collection_preprocess_path(@collection[:id], preprocess[:id])%></td>
-        <td><%=preprocess[:status].titleize %></td>
-        <td><%= link_to 'Delete', collection_preprocess_path(@collection[:id], preprocess[:id]) , method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-</div>
-
-<div class="collections_break"> </div>
-<div class="new_link">
-<%= link_to 'Add a New PreProcess', new_collection_preprocess_path %> |
-<%= link_to 'Collections Home', collections_path  %>
-</div>
-</div>
+<div class="item">
+  <h1>Pre-Processes for the
+    <%=@collection.name.titleize%>
+    Collection</h1>
+  <div class = "collection_table">
+    <table>
+      <thead>
+        <tr>
+          <th>Routine Name
+          </th>
+          <th>
+            Status
+          </th>
+          <th>Delete</th>
+        </thead>
+        <tbody>
+          <% @preprocesses.each do |preprocess| %>
+            <tr>
+              <td><%= link_to preprocess[:routine_name], collection_preprocess_path(@collection[:id], preprocess[:id])%></td>
+              <td><%=preprocess[:status].titleize %></td>
+              <td><%= link_to 'Delete', collection_preprocess_path(@collection[:id], preprocess[:id]) , method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <div class="collections_break">
+    </div>
+    <div class="link_nav">
+      <%= link_to 'Add a New PreProcess', new_collection_preprocess_path %>
+    </div>
+  </div>

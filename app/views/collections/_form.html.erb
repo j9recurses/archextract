@@ -1,40 +1,14 @@
-<%= form_for(@collection) do |f| %>
-<div class="field">
-<%= f.label "Collection Name" %>
-  <%= f.text_field :name %> 
-</div>
-
-
-<div class="field">
- <%= f.label "Acquisition Source" %>
-  <%= f.text_field :acquisition_source %>
-</div>
-
-
-<div class="field">
-  <strong><%= f.label 'Acquisition Date' %>
-  <%= f.date_select :acquisition_date %>
-</div>
-</br>
-<div class="field">
-  <strong><%= f.label "Select a file to upload" %>
-  <%= f.file_field :src_datadir %>
-</div>
-</br>
-<div class="field">
- <%= f.label "File upload is a zipped directory of the collection" %>
-  <%=  f.check_box :isdir %>
-</div>
-</br>
-<div class="field">
-  <%= f.label "Collection Notes" %>
-  <%= f.text_area :notes,  rows: 5, cols: 5 %>
-</div>
-</br>
-
-
-<div class="actions">
-  <%= f.submit %>
-</div>
-
+<div class="form-inputs">
+  <%= simple_form_for(@collection) do |f| %>
+    <%= f.error_notification %>
+    <%= f.input :name , label: "Collection Name", :label_html => { :class => 'field' }%>
+    <%= f.input :acquisition_source, label: "Acquisition Source", :label_html => { :class => 'field' } %>
+    <%= f.input :acquisition_date, as: :date,  label: 'Acquisition Date', :label_html => { :class => 'field' }%>
+    <%= f.input :src_datadir, as: :file,  label: "Select a File to Upload",  :label_html => { :class => 'field' }%>
+    <%= f.input :isdir,  as: :radio_buttons,  label: "File upload is a zipped directory of the collection",  :label_html => { :class => 'field' }%>
+    <%= f.input :notes, as: :text,  label: "Collection Notes",  :label_html => { :class => 'field' }%>
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+  </div>
 <% end %>

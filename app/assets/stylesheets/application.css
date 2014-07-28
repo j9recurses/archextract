@@ -11,11 +11,27 @@
  *= require_self
  *= require_tree .
  */
-footer {
-    margin-left: auto;
-    margin-right: auto;
-    width: 20em;
+
+.item{
+  padding-left: 30px;
+  padding-top:15px;
 }
+
+.item h1{
+  font-size:30px;
+  font-color:#D4CCC5;
+  padding-bottom:15px;
+}
+
+#topbreak{
+  padding-top: 40px;
+}
+
+.link_nav{
+padding-top:10px;
+  font-size:20px;
+}
+
 
 .field{
 font-size: 1.1em;
@@ -96,3 +112,43 @@ background-color:LightGreen;
 #mdformsp {   padding-top:10px;
 }
 
+footer {
+    border-top-style:solid;
+    padding-top:10px;
+    border-top-width:1px;
+    border-top-color:#DDDDDD;
+    font-size:10px;
+}
+
+
+.footercenter{
+margin-left: auto;
+   margin-right: auto;
+    width: 70%;
+}
+
+#mynavarch{
+  padding-top:15px;
+  font-size:50px;
+   color:#FFFFFF;
+  text-shadow: 4px 4px 0px rgba(0,0,0,0.1);
+   padding-top:15px;
+}
+
+.mynavitems_first{
+  padding-left:120px;
+  padding-bottom:10px;
+}
+
+.mynavitems{
+  padding-left:25px;
+  padding-bottom:10px;
+}
+
+.myfooterpad{
+padding-bottom:100px;
+}
+
+.mynav{
+   background-color:#D8E0CE;
+}

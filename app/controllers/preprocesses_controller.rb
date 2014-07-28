@@ -10,7 +10,7 @@ class PreprocessesController < ApplicationController
   # GET /preprocesses
   # GET /preprocesses.json
   def index
-    @preprocesses = @collection.preprocesses
+    @preprocesses = @collection.preprocesses.where.not(routine_name: "plain text")
   end
 
   # GET /preprocesses/1
@@ -64,7 +64,7 @@ class PreprocessesController < ApplicationController
     redirect_to collection_preprocesses_path
   end
 
-    # PATCH/PUT /preprocesses/1
+  # PATCH/PUT /preprocesses/1
   # PATCH/PUT /preprocesses/1.json
   def update
     respond_to do |format|

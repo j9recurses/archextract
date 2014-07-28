@@ -1,4 +1,4 @@
-<div class="collection_all">
+<div class="item">
   <h1>Collection Listing</h1>
   <div class="collection_table">
     <table>
@@ -7,28 +7,29 @@
           <th>Collection Name</th>
           <th>Acquisition Date</th>
           <th>PreProcesses</th>
-          <th>Extract </th>
+          <th>Extract
+          </th>
           <th>Edit</th>
           <th>Delete</th>
         </tr>
       </thead>
       <tbody>
         <% @collections.each do |collection| %>
-        <tr>
-          <td><%= link_to collection.name, collection %></td>
-          <td><%= collection.acquisition_date %></td>
-          <td><%= link_to "PreProcess", collection_preprocesses_path(collection.id) %></td>
-          <td><%= link_to "Extract Topics",   collection_extract_topics_path(collection.id) %></td>
-          <td><%= link_to 'Edit', edit_collection_path(collection) %></td>
-          <td><%= link_to 'Delete', collection, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        </tr>
+          <tr>
+            <td><%= link_to collection.name, collection %></td>
+            <td><%= collection.acquisition_date %></td>
+            <td><%= link_to "PreProcess", collection_preprocesses_path(collection.id) %></td>
+            <td><%= link_to "Extract Topics",   collection_extract_topics_path(collection.id) %></td>
+            <td><%= link_to 'Edit', edit_collection_path(collection) %></td>
+            <td><%= link_to 'Delete', collection, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
         <% end %>
       </tbody>
     </table>
   </div>
-
-  <div class="collections_break"> </div>
-  <div class="new_link">
+  <div class="collections_break">
+  </div>
+  <div class="link_nav">
     <%= link_to 'Add a New Collection', new_collection_path %>
   </div>
 </div>

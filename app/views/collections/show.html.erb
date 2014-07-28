@@ -1,28 +1,19 @@
-
-
-<div id="collection_all">
-
-  <H2> <%="Collection Information".titleize %> </H2>
-
+<div class="item">
+  <H2>
+    <%="Collection Information".titleize %>
+  </H2>
   <div id="collection_single">
-
     <%= content_tag(:h3, @collection.name.titleize) %>
-
     <%= content_tag(:div,"Acquisition Date:".titleize , id:"collection_single_head")%>
     <%= content_tag(:div, @collection.acquisition_date, id:"collection_single_item") %>
-
     <%= content_tag(:div,"Acquisition Source:".titleize , id:"collection_single_head")%>
     <%= content_tag(:div, @collection.acquisition_source, id:"collection_single_item") %>
-
     <%= content_tag(:div,"Collection Notes:".titleize, id:"collection_single_head")%>
     <%= content_tag(:div, @collection.notes, id:"collection_single_item") %>
-
   </div>
-
-</br>
-  <div id ="collection_nav">
-    <%= link_to 'Edit', edit_collection_path(@collection) %> |
+  <div class="link_nav">
+    <%= link_to 'Edit', edit_collection_path(@collection) %>
+    |
     <%= link_to 'Back', collections_path %>
   </div>
-
 </div>

@@ -1,8 +1,11 @@
-<h1> Process Topic Models for the <%=@collection.name.titleize%> Collection </h1>
-
+<h1>
+  Process Topic Models for the
+  <%=@collection.name.titleize%>
+  Collection
+</h1>
 <table>
   <thead>
-   <!-- <!--  <tr>
+    <!-- <!--  <tr>
     <th>Lda</th>
       <th>Num of topics</th>
       <th>Ner people</th>
@@ -14,7 +17,6 @@
       <th></th>
     </tr> -->
   </thead>
-
   <tbody>
     <% @extracts.each do |extract| %>
       <tr>
@@ -31,9 +33,7 @@
     <% end %>
   </tbody>
 </table>
-
 <br>
-
-<div class="new_link">
-<%= link_to 'Add a New Extract',  new_collection_extract_topic_path %>
+<div class="link_nav">
+  <%= link_to 'Add a New Extract',  new_collection_extract_topic_path %>
 </div>

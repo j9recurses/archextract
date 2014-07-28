@@ -35,36 +35,41 @@
     <%= favicon_link_tag 'favicon.ico', :rel => 'shortcut icon' %>
 
     <%= javascript_include_tag "application" %>
+    <link href='http://fonts.googleapis.com/css?family=Arizonia' rel='stylesheet' type='text/css'>
   </head>
   <body>
 
     <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
+         <div class="mynav">
         <div class="container">
           <a class="btn btn-navbar" data-target=".nav-collapse" data-toggle="collapse">
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="#"><img src="/images/book.jpg" alt="exploding book" /> Archextract</a>
+          <div id="mynavarch">
+          <img src="/images/book.jpg" alt="exploding book" /> Archextract</a>
+          </div>
           <div class="container nav-collapse">
             <ul class="nav">
-              <li><%= link_to "Collections", collections_path  %></li>
-              <li><%= link_to "Topics", "topics_path"  %>  </li>
+             <li> <div class="mynavitems_first"> <%= link_to "Collections", collections_path  %></div></li>
+               <li><div class="mynavitems"><%= link_to "Topics", "topics_path"  %></div> </li>
+             <li> <div class="mynavitems"><a href="http://bancroft.berkeley.edu/"> Bancroft Library Home</a></div></li>
             </ul>
+            </div>
           </div>
           <!--/.nav-collapse -->
         </div>
+      </div>
       </div>
     </div>
 
     <div class="container">
         <div class="row">
-          </br>  </br>
             <div class="span9">
-            </br>
-            </br>
-            </br>
+            </br></br></br></br>
+             <div id="topbreak"></div>
              <%= flash_messages %>
             <%= yield %>
           </div>
@@ -84,10 +89,11 @@
 
 
 
-
-      </br> </br>
+      <div class ="myfooterpad"> </div>
       <footer>
-        <p>&copy; Bancroft Library 2014</p>
+      <div class="footercenter">
+     &copy <a href="http://bancroft.berkeley.edu/"> Bancroft Library</a>
+     </div>
       </footer>
 
     </div> <!-- /container -->

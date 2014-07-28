@@ -23,9 +23,9 @@ class ExtractTopicsController < ApplicationController
   def new
     @extract_topic = ExtractTopic.new
     @preprocesses = Preprocess.where(collection_id: @collection, status:"complete")
-    @preprocesses_array = {"Plain Text"=> 0}.tap{ |h| @preprocesses.each{ |c| h[c.routine_name] = c.id } }
+    @preprocesses_array = {}.tap{ |h| @preprocesses.each{ |c| h[c.routine_name] = c.id } }
 
-   end
+  end
 
   # GET /preprocesses/1/edit
   def edit
@@ -34,13 +34,12 @@ class ExtractTopicsController < ApplicationController
   # POST /extracts
   # POST /extracts.json
   def create
-      @myshit = ""
-      pp = Preprocess.find(extract_topics_params[:preprocess_id])
-      ff = ExtractTopicOpts.new(, @collection,  pp )
-      @extract_topic = ff.fetch_fets
-      flash[:notice] = @extract_topic
-      redirect_to collection_extract_topics_path
-      #@extract_topic = Extract.new(extract_params)
+    @myshit = ""
+    ff = ExtractTopicOpts.new
+    @extract_topic = ff.fetch_fets(@collection, params[:extract_topic])
+    flash[:notice] = @extract_topic
+    redirect_to collection_extract_topics_path
+    #@extract_topic = Extract.new(extract_params)
 
     # respond_to do |format|
     #    if @extract.save
@@ -84,16 +83,11 @@ class ExtractTopicsController < ApplicationController
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
-  def extract_params
+  def extract_topic_params
     params.require
     (:extract_topic).permit(
       :lda, :num_of_topics, :routine_name, :collection_id,
-       :preprocess_id, :status, :fname_base, :file_dir
+      :preprocess_id, :status, :fname_base, :file_dir
     )
   end
 end
-
-
-
-
-

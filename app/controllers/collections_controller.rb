@@ -29,15 +29,20 @@ class CollectionsController < ApplicationController
     if myreturn
       @collection = Collection.new(mycollection)
       if @collection.save
-        flash[:notice] =  'Collection successfully saved'
-        redirect_to @collection
+        pp = Collection.add_preprocess(@collection[:id])
+        if pp
+          flash[:notice] =  'Collection successfully saved'
+          redirect_to @collection
+        else
+          flash[:error] = "Error: Could not save collection- problem with saving intital preprocess"
+          redirect_to new_collection_path
+        end
       else
-        flash[:error] =  @collection.errors
+        flash[:error] = "Error: Could not save collection"
         redirect_to new_collection_path
       end
     else
-      #errors.add(mycollection)
-      flash[:error] = "ERROR: Something happened- Collection did not save"
+      flash[:error] =  mycollection
       redirect_to new_collection_path
     end
   end
@@ -89,8 +94,8 @@ class CollectionsController < ApplicationController
       :isdir,
       :notes,
       :is_processed,
-      :mimetype, 
-      :filesize, 
+      :mimetype,
+      :filesize,
       :file_ext
     )
   end

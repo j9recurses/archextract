@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140725231653) do
+ActiveRecord::Schema.define(version: 20140728083234) do
 
   create_table "collections", force: true do |t|
     t.string   "name"
@@ -108,7 +108,7 @@ ActiveRecord::Schema.define(version: 20140725231653) do
     t.string   "routine_name"
     t.string   "status"
     t.boolean  "tfidf_btm"
-    t.decimal  "tfidf_score",     precision: 10, scale: 0
+    t.float    "tfidf_score",     default: 0.0
   end
 
   add_index "preprocesses", ["collection_id"], name: "index_preprocesses_on_collection_id", using: :btree
