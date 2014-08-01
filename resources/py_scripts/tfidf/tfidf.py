@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+    #!/usr/bin/env python
 # encoding: utf-8
 from __future__ import division
 import os
@@ -63,6 +63,7 @@ def check_score(score):
 
 # function to tokenize text, and put words back to their roots
 def tokenize(text):
+    print text
     #text = ' '.join(text)
     tokens = PunktWordTokenizer().tokenize(text)
      # lemmatize words. try both noun and verb lemmatizations
@@ -227,7 +228,8 @@ for f in all_files:
     doc_words    = open(f).read().lower()
     if stopwords:
         doc_words    = remove_stopwords(doc_words)
-    doc_words    = tokenize(doc_words)
+    else:
+        doc_words    = tokenize(doc_words)
     # increment local count
     for word in doc_words:
         if word in terms_in_doc:

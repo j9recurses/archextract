@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140728083234) do
+ActiveRecord::Schema.define(version: 20140731223638) do
 
   create_table "collections", force: true do |t|
     t.string   "name"
@@ -112,5 +112,38 @@ ActiveRecord::Schema.define(version: 20140728083234) do
   end
 
   add_index "preprocesses", ["collection_id"], name: "index_preprocesses_on_collection_id", using: :btree
+
+  create_table "topic_docs", id: false, force: true do |t|
+    t.text    "name"
+    t.text    "topics"
+    t.text    "topic_vals"
+    t.integer "dcid"
+    t.integer "collection_id"
+    t.integer "preprocess_id"
+    t.integer "extract_topic_id"
+  end
+
+  add_index "topic_docs", ["collection_id"], name: "index_topic_docs_on_collection_id", using: :btree
+  add_index "topic_docs", ["dcid"], name: "index_topic_docs_on_dcid", using: :btree
+  add_index "topic_docs", ["extract_topic_id"], name: "index_topic_docs_on_extract_topic_id", using: :btree
+  add_index "topic_docs", ["preprocess_id"], name: "index_topic_docs_on_preprocess_id", using: :btree
+
+  create_table "topics", id: false, force: true do |t|
+    t.text     "name"
+    t.text     "docs"
+    t.text     "doc_vals"
+    t.integer  "tid"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "collection_id"
+    t.integer  "preprocess_id"
+    t.integer  "extract_topic_id"
+    t.string   "topic_number"
+  end
+
+  add_index "topics", ["collection_id"], name: "index_topics_on_collection_id", using: :btree
+  add_index "topics", ["extract_topic_id"], name: "index_topics_on_extract_topic_id", using: :btree
+  add_index "topics", ["preprocess_id"], name: "index_topics_on_preprocess_id", using: :btree
+  add_index "topics", ["tid"], name: "index_topics_on_tid", using: :btree
 
 end

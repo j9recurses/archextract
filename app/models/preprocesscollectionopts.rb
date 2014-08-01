@@ -9,6 +9,7 @@ class Preprocesscollectionopts
      @preprocess[:collection_id] = collection[:id]
     @outdir = Array.new()
     @routine = Array.new()
+    @error = ''
   end
 
   def get_preprocess_stem_tag_cmd_short
@@ -17,22 +18,25 @@ class Preprocesscollectionopts
     stemmed
     stopwords
     rarewords
+    tfidf
     collection_outdir_and_filout
     parse_routine
-    return @preprocess
+    return @preprocess, @error
   end
 
   #checks to see if the preprocess exists
-  def check_if_preprocess_exists?
-    preprocess_chk = Preprocess.find_by(:routine_name,@preprocess[:routine_name])
+  def preprocess_exists?(preprocess, collection)
+    preprocess_chk = Preprocess.find_by routine_name: preprocess[:routine_name]
     if preprocess_chk
-      return true
+      pp_error = 'Error: Your preprocess routine for the ' + collection[:name] + ' collection already exists!'
+      return true, pp_error
+    else
+      return false
     end
-    return false
   end
 
   def parse_routine
-    theroutine = @routine.join(",")
+    theroutine = @routine.join(", ")
     @preprocess[:routine_name] = theroutine
   end
 
@@ -70,7 +74,7 @@ class Preprocesscollectionopts
   def stemmed
     if @preprocess[:stemmed]
       @outdir << "stemmed"
-      @routine << "stemmed"
+      @routine << "Stemmed"
     end
   end
 
@@ -88,14 +92,44 @@ class Preprocesscollectionopts
     end
   end
 
+  def tfidf
+    if @preprocess[:tfidf_score] == ""
+      @preprocess[:tfidf_score] = nil
+    end
+    if @preprocess[:tfidf_btm] and !@preprocess[:tfidf_score].nil?
+      @error = "Error: Cannot process BOTH the tfidf score below the mean and a tfidf score; Please select ONE"
+    end
+    if @preprocess[:tfidf_btm] or !@preprocess[:tfidf_score].nil?
+      if @preprocess[:stemmed] or @preprocess[:tagged_no_ner] or @preprocess[:pos].size > 1
+        @error = "Error: the Tf-idf cannot be used in combination with Stemming or Tagging"
+      end
+      if @preprocess[:tfidf_btm]
+        @preprocess[:tfidf] =  true
+        @outdir << "tfidf_btm"
+        @routine <<  "TF-IDF Below the Mean"
+      elsif !@preprocess[:tfidf_score].nil?
+        puts "in heree ****tif idfi not null"
+        if @preprocess[:tfidf_score].to_f > 3 or @preprocess[:tfidf_score].to_f < 0
+         @error = "Error: tfidf score to filter by must be less than 3 but greater than zero."
+        else
+          @preprocess[:tfidf] =  true
+          tfscore_new = @preprocess[:tfidf_score].sub('.', 'p')
+          @outdir << "tfidf_score_" + tfscore_new
+          @routine << "TF-IDF Below" + @preprocess[:tfidf_score].to_s
+        end
+      end
+    end
+  end
+
+
+
   #sets file and outdirs for pre-process
   def collection_outdir_and_filout
     outdir_opts = @outdir.join("_")
     outdir_base = Rails.root.join( "public/src_corpora", @collection[:src_datadir], "preprocess")
-    outdir = "public/src_corpora/" +  @collection[:src_datadir] + "/preprocess/" + outdir_opts
+    outdir =  @collection[:src_datadir] + "/preprocess/" + outdir_opts
     @preprocess[:file_dir] = outdir.to_s
     @preprocess[:fname_base] = outdir_opts
-    puts  @preprocess
   end
 
 end

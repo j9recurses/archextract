@@ -4,7 +4,7 @@ class Collection < ActiveRecord::Base
   validates :src_datadir, presence: true, uniqueness: true
   has_many :preprocesses, dependent: :destroy
   has_many :extract_topics, dependent: :destroy
-
+  has_many :topics
 
   def self.parse_collection_params(collection_params, params)
     @create_error = Array.new
@@ -145,7 +145,7 @@ class Collection < ActiveRecord::Base
 
   #makes source dirs for a collection
   def self.make_file_src_dirs(src_root,  collection_dir)
-    dirs = [ 'input', 'preprocess', 'extract']
+    dirs = [ 'input', 'preprocess', 'extract', 'extract/ner', 'extract/topics']
     chk2 = true
     inputdirerror = ''
     dirs.each do | d|
@@ -214,8 +214,8 @@ class Collection < ActiveRecord::Base
   end
 
   ##add a plain text record to the preprocesses table
-  def self.add_preprocess(collection_id)
-    pp = Preprocess.new(:collection_id => collection_id, :routine_name => "plain text", :status => "complete", :file_dir => "input" )
+  def self.add_preprocess(collection)
+    pp = Preprocess.new(:collection_id => collection[:id], :routine_name => "Plain Text", :status => "complete", :file_dir =>collection[:src_datadir]+ "/input", :fname_base => "orig" )
     if pp.save
       return true
     else

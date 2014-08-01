@@ -154,7 +154,6 @@ parser.add_option('-f', '--filename', dest='fname',
 
 
 (options, args) = parser.parse_args()
-
 pos = ''
 tagger = False
 if options.tag:

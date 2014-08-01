@@ -3,15 +3,13 @@ class ExtractTopicsController < ApplicationController
   before_filter :get_collection
   before_action :set_preprocess, only: [:show, :edit, :update, :destroy]
 
-
   def get_collection
     @collection =  Collection.find(params[:collection_id])
   end
 
   # GET /preprocesses
-  # GET /preprocesses.json
   def index
-    @extracts = ExtractTopic.where(collection_id: @collection[:id])
+    @extract_topics = ExtractTopic.where(collection_id: @collection[:id])
   end
 
   # GET /preprocesses/1
@@ -24,7 +22,6 @@ class ExtractTopicsController < ApplicationController
     @extract_topic = ExtractTopic.new
     @preprocesses = Preprocess.where(collection_id: @collection, status:"complete")
     @preprocesses_array = {}.tap{ |h| @preprocesses.each{ |c| h[c.routine_name] = c.id } }
-
   end
 
   # GET /preprocesses/1/edit
@@ -35,10 +32,29 @@ class ExtractTopicsController < ApplicationController
   # POST /extracts.json
   def create
     @myshit = ""
-    ff = ExtractTopicOpts.new
-    @extract_topic = ff.fetch_fets(@collection, params[:extract_topic])
-    flash[:notice] = @extract_topic
-    redirect_to collection_extract_topics_path
+    ff = ExtractTopicOpts.new(params[:extract_topic], @collection)
+    @extract_topic, @error = ff.fetch_fets
+    if @error.size >1
+       flash[:error] = @error
+       redirect_to collection_extract_topics_path
+    else
+      @extract_topic = ExtractTopic.new(@extract_topic)
+      if @extract_topic.save
+        flash[:notice]  = 'Thank you for your submission: The Topic Model job for the '+  @collection[:name] + ' is now running. You will be sent an email when the job is done.'
+        mlin, mlout  = ff.cmd_line_args
+        Delayed::Job.enqueue ExtractTopicRunModel.new(mlin, mlout, @extract_topic)
+        redirect_to collection_extract_topics_path
+         #  flash[:notice] = @extract_topic
+           #redirect_to collection_extract_topics_path
+      else
+          flash[:error] = "Could not save process topic model"
+          redirect_to collection_extract_topics_path
+      end
+    end
+  end
+
+
+
     #@extract_topic = Extract.new(extract_params)
 
     # respond_to do |format|
@@ -50,7 +66,6 @@ class ExtractTopicsController < ApplicationController
     #    format.json { render json: @extract.errors, status: :unprocessable_entity }
     #    end
     #  end
-  end
 
   # PATCH/PUT /extracts/1
   # PATCH/PUT /extracts/1.json

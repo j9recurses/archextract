@@ -1,0 +1,14 @@
+
+  <div class="item">
+<h1>Topic Models for the <%=@collection.name.titleize%> Collection</h1>
+            <% @topics.each do |t| %>
+            <%= link_to "Topic " +t[:topic_number] + ": ", collection_extract_topic_topic_path(@collection[:id] , t[:preprocess_id], t[:id]) %>
+            <%=  t[:name]  %>
+              </br>
+              <%end%>
+
+
+<div class="link_nav">
+    <%= link_to 'Go Back to Topic Model Home',  collection_extract_topics_path(@collection[:id]) %>
+  </div>
+</div>

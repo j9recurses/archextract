@@ -1,4 +1,6 @@
-<div id="new_extract">
+<div class="item">
+<%= @extract_topic.errors.full_messages.first if @extract_topic.errors.any? %>
+
   <h1>Create a New Topic Model for the
     <%=@collection.name.titleize%>
     Collection

@@ -23,7 +23,7 @@
 <p class"field">TF-IDF: Filter words based on their importance in the document. Scores each word in the collection based on how frequently the word appears and how infrequently the word appears in other documents</p>
    <%= f.input  :tfidf_btm,  label:"Filter out words that are below the mean tfi-idf score for the entire collection",  as: :radio_buttons , :label_html => { :class => 'field' }%>
         <h4> --OR--</h4>
-   <%= f.input  :tfidf_score, label:"Filter out words that have scores below certain tfidf score for entire collection (must enter a tf-idf score below 3.0 to filter by)",  :label_html => { :class => 'field' }%>
+   <%= f.input  :tfidf_score, as: :float, :input_html => { :value => nil }, label:"Filter out words that have scores below certain tfidf score for entire collection (must enter a tf-idf score below 3.0 to filter by)",  :label_html => { :class => 'field' }%>
 
   <div class="form-actions">
   <%= f.button :submit,  'Submit'%>

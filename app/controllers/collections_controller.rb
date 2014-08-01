@@ -29,7 +29,7 @@ class CollectionsController < ApplicationController
     if myreturn
       @collection = Collection.new(mycollection)
       if @collection.save
-        pp = Collection.add_preprocess(@collection[:id])
+        pp = Collection.add_preprocess(@collection)
         if pp
           flash[:notice] =  'Collection successfully saved'
           redirect_to @collection

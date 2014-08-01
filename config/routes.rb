@@ -1,11 +1,13 @@
 Archextract::Application.routes.draw do
 
-  resources :collections do
+     resources :collections do
     resources :preprocesses
-      resources :extract_topics
     resources :extract_ners
+     resources :extract_topics do
+        resources :topics
+        resources :topic_docs
+    end
   end
-
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
@@ -20,7 +22,7 @@ Archextract::Application.routes.draw do
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
 
   # Example resource route (maps HTTP verbs to controller actions automatically):
-  #   resources :products
+  #   resources :prod1ucts
 
   # Example resource route with options:
   #   resources :products do

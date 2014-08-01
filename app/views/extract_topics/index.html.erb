@@ -1,39 +1,23 @@
-<h1>
-  Process Topic Models for the
-  <%=@collection.name.titleize%>
-  Collection
-</h1>
-<table>
+<div class="item"><h1> Process Topic Models for the <%=@collection.name.titleize%> Collection </h1>
+    <table>
   <thead>
-    <!-- <!--  <tr>
-    <th>Lda</th>
-      <th>Num of topics</th>
-      <th>Ner people</th>
-      <th>Ner organizations</th>
-      <th>Ner places</th>
-      <th>Ner dates</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr> -->
+    <tr>
+      <th>Topic Model</th>
+      <th>Status</th>
+    </tr>
   </thead>
   <tbody>
-    <% @extracts.each do |extract| %>
-      <tr>
-        <td><%= extract.lda %></td>
-        <td><%= extract.num_of_topics %></td>
-        <td><%= extract.ner_people %></td>
-        <td><%= extract.ner_organizations %></td>
-        <td><%= extract.ner_places %></td>
-        <td><%= extract.ner_dates %></td>
-        <td><%= link_to 'Show', extract %></td>
-        <td><%= link_to 'Edit', edit_collection_extract_path(extract) %></td>
-        <td><%= link_to 'Destroy', extract, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+    <% @extract_topics.each do |extract| %>
+    <tr>
+    <td> <%= link_to extract[:routine_name], collection_extract_topic_topics_path(@collection[:id] , extract[:id]) %> </td>
+    <td> <%= extract[:status] %> </td>
+  </tr>
     <% end %>
   </tbody>
 </table>
-<br>
+
 <div class="link_nav">
-  <%= link_to 'Add a New Extract',  new_collection_extract_topic_path %>
+  <%= link_to 'Add a New Topic Model',  new_collection_extract_topic_path %>
+</div>
+
 </div>

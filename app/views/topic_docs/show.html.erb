@@ -1,0 +1,19 @@
+
+
+
+<h4> <%= @collection[:name] + " Collection => " + @extract_topic[:routine_name] %></h4>
+<h3> <%="Document " + @topic_doc[:name] %> </h3>
+
+<div class="original_doc">
+<div class="original_doc_padding">
+<h5> Original Document Contents </h5>
+ <%=@orig_file_contents %>
+</div>
+</div>
+
+<h5>Top 20 Topics Associated with this Document: </h5>
+<% @assoc_topics.each do |k, v| %>
+   <li> <%= link_to v, collection_extract_topic_topic_path(@collection[:id], @extract_topic[:id], k) %>   </li>
+<%end%>
+
+

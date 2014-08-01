@@ -8,13 +8,11 @@ class PreprocessesController < ApplicationController
 
 
   # GET /preprocesses
-  # GET /preprocesses.json
   def index
     @preprocesses = @collection.preprocesses.where.not(routine_name: "plain text")
   end
 
   # GET /preprocesses/1
-  # GET /preprocesses/1.json
   def show
     puts params
   end
@@ -29,10 +27,31 @@ class PreprocessesController < ApplicationController
   end
 
   # POST /preprocesses
-  # POST /preprocesses.json
   def create
-    flash[:error] = params
-    redirect_to collection_preprocesses_path
+    pp = Preprocesscollectionopts.new(preprocess_params, @collection )
+    @preprocess, @error = pp.get_preprocess_stem_tag_cmd_short
+    pp_exists, pp_error = pp.preprocess_exists?(@preprocess, @collection)
+    if pp_exists
+      puts pp_error
+      flash[:error] =  pp_error
+      redirect_to new_collection_preprocess_path(@collection[:id])
+    else
+      if @error.present?
+        flash[:message] =  @error
+        redirect_to new_collection_preprocess_path(@collection[:id])
+      else
+        @preprocess[:status] = "processing"
+        @preprocess = Preprocess.new(@preprocess)
+        if @preprocess.save
+          flash[:notice] =  'Thank you for your submission: The Pre-Process job for the '+  @collection[:name] + ' is now running. You will be sent an email when the job is done.'
+          Delayed::Job.enqueue Preprocesscollection.new(preprocess_params, params[:collection_id], @preprocess )
+          redirect_to collection_preprocesses_path
+        else
+          flash[:error] =  'Error: Your Preprocess routine for the ' + @collection[:name] + ' could not be completed!'
+          redirect_to collection_preprocesses_path
+        end
+      end
+    end
   end
 
   def create_notnow
@@ -40,12 +59,12 @@ class PreprocessesController < ApplicationController
     @preprocess = pp.get_preprocess_stem_tag_cmd_short
     if pp.check_if_preprocess_exists?
       flash[:error] =  'Error: Your Preprocess routine for the ' + @collection[:name] + 'already exists!'
-      redirect_to collection_preprocesses_path
+      redirect_to collection_preprocessespath
     else
       @preprocess[:status] = "processing"
       @preprocess = Preprocess.new(@preprocess)
       if @preprocess.save
-        flash[:notice] =  'Thank you for your submission: The Pre-Process job for the '+  @collection[:name] + ' is now running. You will be sent an email when the job is done.'
+        flash[:notice] =  'Thank you for your submission: The Pre-Process job for the '+  @collection[:name] + ' Collection is now running. You will be sent an email when the job is done.'
         Delayed::Job.enqueue Preprocesscollection.new(preprocess_params, params[:collection_id], @preprocess )
         redirect_to collection_preprocesses_path
       else
@@ -58,7 +77,7 @@ class PreprocessesController < ApplicationController
   # DELETE /preprocesses/1
   # DELETE /preprocesses/1.json
   def destroy
-    flash[:notice] = "The  " + @collection[:name] + "collection is being deleted. An email will be sent when this job is done."
+    flash[:notice] = "The  " + @collection[:name] + " Collection is being deleted. An email will be sent when this job is done."
     cool = Delayed::Job.enqueue Deletepreprocess.new(@preprocess[:id])
     puts cool
     redirect_to collection_preprocesses_path
