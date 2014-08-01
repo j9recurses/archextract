@@ -17,8 +17,9 @@ class TopicDocsController < ApplicationController
 
   def show
     @topic_doc = TopicDoc.find(params[:id])
-    @assoc_topics =  eval(@topic_doc[:topics])
+    @topic_doc = @topic_doc
     @orig_file_contents = TopicDoc.get_original_text(@topic_doc, @extract_topic, @collection)
+    @assoc_topics = TopicDoc.get_topic_names(@topic_doc)
   end
 
 

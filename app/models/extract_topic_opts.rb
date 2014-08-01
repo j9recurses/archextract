@@ -10,6 +10,8 @@ class ExtractTopicOpts < ActiveRecord::Base
     @collection = collection
     @preprocess = Preprocess.find(extract_topic_params[:preprocess_id])
     @mlinout = ''
+    @cn_outkeys = ''
+    @cn_tops  = ''
   end
 
   #make an active record object based on params.
@@ -49,20 +51,28 @@ class ExtractTopicOpts < ActiveRecord::Base
     mlindir = Rails.root.join( "public/src_corpora",  @fets[:file_dir],  "mallet_in").to_s
     @mlinout = Rails.root.join( "public/src_corpora",  @fets[:file_dir],  "mallet_out").to_s
     create_directory_if_not_exists(mlindir)
-    create_directory_if_not_exists(mlinout)
+    create_directory_if_not_exists(@mlinout)
     cn_in = mlindir +"\/" + cn + "_"  +@fets[:fname_base] + "_corpus.mallet"
-    cn_state = mlinout + "\/" +cn + "_"  + @fets[:fname_base] +"_topic_state.gz"
-    cn_outkeys = mlinout + "\/" +cn+ "_"  + @fets[:fname_base]   +"_topic_keys.txt"
-    cn_tops = mlinout  +"\/" +cn + "_"  + @fets[:fname_base]    +  "_doc_topics.txt"
+    cn_state = @mlinout + "\/" +cn + "_"  + @fets[:fname_base] +"_topic_state.gz"
+    @cn_outkeys = @mlinout + "\/" +cn+ "_"  + @fets[:fname_base]   +"_topic_keys.txt"
+    @cn_tops = @mlinout  +"\/" +cn + "_"  + @fets[:fname_base]    +  "_doc_topics.txt"
     mlimport =  "mallet import-dir --input " +  pp_indir + " --output " + cn_in +" --keep-sequence --remove-stopwords --token-regex '[\\p{L}\\p{M}]+'"
-    mloutput ="mallet train-topics --input " + cn_in + " --num-topics " +  @fets[:num_of_topics] +" --output-state " + cn_state +" --output-topic-keys " + cn_outkeys +" --output-doc-topics "+ cn_tops
+    mloutput ="mallet train-topics --input " + cn_in + " --num-topics " +  @fets[:num_of_topics] +" --output-state " + cn_state +" --output-topic-keys " + @cn_outkeys +" --output-doc-topics "+ @cn_tops
     return mlimport,  mloutput
   end
 
-  def cmd_line_args_db
-    #EX: of cmd line args: python parse_mallet_out.py -d /home/j9/Desktop/archextract/public/src_corpora/John_Muir/extract/topics/tfidf_btm_lda34/mallet_out -z John_Muir_tfidf_btm_lda_34_doc_topics.txt -t John_Muir_tfidf_btm_lda_34_topic_keys.txt -c 1 -p 4 -e 3 -v development
-
-
+  def cmd_line_args_db(extract_topic)
+    #EX: of cmd line args: python parse_mallet_out.py  -z /home/j9/Desktop/archextract/public/src_corpora/John_Muir/extract/topics/tfidf_btm_lda34/mallet_out/John_Muir_tfidf_btm_lda_34_doc_topics.txt -t John_Muir_tfidf_btm_lda_34_topic_keys.txt -c 1 -p 4 -e 3 -v development
+    docsfile = " -z " + @cn_tops
+    topsfile = " -t " + @cn_outkeys
+    collection = " -c " + @collection[:id].to_s
+    preprocess= " -p " + @preprocess[:id].to_s
+    extract_topic =  " -e " + extract_topic[:id].to_s
+    environ = " -v development"
+    python_loc = Rails.root.join("resources", "py_scripts", "load_mallet", "parse_mallet_out_new.py").to_s
+    cmddb = "python " +  python_loc + docsfile + topsfile + collection + preprocess + extract_topic +  environ
+    return cmddb
+  end
 
   def create_directory_if_not_exists(directory_name)
     FileUtils::mkdir_p directory_name unless File.exists?(directory_name)

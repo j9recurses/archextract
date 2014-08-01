@@ -63,7 +63,6 @@ def check_score(score):
 
 # function to tokenize text, and put words back to their roots
 def tokenize(text):
-    print text
     #text = ' '.join(text)
     tokens = PunktWordTokenizer().tokenize(text)
      # lemmatize words. try both noun and verb lemmatizations
@@ -130,7 +129,7 @@ def write_results_to_file(result, outdir, f, mycmdopts_fname):
     fname = outdir  + f + "_" + mycmdopts_fname + ".txt"
     #writer =  open(fname, "w")
     fnew = open(fname,'w')
-    fnew.write(f + "\n\n")
+    ##fnew.write(f + "\n\n")
     for l in result:
         fnew.write(l + '\n')
     fnew.close()
@@ -215,14 +214,14 @@ if not args:
 
 basedir = args[0]
 all_files = [os.path.join(dp, f) for dp, dn, filenames in os.walk(basedir) for f in filenames if os.path.splitext(f)[1] == '.txt']
-all_files = all_files[:5]
+#all_files = all_files[:5]
 
 #capture the number of docs
 num_docs  = len(all_files)
 
 print('initializing..')
 for f in all_files:
-    print f
+    #print f
     # local term frequency map
     terms_in_doc = {}
     doc_words    = open(f).read().lower()
@@ -243,7 +242,7 @@ for f in all_files:
         else:
             global_term_freq[word]  = 1
     global_terms_in_doc[f] = terms_in_doc
-    print('working through documents.. ')
+   # print('working through documents.. ')
 
 #####Check to see if the user wants to exclude words that fall below the mean tf-idf score
 if  below_tm :

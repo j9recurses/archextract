@@ -3,4 +3,5 @@ class Topic < ActiveRecord::Base
   serialize :docs
   serialize :doc_vals
   belongs_to :collection
+  has_many :topics
 end

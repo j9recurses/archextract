@@ -1,5 +1,5 @@
 class PreprocessesMailer < ActionMailer::Base
-  default from: "from@example.com"
+  default from: "archextract_postmaster@library.berkeley.edu"
 
 
   #{"stopwords"=>"true", "rarewords"=>"true", "pos"=>["NN", ""], "tagged_no_ner"=>"true", "stemmed"=>"true", "tfidf"=>"true"},

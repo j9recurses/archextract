@@ -1,7 +1,9 @@
 Archextract::Application.routes.draw do
 
+
      resources :collections do
     resources :preprocesses
+      resources :documents
     resources :extract_ners
      resources :extract_topics do
         resources :topics

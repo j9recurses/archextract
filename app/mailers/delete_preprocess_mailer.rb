@@ -1,5 +1,5 @@
 class DeletePreprocessMailer < ActionMailer::Base
-  default from: "from@example.com"
+  default from: "archextract_postmaster@library.berkeley.edu"
 
   def preprocess_delete(collection_id, preprocess, cmd_complete)
     puts cmd_complete

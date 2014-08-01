@@ -153,3 +153,11 @@ padding-bottom:100px;
 .mynav{
    background-color:#D8E0CE;
 }
+.original_doc{
+  background-image: url(/images/paperbackground.jpg);
+}
+
+.original_doc_padding {
+  padding: 15px;
+
+}

@@ -1,0 +1,21 @@
+<div class="item">
+<h2>Document Listing for the <%= @collection[:name] %></h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @documents.each do |document| %>
+      <tr>
+        <td><%= link_to  document[:name], collection_document_path(@collection[:id], document[:id]) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
+<div class="item">

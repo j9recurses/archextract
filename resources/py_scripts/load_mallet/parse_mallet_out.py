@@ -106,6 +106,8 @@ class Parse_Mallet_Out:
     ccz =  topic.totuples()
     #sort the tuple
     cv =  sorted(ccz,key=lambda x: x[1], reverse = True)
+    #just take the first 500 items; otherwise results are insanely long/don't write to the db
+    cv = cv[:500]
     dks = []
     dvs = []
     for c in cv:
@@ -194,8 +196,8 @@ class Parse_Mallet_Out:
 ##cmd opts##############
 #EX: of cmd line args: python parse_mallet_out.py -d /home/j9/Desktop/archextract/public/src_corpora/John_Muir/extract/topics/tfidf_btm_lda34/mallet_out -z John_Muir_tfidf_btm_lda_34_doc_topics.txt -t John_Muir_tfidf_btm_lda_34_topic_keys.txt -c 1 -p 4 -e 3 -v development
 parser = OptionParser()
-parser.add_option('-d', '--dir', dest='mydir',
-        help='directory of mallet out files')
+#parser.add_option('-d', '--dir', dest='mydir',
+    #    help='directory of mallet out files')
 parser.add_option('-t', '--topicfile', dest='topicsfile',
         help='mallet topic file')
 parser.add_option('-z', '--documentfile', dest='docsfile',
@@ -212,25 +214,27 @@ parser.add_option('-v', '--dbenvironment', dest='dbenviron',
 
 (opts, args) = parser.parse_args()
 
-if opts.mydir is None or opts.topicsfile is None or opts.docsfile is None or opts.collection_id is None or opts.preprocess_id is None or opts.extract_id is None or opts.dbenviron is None:
+if  opts.topicsfile is None or opts.docsfile is None or opts.collection_id is None or opts.preprocess_id is None or opts.extract_id is None or opts.dbenviron is None:
+    #opts.mydir is None or
     print "A mandatory option is missing\n"
     print opts
     parser.print_help()
     exit(-1)
 else:
-  mydir = opts.mydir
+  #mydir = opts.mydir
   topicsfile = opts.topicsfile
   docsfile = opts.docsfile
   collection_id = int(opts.collection_id)
   preprocess_id = int(opts.preprocess_id)
   extract_id = int(opts.extract_id)
   dbenviron = opts.dbenviron
-
+print "*****Starting to load mallet output into the db****"
 po = Parse_Mallet_Out(collection_id, preprocess_id, extract_id, dbenviron)
 
-docsf =   mydir + "/" + docsfile
-topsf = mydir + "/" + topicsfile
-
+#docsf =   mydir + "/" + docsfile
+#topsf = mydir + "/" + topicsfile
+docsf = docsfile
+topsf = topicsfile
 
 #make a matrix
 new_dtop = po.make_doc_model(docsf)
@@ -269,7 +273,7 @@ for t in translar:
   count = count + 1
   finaltops = po.get_final_topslist()
 cool =  po.insert_into_db(matrxtype, finaltops)
-
+print "*********finished: loaded topics into the db******"
 
 
 

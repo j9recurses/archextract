@@ -1,0 +1,13 @@
+<%= simple_form_for(@document) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :name %>
+    <%= f.input :collection_id %>
+    <%= f.input :file_dir %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

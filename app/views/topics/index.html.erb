@@ -1,8 +1,10 @@
 
   <div class="item">
 <h1>Topic Models for the <%=@collection.name.titleize%> Collection</h1>
+<h4> <%= @extract_topic[:routine_name].titleize %> </h4>
+</br>
             <% @topics.each do |t| %>
-            <%= link_to "Topic " +t[:topic_number] + ": ", collection_extract_topic_topic_path(@collection[:id] , t[:preprocess_id], t[:id]) %>
+            <h5><%= link_to "Topic " +t[:topic_number] + ": ", collection_extract_topic_topic_path(@collection[:id] , t[:extract_topic_id], t[:id]) %></h5>
             <%=  t[:name]  %>
               </br>
               <%end%>

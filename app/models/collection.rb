@@ -4,7 +4,10 @@ class Collection < ActiveRecord::Base
   validates :src_datadir, presence: true, uniqueness: true
   has_many :preprocesses, dependent: :destroy
   has_many :extract_topics, dependent: :destroy
-  has_many :topics
+  has_many :topics , :dependent => :destroy
+  has_many :topic_docs, :dependent => :destroy
+  has_many :documents, :dependent => :destroy
+
 
   def self.parse_collection_params(collection_params, params)
     @create_error = Array.new
@@ -239,5 +242,25 @@ class Collection < ActiveRecord::Base
     end
     return true
   end
+
+#load up the documents for the collection
+def self.load_documents(collection)
+  file_dir =Rails.root.join( "public", "src_corpora", collection[:src_datadir], "input").to_s
+  files = Dir.glob( file_dir + "/*")
+  for file in files
+    fname_list = file.to_s
+    fname_list = fname_list.split("/")
+    fname =fname_list.last
+    dd = Document.new(:collection_id => collection[:id], :name => fname, :file_dir =>collection[:src_datadir]+ "/input")
+    if dd.save
+      cool = 0
+    else
+      @create_error  << "Error: Could not create a pre-process record"
+      puts @create_error
+      return false
+    end
+  end
+  return true
+end
 
 end

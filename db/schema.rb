@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140731223638) do
+ActiveRecord::Schema.define(version: 20140801121820) do
 
   create_table "collections", force: true do |t|
     t.string   "name"
@@ -52,6 +52,16 @@ ActiveRecord::Schema.define(version: 20140731223638) do
 
   add_index "delayed_workers", ["name"], name: "index_delayed_workers_on_name", unique: true, using: :btree
 
+  create_table "documents", force: true do |t|
+    t.string   "name"
+    t.string   "file_dir"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "collection_id"
+  end
+
+  add_index "documents", ["collection_id"], name: "index_documents_on_collection_id", using: :btree
+
   create_table "extract_ners", force: true do |t|
     t.string   "status"
     t.string   "fname_base"
@@ -81,7 +91,7 @@ ActiveRecord::Schema.define(version: 20140731223638) do
   end
 
   add_index "extract_topics", ["collection_id"], name: "index_extract_topics_on_collection_id", using: :btree
-  add_index "extract_topics", ["preprocess_id"], name: "index_extract_topics_on_preprocess_id", unique: true, using: :btree
+  add_index "extract_topics", ["preprocess_id"], name: "index_extract_topics_on_preprocess_id", using: :btree
 
   create_table "preassignments", force: true do |t|
     t.integer "collection_id"
@@ -113,37 +123,49 @@ ActiveRecord::Schema.define(version: 20140731223638) do
 
   add_index "preprocesses", ["collection_id"], name: "index_preprocesses_on_collection_id", using: :btree
 
-  create_table "topic_docs", id: false, force: true do |t|
-    t.text    "name"
-    t.text    "topics"
-    t.text    "topic_vals"
-    t.integer "dcid"
-    t.integer "collection_id"
-    t.integer "preprocess_id"
-    t.integer "extract_topic_id"
+  create_table "topic_doc_names", force: true do |t|
+    t.text "name"
   end
 
-  add_index "topic_docs", ["collection_id"], name: "index_topic_docs_on_collection_id", using: :btree
-  add_index "topic_docs", ["dcid"], name: "index_topic_docs_on_dcid", using: :btree
-  add_index "topic_docs", ["extract_topic_id"], name: "index_topic_docs_on_extract_topic_id", using: :btree
-  add_index "topic_docs", ["preprocess_id"], name: "index_topic_docs_on_preprocess_id", using: :btree
-
-  create_table "topics", id: false, force: true do |t|
-    t.text     "name"
-    t.text     "docs"
-    t.text     "doc_vals"
-    t.integer  "tid"
+  create_table "topic_docs", id: false, force: true do |t|
+    t.string   "name"
+    t.text     "topics",             limit: 2147483647
+    t.text     "topic_vals",         limit: 2147483647
+    t.integer  "dcid"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "collection_id"
     t.integer  "preprocess_id"
     t.integer  "extract_topic_id"
+    t.integer  "doc_topic_names_id"
+  end
+
+  add_index "topic_docs", ["collection_id"], name: "index_topic_docs_on_collection_id", using: :btree
+  add_index "topic_docs", ["doc_topic_names_id"], name: "index_topic_docs_on_doc_topic_names_id", using: :btree
+  add_index "topic_docs", ["extract_topic_id"], name: "index_topic_docs_on_extract_topic_id", using: :btree
+  add_index "topic_docs", ["preprocess_id"], name: "index_topic_docs_on_preprocess_id", using: :btree
+
+  create_table "topic_names", force: true do |t|
+    t.text "name"
+  end
+
+  create_table "topics", id: false, force: true do |t|
+    t.text     "name"
+    t.text     "docs",             limit: 2147483647
+    t.text     "doc_vals",         limit: 2147483647
+    t.integer  "tid"
     t.string   "topic_number"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "collection_id"
+    t.integer  "preprocess_id"
+    t.integer  "extract_topic_id"
+    t.integer  "topic_names_id"
   end
 
   add_index "topics", ["collection_id"], name: "index_topics_on_collection_id", using: :btree
   add_index "topics", ["extract_topic_id"], name: "index_topics_on_extract_topic_id", using: :btree
   add_index "topics", ["preprocess_id"], name: "index_topics_on_preprocess_id", using: :btree
-  add_index "topics", ["tid"], name: "index_topics_on_tid", using: :btree
+  add_index "topics", ["topic_names_id"], name: "index_topics_on_topic_names_id", using: :btree
 
 end

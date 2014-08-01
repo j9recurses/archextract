@@ -30,11 +30,12 @@ class CollectionsController < ApplicationController
       @collection = Collection.new(mycollection)
       if @collection.save
         pp = Collection.add_preprocess(@collection)
-        if pp
+        dd = Collection.load_documents(@collection)
+        if pp and dd
           flash[:notice] =  'Collection successfully saved'
           redirect_to @collection
         else
-          flash[:error] = "Error: Could not save collection- problem with saving intital preprocess"
+          flash[:error] = "Error: Could not save collection- problem with saving intital preprocess and loading up the documents in the collection"
           redirect_to new_collection_path
         end
       else

@@ -1,8 +1,8 @@
 <h4> <%= @collection[:name] + " Collection => " + @extract_topic[:routine_name] %>
 <h3> <%="Topic " + @topic[:topic_number] + ": " + @topic[:name] %>
-<h5>Top 20 documents associated with this topic: </h5>
+<h5>Top 50 documents associated with this topic: </h5>
 
-<% @docs.each do |k, v| %>
+<% @doc_dict.each do |k, v| %>
    <li> <%= link_to v, collection_extract_topic_topic_doc_path(@collection[:id], @extract_topic[:id], k) %>   </li>
 <%end%>
 

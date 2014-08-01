@@ -124,7 +124,7 @@ def write_results_to_file(result, outdir, f, mycmdopts_fname):
     fnew = open(fname,'w')
     fnew.write(f + "\n\n")
     for l in result:
-        fnew.write(l + '\n')
+       fnew.write( l[0] + '\n')
     fnew.close()
 
 ####Main######
@@ -199,27 +199,25 @@ if pos:
 
 counter = 0
 for f in all_files:
-    if counter < 20:
-        mycmdopts = ''
-        # local term frequency map
-        terms_in_doc = {}
-        doc_words    = open(f).read()
-        if  stopwords:
-            doc_words    = remove_stopwords(doc_words)
-        doc_words    = tokenize(doc_words)
-        #tag a document
-        if tagger and not stemmer:
-            print "in here tagger"
-            doc_tagged = make_tagged(doc_words, pos, remove_ner )
-            write_results_to_file(doc_tagged, outdir, f, mycmdopts_fname)
+    mycmdopts = ''
+    # local term frequency map
+    terms_in_doc = {}
+    doc_words    = open(f).read()
+    if  stopwords:
+        doc_words    = remove_stopwords(doc_words)
+    doc_words    = tokenize(doc_words)
+    #tag a document
+    if tagger and not stemmer:
+        doc_tagged = make_tagged(doc_words, pos, remove_ner )
+        write_results_to_file(doc_tagged, outdir, f, mycmdopts_fname)
     #stem document
-        elif stemmer and not tagger:
-            doc_stem = make_stemmed(doc_words)
-            write_results_to_file(doc_stem, outdir, f, mycmdopts_fname)
-        #do both
-        elif tagger and stemmer:
-            doc_stemmed_and_tagged = stem_and_tag(doc_words, pos, remove_ner)
-            write_results_to_file(doc_stemmed_and_tagged, outdir, f, mycmdopts_fname)
-        elif stopwords and not tagger and ( not tagger or stemmer):
-            write_results_to_file(doc_words, outdir, f, mycmdopts_fname)
-        counter = counter + 1
+    elif stemmer and not tagger:
+        doc_stem = make_stemmed(doc_words)
+        write_results_to_file(doc_stem, outdir, f, mycmdopts_fname)
+     #do both
+    elif tagger and stemmer:
+        doc_stemmed_and_tagged = stem_and_tag(doc_words, pos, remove_ner)
+        write_results_to_file(doc_stemmed_and_tagged, outdir, f, mycmdopts_fname)
+    elif stopwords and not tagger and ( not tagger or stemmer):
+        write_results_to_file(doc_words, outdir, f, mycmdopts_fname)
+    counter = counter + 1

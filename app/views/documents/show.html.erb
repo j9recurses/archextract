@@ -1,0 +1,14 @@
+<div class="item">
+<h2>Document Listing for the <%= @collection[:name] %></h2>
+
+  <div class="original_doc">
+<div class="original_doc_padding">
+<h5> Original Document Contents </h5>
+ <%=@contents %>
+</div>
+</div>
+
+
+ <div class="link_nav">
+<%= link_to 'Back', collection_documents_path %>
+</div>

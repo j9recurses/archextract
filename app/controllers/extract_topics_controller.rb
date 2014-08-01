@@ -42,7 +42,8 @@ class ExtractTopicsController < ApplicationController
       if @extract_topic.save
         flash[:notice]  = 'Thank you for your submission: The Topic Model job for the '+  @collection[:name] + ' is now running. You will be sent an email when the job is done.'
         mlin, mlout  = ff.cmd_line_args
-        Delayed::Job.enqueue ExtractTopicRunModel.new(mlin, mlout, @extract_topic)
+        dbcmd = ff.cmd_line_args_db(@extract_topic)
+        Delayed::Job.enqueue ExtractTopicRunModel.new(mlin, mlout, dbcmd, @extract_topic, @collection)
         redirect_to collection_extract_topics_path
          #  flash[:notice] = @extract_topic
            #redirect_to collection_extract_topics_path
