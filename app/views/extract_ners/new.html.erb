@@ -1,5 +1,12 @@
-<h1>New extract_ner</h1>
 
-<%= render 'form' %>
 
-<%= link_to 'Back', extract_ners_path %>
+<div class = "item_h1">Extract Named Entities for the
+    <%=@collection.name.titleize%>
+    Collection
+  </div>
+
+
+  <%= render 'form' %>
+  <%= link_to 'Extract Named Entities Home',  collection_extract_ners_path(@collection[:id]) %>
+</div>
+

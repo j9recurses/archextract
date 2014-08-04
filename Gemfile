@@ -42,6 +42,8 @@ gem 'jbuilder', '~> 1.2'
 gem 'formtastic'
 gem 'formtastic-bootstrap'
 
+gem 'will_paginate', '~> 3.0.5'
+
 gem 'rubyzip', '>= 1.0.0'
 
 group :doc do

@@ -10,6 +10,7 @@ class CollectionsController < ApplicationController
   # GET /collections/1
   # GET /collections/1.json
   def show
+    session[:collection_id] = @collection[:id]
   end
 
   # GET /collections/new
@@ -34,6 +35,7 @@ class CollectionsController < ApplicationController
         if pp and dd
           flash[:notice] =  'Collection successfully saved'
           redirect_to @collection
+          session[:collection] = @collection
         else
           flash[:error] = "Error: Could not save collection- problem with saving intital preprocess and loading up the documents in the collection"
           redirect_to new_collection_path

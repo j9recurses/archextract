@@ -1,0 +1,18 @@
+
+<div class = "item_h1">Named Entites for the <%= @collection[:name] %> Collection</div>
+
+
+<div id = "ner1">
+<div class = "item_h1"> <%= @ner[:name] %>
+
+ <h5> Appears <%= @ner[:count] %> times in the following documents: </h5>
+
+<% @mydocs.each do |k,v| %>
+<div class="doclink"> <%= link_to v, collection_document_path(@collection[:id], k) %></div>
+<%end%>
+</div>
+</div>
+
+ <div class="link_nav">
+<%= link_to 'Back', collection_ners_path(@collection[:id]) %>
+</div>

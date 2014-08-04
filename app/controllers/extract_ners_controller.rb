@@ -1,14 +1,19 @@
 class ExtractNersController < ApplicationController
   before_action :set_extract_ner, only: [:show, :edit, :update, :destroy]
+  before_action :get_collection
+
+
+  def get_collection
+    @collection =  Collection.find(params[:collection_id])
+    session[:collection_id] = @collection[:id]
+  end
 
   # GET /extract_ners
-  # GET /extract_ners.json
   def index
-    @extract_ners = ExtractNer.all
+    @extract_ners = ExtractNer.where(collection_id: @collection[:id])
   end
 
   # GET /extract_ners/1
-  # GET /extract_ners/1.json
   def show
   end
 
@@ -24,16 +29,22 @@ class ExtractNersController < ApplicationController
   # POST /extract_ners
   # POST /extract_ners.json
   def create
-    @extract_ner = ExtractNer.new(extract_ner_params)
-
-    respond_to do |format|
-      if @extract_ner.save
-        format.html { redirect_to @extract_ner, notice: 'Extract ner was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @extract_ner }
+    nr =  ExtractNerOpts.new(@collection, extract_ner_params )
+    ners,  @extract_ner  =  nr.chk_if_ners_exist
+    if ners
+      @extract_ner = ExtractNer.new(@extract_ner )
+       if @extract_ner.save
+        flash[:notice]  = 'Thank you for your submission: The Topic Model job for the '+  @collection[:name] + ' is now running. You will be sent an email when the job is done.'
+        #server_cmd, ner_infile_cmds, ner_mr_job, load_ners_job = nr.make_cmdlines
+        #Delayed::Job.enqueue ExtractNerRunJob.new( server_cmd, ner_infile_cmds, ner_mr_job, load_ners_job , @collection)
+        redirect_to collection_extract_ners_path(@collection[:id])
       else
-        format.html { render action: 'new' }
-        format.json { render json: @extract_ner.errors, status: :unprocessable_entity }
+        flash[:error] = "Could not save Named Entities Job"
+        redirect_to collection_extract_ners_path(@collection[:id])
       end
+     else
+        flash[:error] = "Error: Named Entities for the collection already exist"
+        redirect_to collection_extract_ners_path(@collection[:id])
     end
   end
 

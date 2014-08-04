@@ -1,12 +1,44 @@
 // Place all the styles related to the topic_docs controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+
 .original_doc{
   background-image: url(/images/paperbackground.jpg);
+float:left;
+width:600px;
 }
 
 .original_doc_padding {
   padding: 15px;
-
 }
 
+#mybreak {
+background:none;
+padding-bottom:15px;
+padding-top:30px;
+}
+
+
+.chopped_doc{
+background-image: url(/images/paperbackground.jpg);
+float:left;
+width:600px;
+}
+
+.chopped_doc_padding {
+  padding: 15px;
+}
+
+.topicsidebar {
+  float:right;
+  width:250px;
+}
+
+#topic_doc {
+color:#545454;
+font: arial;
+font-size:22px;
+padding-top:10px;
+padding-bottom:30px;
+}

@@ -1,33 +1,28 @@
-<h1>Listing extract_ners</h1>
-
+<div class="item">
+  <div class = "item_h1"> Extract Named Entities for the <%= @collection[:name] %> Collection</div>
+  <div class = "collection_table">
 <table>
   <thead>
     <tr>
+      <th>Named Entities to Extract</th>
       <th>Status</th>
-      <th>Fname base</th>
-      <th>File dir</th>
-      <th>Status</th>
-      <th></th>
-      <th></th>
-      <th></th>
+      <th>Delete</th>
     </tr>
   </thead>
 
   <tbody>
     <% @extract_ners.each do |extract_ner| %>
       <tr>
-        <td><%= extract_ner.status %></td>
-        <td><%= extract_ner.fname_base %></td>
-        <td><%= extract_ner.file_dir %></td>
-        <td><%= extract_ner.status %></td>
-        <td><%= link_to 'Show', extract_ner %></td>
-        <td><%= link_to 'Edit', edit_extract_ner_path(extract_ner) %></td>
-        <td><%= link_to 'Destroy', extract_ner, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <td><%= link_to "People, Places, Organizations, Dates", collection_ners_path(@collection[:id]) %></td>
+        <td><%= extract_ner.status.titleize %></td>
+        <td><%= link_to 'Delete', collection_ner_path(@collection[:id], extract_ner[:id]), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
+</div>
 <br>
-
-<%= link_to 'New Extract ner', new_extract_ner_path %>
+ <div class="link_nav">
+<%= link_to 'Extract Name Enties From the Collection', new_collection_extract_ner_path %>
+</div>
+</div>

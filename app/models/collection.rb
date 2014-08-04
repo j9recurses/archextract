@@ -7,7 +7,7 @@ class Collection < ActiveRecord::Base
   has_many :topics , :dependent => :destroy
   has_many :topic_docs, :dependent => :destroy
   has_many :documents, :dependent => :destroy
-
+  has_many :ners, :dependent => :destroy
 
   def self.parse_collection_params(collection_params, params)
     @create_error = Array.new

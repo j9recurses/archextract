@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140801121820) do
+ActiveRecord::Schema.define(version: 20140804033142) do
 
   create_table "collections", force: true do |t|
     t.string   "name"
@@ -92,6 +92,18 @@ ActiveRecord::Schema.define(version: 20140801121820) do
 
   add_index "extract_topics", ["collection_id"], name: "index_extract_topics_on_collection_id", using: :btree
   add_index "extract_topics", ["preprocess_id"], name: "index_extract_topics_on_preprocess_id", using: :btree
+
+  create_table "ners", force: true do |t|
+    t.string   "nertype"
+    t.string   "name"
+    t.text     "docs"
+    t.integer  "count"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "collection_id"
+  end
+
+  add_index "ners", ["collection_id"], name: "index_ners_on_collection_id", using: :btree
 
   create_table "preassignments", force: true do |t|
     t.integer "collection_id"

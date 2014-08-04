@@ -1,20 +1,16 @@
-<%= simple_form_for(@extract_ner) do |f| %>
-  <%= f.error_notification %>
+<%= simple_form_for([@collection,  @extract_ner ]) do |f| %>
+<%= f.error_notification %>
 
-  <div class="form-inputs">
-    <%= f.input :status %>
-    <%= f.input :fname_base %>
-    <%= f.input :file_dir %>
-    <%= f.input :status %>
-  </div>
+<div class="form-inputs">
+<div class="preform">
+  <h3>Extract Named Entities </h3>
+  </br>
+  <%= f.input :ner_peeps, label: "Extract People, Places, Organizations and Dates from the Collection", as: :radio_buttons, :label_html => { :class => 'field' }  %>
 
   <div class="form-actions">
-    <%= f.button :submit %>
+  <%= f.button :submit,  'Submit'%>
   </div>
-<% end %>
-<h3> Named Entity Recognition </h3>
-<%= f.input :ner_people, label:"Extract Names", as: :radio_buttons, :label_html => { :class => 'field' }%>
-<%= f.input :ner_places, label:"Extract Places", as: :radio_buttons, :label_html => { :class => 'field' }%>
-<%= f.input :ner_organizations, label:"Extract Organizational Entities", as: :radio_buttons, :label_html => {:class => 'field' }%>
-<%= f.input :ner_dates, label:"Extract Dates", as: :radio_buttons, :label_html => { :class => 'field' }%>
+</div>
+</div>
 
+<% end %>

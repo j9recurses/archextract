@@ -124,7 +124,8 @@ def write_results_to_file(result, outdir, f, mycmdopts_fname):
     fnew = open(fname,'w')
     fnew.write(f + "\n\n")
     for l in result:
-       fnew.write( l[0] + '\n')
+        print l
+        fnew.write( l[0] + '\n')
     fnew.close()
 
 ####Main######
@@ -213,6 +214,7 @@ for f in all_files:
     #stem document
     elif stemmer and not tagger:
         doc_stem = make_stemmed(doc_words)
+        print doc_stem
         write_results_to_file(doc_stem, outdir, f, mycmdopts_fname)
      #do both
     elif tagger and stemmer:

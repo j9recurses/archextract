@@ -1,3 +1,5 @@
+
+require 'will_paginate/array'
 class TopicDocsController < ApplicationController
   before_filter :get_collection
   before_filter :get_extract_topic
@@ -17,9 +19,11 @@ class TopicDocsController < ApplicationController
 
   def show
     @topic_doc = TopicDoc.find(params[:id])
-    @topic_doc = @topic_doc
-    @orig_file_contents = TopicDoc.get_original_text(@topic_doc, @extract_topic, @collection)
-    @assoc_topics = TopicDoc.get_topic_names(@topic_doc)
+    @orig_file_contents = TopicDoc.get_original_text(@topic_doc[:id], @extract_topic, @collection)
+    @chopped_file_contents, @pp_routine_name = TopicDoc.get_chopped_text(@topic_doc)
+    @assoc_topics, @topic_scores = TopicDoc.get_topic_names(@topic_doc)
+    docname = @topic_doc[:name].split(".")
+    @docname = docname[0] + ".txt"
   end
 
 

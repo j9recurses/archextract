@@ -1,22 +1,32 @@
-<div class="item"><h1> Process Topic Models for the <%=@collection.name.titleize%> Collection </h1>
-    <table>
+<div class="item">
+<div class = "item_h1"> Process Topic Models for the <%=@collection.name.titleize%> Collection </div>
+
+
+  <div class = "collection_table">
+  <table>
   <thead>
     <tr>
       <th>Topic Model</th>
       <th>Status</th>
+      <th>Delete</th>
     </tr>
   </thead>
   <tbody>
     <% @extract_topics.each do |extract| %>
     <tr>
     <td> <%= link_to extract[:routine_name], collection_extract_topic_topics_path(@collection[:id] , extract[:id]) %> </td>
-    <td> <%= extract[:status] %> </td>
+    <td> <%= extract[:status].titleize %> </td>
+    <td><%= link_to 'Delete', collection_extract_topic_path(@collection[:id], extract[:id]) , method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
     <% end %>
   </tbody>
 </table>
+  </div>
+    <div class="collections_break">
+    </div>
 
-<div class="link_nav">
+
+    <div class="link_nav">
   <%= link_to 'Add a New Topic Model',  new_collection_extract_topic_path %>
 </div>
 

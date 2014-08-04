@@ -39,6 +39,10 @@
   </head>
   <body>
 
+    <% if  session[:collection_id] %>
+    <%  @usrcollectionid  = session[:collection_id]%>
+    <%end%>
+
     <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
          <div class="mynav">
@@ -54,7 +58,10 @@
           <div class="container nav-collapse">
             <ul class="nav">
              <li> <div class="mynavitems_first"> <%= link_to "Collections", collections_path  %></div></li>
-               <li><div class="mynavitems"><%= link_to "Topics", "topics_path"  %></div> </li>
+               <li><div class="mynavitems"><%= link_to "Documents", collection_documents_path( @usrcollectionid)  %></div> </li>
+               <li><div class="mynavitems"><%= link_to "Pre-Processes", collection_preprocesses_path( @usrcollectionid)  %></div> </li>
+               <li><div class="mynavitems"><%= link_to "Topic Models", collection_extract_topics_path( @usrcollectionid)  %></div> </li>
+                <li><div class="mynavitems"><%= link_to "Named Entities", collection_extract_ners_path( @usrcollectionid)  %></div> </li>
              <li> <div class="mynavitems"><a href="http://bancroft.berkeley.edu/"> Bancroft Library Home</a></div></li>
             </ul>
             </div>
@@ -64,6 +71,9 @@
       </div>
       </div>
     </div>
+
+
+
 
     <div class="container">
         <div class="row">
@@ -80,7 +90,7 @@
       <div class ="myfooterpad"> </div>
       <footer>
       <div class="footercenter">
-     &copy <a href="http://bancroft.berkeley.edu/"> Bancroft Library</a>
+     &copy <a href="http://bancroft.berkeley.edu/"> Bancroft Library 2014</a>
      </div>
       </footer>
 

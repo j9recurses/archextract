@@ -5,6 +5,7 @@ class ExtractTopicsController < ApplicationController
 
   def get_collection
     @collection =  Collection.find(params[:collection_id])
+    session[:collection_id] = @collection[:id]
   end
 
   # GET /preprocesses
@@ -45,8 +46,6 @@ class ExtractTopicsController < ApplicationController
         dbcmd = ff.cmd_line_args_db(@extract_topic)
         Delayed::Job.enqueue ExtractTopicRunModel.new(mlin, mlout, dbcmd, @extract_topic, @collection)
         redirect_to collection_extract_topics_path
-         #  flash[:notice] = @extract_topic
-           #redirect_to collection_extract_topics_path
       else
           flash[:error] = "Could not save process topic model"
           redirect_to collection_extract_topics_path

@@ -1,10 +1,10 @@
 <div class="item">
 <%= @extract_topic.errors.full_messages.first if @extract_topic.errors.any? %>
 
-  <h1>Create a New Topic Model for the
+<div class = "item_h1"> Create a New Topic Model for the
     <%=@collection.name.titleize%>
     Collection
-  </h1>
+</div>
   <%= render 'form' %>
-  <%= link_to 'Extract Home',  collection_extract_topics_path %>
+  <%= link_to 'Topic Modeling Home',  collection_extract_topics_path %>
 </div>

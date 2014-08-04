@@ -1,21 +1,23 @@
 <div class="item">
-<h2>Document Listing for the <%= @collection[:name] %></h2>
+  <div class = "item_h1"> Document Listing for the <%= @collection[:name] %> Collection</div>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @documents.each do |document| %>
-      <tr>
-        <td><%= link_to  document[:name], collection_document_path(@collection[:id], document[:id]) %></td>
-      </tr>
+<div class="docs">
+<% @documents.each do |document| %>
+<p>
+<%= link_to  document[:name], collection_document_path(@collection[:id], document[:id]) %>
+</p>
     <% end %>
-  </tbody>
-</table>
+</div>
 
+
+
+<div class="apple_pagination">
+    <div class="page_info">
+      <%= page_entries_info @documents %>
+    </div>
+    <%= will_paginate @documents, :container => false %>
+    </br>
+     <%= link_to "Collection Home", collections_path%>
+  </div>
 
 <div class="item">

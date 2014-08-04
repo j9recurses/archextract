@@ -1,0 +1,42 @@
+
+   <div class = "item_h1">Named Entites for the  <%= @collection[:name] %> Collection</div>
+
+<div class = "nercolumn">
+<h5> Top 50 Dates </h5>
+<h6> Name &#8674; Count </h6>
+<% @ner_dates.each do | item|  %>
+  <div class = "neritem">
+  <%= link_to item[:name].titleize, collection_ner_path(@collection[:id], item[:id]) %> &#8674; <%= item[:count]%>
+   </div>
+ <% end %>
+ </div>
+
+<div class = "nercolumn">
+<h5> Top 50 People </h5>
+<h6> Name &#8674; Count </h6>
+<% @ner_peeps.each do | item|  %>
+  <div class = "neritem">
+  <%= link_to item[:name].titleize, collection_ner_path(@collection[:id], item[:id]) %> &#8674; <%= item[:count]%>
+   </div>
+ <% end %>
+</div>
+
+<div class = "nercolumn">
+<h5> Top 50 Organizations </h5>
+<h6> Name &#8674; Count </h6>
+<% @ner_orgs.each do | item|  %>
+  <div class = "neritem">
+  <%= link_to item[:name].titleize, collection_ner_path(@collection[:id], item[:id]) %> &#8674; <%= item[:count]%>
+   </div>
+ <% end %>
+ </div>
+
+<div class = "nercolumn">
+ <h5> Top 50 Places </h5>
+<h6> Name &#8674; Count </h6>
+<% @ner_places.each do | item|  %>
+  <div class = "neritem">
+  <%= link_to item[:name].titleize, collection_ner_path(@collection[:id], item[:id]) %> &#8674; <%= item[:count]%>
+   </div>
+ <% end %>
+</div>

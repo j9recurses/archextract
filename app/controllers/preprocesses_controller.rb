@@ -4,6 +4,7 @@ class PreprocessesController < ApplicationController
 
   def get_collection
     @collection =  Collection.find(params[:collection_id])
+    session[:collection_id] = @collection[:id]
   end
 
 

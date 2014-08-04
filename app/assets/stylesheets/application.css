@@ -17,10 +17,12 @@
   padding-top:15px;
 }
 
-.item h1{
-  font-size:30px;
-  font-color:#D4CCC5;
-  padding-bottom:15px;
+.item_h1{
+color:#545454;
+font: arial;
+font-size:22px;
+padding-top:10px;
+padding-bottom:30px;
 }
 
 #topbreak{
@@ -29,13 +31,16 @@
 
 .link_nav{
 padding-top:10px;
-  font-size:20px;
+  font-size:16px;
+  font: arial;
 }
 
 
 .field{
 font-size: 1.1em;
 font-weight:bold;
+color:#545454;
+font: arial;
 }
 
 
@@ -46,8 +51,12 @@ font-size: .8em;
 .preform h3 {
 padding:10px;
 background-color:#D8E0CE;
-/* #C0C0C0; */
+color:#545454;
+font: arial;
+font-size:18px;
 }
+
+
 
 .newec_link
 {
@@ -125,7 +134,7 @@ footer {
 .footercenter{
 margin-left: auto;
    margin-right: auto;
-    width: 70%;
+    width: 95%;
 }
 
 #mynavarch{
@@ -159,5 +168,39 @@ padding-bottom:100px;
 
 .original_doc_padding {
   padding: 15px;
-
 }
+
+.bottom_padding{
+  padding-bottom: 10px;
+}
+.top_padding{
+  padding-top:15px;
+}
+.apple_pagination {
+  background: #f1f1f1;
+  border: 1px solid #e5e5e5;
+  text-align: center;
+  padding: 1em;
+  cursor: default;
+ }
+  .apple_pagination a, .apple_pagination span {
+    padding: 0.2em 0.3em; }
+  .apple_pagination .disabled {
+    color: #aaaaaa; }
+  .apple_pagination .current {
+    font-style: normal;
+    font-weight: bold;
+    background-color: #bebebe;
+    display: inline-block;
+    width: 1.4em;
+    height: 1.4em;
+    line-height: 1.5;
+    -moz-border-radius: 1em;
+    -webkit-border-radius: 1em;
+    border-radius: 1em;
+    text-shadow: rgba(255, 255, 255, 0.8) 1px 1px 1px; }
+  .apple_pagination a {
+    text-decoration: none;
+    color: black; }
+    .apple_pagination a:hover, .apple_pagination a:focus {
+      text-decoration: underline; }
