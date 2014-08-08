@@ -7,11 +7,21 @@
 
  <h5> Appears <%= @ner[:count] %> times in the following documents: </h5>
 
-<% @mydocs.each do |k,v| %>
-<div class="doclink"> <%= link_to v, collection_document_path(@collection[:id], k) %></div>
+<% @thenerdocs.each do |k,v| %>
+    <% docct = (v[0] + " &#8674; " + v[1].to_s).html_safe %>
+<div class="doclink"> <%= link_to docct, collection_document_path(@collection[:id], k) %></div>
 <%end%>
 </div>
 </div>
+
+<div class="apple_pagination">
+    <div class="page_info">
+    </div>
+    <%= will_paginate @thenerdocs, :container => false %>
+    <div class = "tinybreak">
+  </div>
+  </div>
+    <div class="bottom_padding"></div>
 
  <div class="link_nav">
 <%= link_to 'Back', collection_ners_path(@collection[:id]) %>

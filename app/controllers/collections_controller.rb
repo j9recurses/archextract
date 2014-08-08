@@ -26,7 +26,8 @@ class CollectionsController < ApplicationController
   # POST /collections.json
 
   def create
-    mycollection, myreturn = Collection.parse_collection_params(collection_params, params)
+    # Delayed::Job.enqueue ExtractNerRunJob.new( server_cmd, ner_infile_cmds, ner_mr_job, load_ners_job , @collection, @extract_ner)
+    #mycollection, myreturn = Collection.parse_collection_params(collection_params, params)
     if myreturn
       @collection = Collection.new(mycollection)
       if @collection.save

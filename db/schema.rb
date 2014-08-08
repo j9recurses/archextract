@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140804033142) do
+ActiveRecord::Schema.define(version: 20140806234745) do
 
   create_table "collections", force: true do |t|
     t.string   "name"
@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(version: 20140804033142) do
     t.string   "mimetype"
     t.integer  "filesize"
     t.string   "file_ext"
+    t.string   "status"
   end
 
   create_table "delayed_jobs", force: true do |t|
@@ -101,9 +102,11 @@ ActiveRecord::Schema.define(version: 20140804033142) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "collection_id"
+    t.integer  "extract_ner_id"
   end
 
   add_index "ners", ["collection_id"], name: "index_ners_on_collection_id", using: :btree
+  add_index "ners", ["extract_ner_id"], name: "index_ners_on_extract_ner_id", using: :btree
 
   create_table "preassignments", force: true do |t|
     t.integer "collection_id"

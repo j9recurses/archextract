@@ -18,46 +18,12 @@ class NersController < ApplicationController
   # GET /ners/1
   # GET /ners/1.json
   def show
-    @mydocs = Ner.get_documents(@ner)
-  end
-
-  # GET /ners/new
-  def new
-    @ner = Ner.new
+    @thenerdocs = Ner.ner_documents(@ner)
+    @thenerdocs = @thenerdocs.paginate(:page => params[:page])
   end
 
   # GET /ners/1/edit
   def edit
-  end
-
-  # POST /ners
-  # POST /ners.json
-  def create
-    @ner = Ner.new(ner_params)
-
-    respond_to do |format|
-      if @ner.save
-        format.html { redirect_to @ner, notice: 'Ner was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @ner }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @ner.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # PATCH/PUT /ners/1
-  # PATCH/PUT /ners/1.json
-  def update
-    respond_to do |format|
-      if @ner.update(ner_params)
-        format.html { redirect_to @ner, notice: 'Ner was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: 'edit' }
-        format.json { render json: @ner.errors, status: :unprocessable_entity }
-      end
-    end
   end
 
   # DELETE /ners/1

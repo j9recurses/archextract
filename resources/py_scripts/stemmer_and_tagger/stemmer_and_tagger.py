@@ -24,11 +24,20 @@ def remove_stopwords(text):
 
 #tokenize the text
 def tokenize(text):
-    text = ' '.join(text)
     tokens = PunktWordTokenizer().tokenize(text)
     # don't return any single letters
     tokens = [t for t in tokens if len(t) > 1 and not t.isdigit()]
     return tokens
+
+def get_doc_words(doc_words, stopwords):
+    doc_words_new = ''
+    if  stopwords:
+        doc_words_sp    = remove_stopwords(doc_words)
+        doc_words_sp  = ' '.join(doc_words_sp)
+        doc_words_new   = tokenize(doc_words_sp)
+    else:
+        doc_words_new  = tokenize(doc_words)
+    return doc_words_new
 
 #stem the list
 def make_stemmed(word_list):
@@ -116,7 +125,7 @@ def stem_and_tag(word_list, pos, remove_ner):
     stemmed_tagged_words = make_stemmed(tagged_words)
     return stemmed_tagged_words
 
-def write_results_to_file(result, outdir, f, mycmdopts_fname):
+def write_results_to_file(result, outdir, f, mycmdopts_fname, usefirst):
     fsplit = f.split("/")
     f = fsplit.pop()
     fname = outdir  + f + "_" + mycmdopts_fname + ".txt"
@@ -124,8 +133,12 @@ def write_results_to_file(result, outdir, f, mycmdopts_fname):
     fnew = open(fname,'w')
     fnew.write(f + "\n\n")
     for l in result:
-        print l
-        fnew.write( l[0] + '\n')
+        if usefirst:
+            print l
+            fnew.write( l + '\n')
+        else:
+            print l[0]
+            fnew.write( l[0] + '\n')
     fnew.close()
 
 ####Main######
@@ -150,9 +163,7 @@ parser.add_option('-f', '--filename', dest='fname',
         help='filename/extension to write preprocessed files as')
 
 
-#{"stopwords"=>"true", "rarewords"=>"true", "tagged_no_ner"=>"true", "tfidf"=>"true", "stemmed"=>"true", "pos"=>["NN", ""]}
-
-
+#EX: python stemmer_and_tagger.py /home/j9/Desktop/archextract/public/src_corpora/John_Muir/input -t true -p NN -s true -o /home/j9/Desktop/stemmertest
 
 (options, args) = parser.parse_args()
 pos = ''
@@ -201,25 +212,24 @@ if pos:
 counter = 0
 for f in all_files:
     mycmdopts = ''
-    # local term frequency map
-    terms_in_doc = {}
-    doc_words    = open(f).read()
-    if  stopwords:
-        doc_words    = remove_stopwords(doc_words)
-    doc_words    = tokenize(doc_words)
+    doc_words_pre    = open(f).read()
+    doc_words = get_doc_words(doc_words_pre, stopwords)
     #tag a document
     if tagger and not stemmer:
         doc_tagged = make_tagged(doc_words, pos, remove_ner )
-        write_results_to_file(doc_tagged, outdir, f, mycmdopts_fname)
+        usefirst = False
+        write_results_to_file(doc_tagged, outdir, f, mycmdopts_fname, usefirst)
     #stem document
     elif stemmer and not tagger:
         doc_stem = make_stemmed(doc_words)
-        print doc_stem
-        write_results_to_file(doc_stem, outdir, f, mycmdopts_fname)
+        usefirst = True
+        write_results_to_file(doc_stem, outdir, f, mycmdopts_fname, usefirst)
      #do both
     elif tagger and stemmer:
         doc_stemmed_and_tagged = stem_and_tag(doc_words, pos, remove_ner)
-        write_results_to_file(doc_stemmed_and_tagged, outdir, f, mycmdopts_fname)
+        usefirst = True
+        write_results_to_file(doc_stemmed_and_tagged, outdir, f, mycmdopts_fname, usefirst)
     elif stopwords and not tagger and ( not tagger or stemmer):
-        write_results_to_file(doc_words, outdir, f, mycmdopts_fname)
+        usefirst = True
+        write_results_to_file(doc_words, outdir, f, mycmdopts_fname, usefirst)
     counter = counter + 1

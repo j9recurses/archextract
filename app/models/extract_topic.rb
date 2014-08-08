@@ -6,4 +6,6 @@ class ExtractTopic < ActiveRecord::Base
   validates :num_of_topics, presence: true, numericality: {
     greater_than_or_equal_to: 1, less_than_or_equal_to: 100
   } , :allow_nil => false
+  has_many :topic_docs,  :dependent => :destroy
+  has_many :topics ,   :dependent => :destroy
 end

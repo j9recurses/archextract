@@ -2,7 +2,6 @@ ExtractTopicRunModel  = Struct.new( :cmd_in, :cmd_out, :dbcmd,  :extract_topic, 
 
   def perform
     puts "**extracting topics job***"
-    puts dbcmd
     @error = ''
     job_status =  run_pyjob(cmd_in, cmd_out, dbcmd)
     job_outcome = update_status(job_status, extract_topic )
@@ -15,6 +14,7 @@ ExtractTopicRunModel  = Struct.new( :cmd_in, :cmd_out, :dbcmd,  :extract_topic, 
 
    #runs the python command
   def run_pyjob(cmd_in, cmd_out, dbcmd)
+    puts cmd_in
     cmd_complete1 = system(cmd_in)
     if cmd_complete1
       cmd_complete2 = system(cmd_out)

@@ -2,8 +2,8 @@ class  TopicDoc < ActiveRecord::Base
   self.primary_key = :dcid
   serialize :topics
   serialize :topic_vals
-  belongs_to :collection
-  has_many :topics
+  belongs_to :extract_ner
+  has_one :topic_doc_name, :dependent => :destroy
   self.per_page = 10
 
   def self.get_original_text (topic_doc_id, extract_topic, collection)
@@ -34,6 +34,7 @@ class  TopicDoc < ActiveRecord::Base
           contents = contents + line
       end
   end
+  puts contents
   return contents,  preprocess [:routine_name]
   end
 

@@ -1,6 +1,7 @@
 require 'fileutils'
 
-class ExtractTopicOpts < ActiveRecord::Base
+class ExtractTopicOpts
+  #< ActiveRecord::Base
 
   def initialize(extract_topic_params, collection)
     #make a hash to store record

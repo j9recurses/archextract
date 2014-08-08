@@ -35,8 +35,8 @@ class ExtractNersController < ApplicationController
       @extract_ner = ExtractNer.new(@extract_ner )
        if @extract_ner.save
         flash[:notice]  = 'Thank you for your submission: The Topic Model job for the '+  @collection[:name] + ' is now running. You will be sent an email when the job is done.'
-        #server_cmd, ner_infile_cmds, ner_mr_job, load_ners_job = nr.make_cmdlines
-        #Delayed::Job.enqueue ExtractNerRunJob.new( server_cmd, ner_infile_cmds, ner_mr_job, load_ners_job , @collection)
+        server_cmd, ner_infile_cmds, ner_mr_job, load_ners_job = nr.make_cmdlines(@extract_ner[:id])
+        Delayed::Job.enqueue ExtractNerRunJob.new( server_cmd, ner_infile_cmds, ner_mr_job, load_ners_job , @collection, @extract_ner)
         redirect_to collection_extract_ners_path(@collection[:id])
       else
         flash[:error] = "Could not save Named Entities Job"
@@ -66,10 +66,7 @@ class ExtractNersController < ApplicationController
   # DELETE /extract_ners/1.json
   def destroy
     @extract_ner.destroy
-    respond_to do |format|
-      format.html { redirect_to extract_ners_url }
-      format.json { head :no_content }
-    end
+        redirect_to collection_extract_ners_path(@collection[:id])
   end
 
   private

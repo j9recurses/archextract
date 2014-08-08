@@ -21,6 +21,8 @@ class TopicDocsController < ApplicationController
     @topic_doc = TopicDoc.find(params[:id])
     @orig_file_contents = TopicDoc.get_original_text(@topic_doc[:id], @extract_topic, @collection)
     @chopped_file_contents, @pp_routine_name = TopicDoc.get_chopped_text(@topic_doc)
+    puts "***********"
+    puts @chopped_file_contents
     @assoc_topics, @topic_scores = TopicDoc.get_topic_names(@topic_doc)
     docname = @topic_doc[:name].split(".")
     @docname = docname[0] + ".txt"

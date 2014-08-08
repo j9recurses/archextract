@@ -1,4 +1,7 @@
 class Ner < ActiveRecord::Base
+belongs_to :collection
+belongs_to :extract_ner
+self.per_page = 10
 
   def self.get_types(collection)
         @ner_peeps = Ner.where(nertype: "PERSON",  collection_id: collection[:id])
@@ -12,14 +15,23 @@ class Ner < ActiveRecord::Base
         return @ner_dates, @ner_orgs, @ner_peeps, @ner_places
   end
 
-def self.get_documents(ner)
+def self.ner_documents(ner)
   @documents = eval(ner[:docs])
   @mydocs = {}
   @documents.each do |d|
     @doc = Document.find(d)
-    @mydocs[@doc[:id]]= @doc[:name]
+  if  @mydocs.has_key?(@doc[:id])
+      vlist = @mydocs[@doc[:id]]
+      countv = vlist[1] + 1
+      vlist[1] = countv
+       @mydocs[@doc[:id]] =vlist
+    else
+       vlist = [@doc[:name], 1]
+       @mydocs[@doc[:id]]= vlist
   end
-  return @mydocs
+end
+ @mydocs = @mydocs.sort_by{|k,v| v[1]}.reverse
+ return @mydocs
 end
 
 end
