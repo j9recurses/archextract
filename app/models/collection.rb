@@ -10,38 +10,6 @@ class Collection < ActiveRecord::Base
   has_many :ners, :dependent => :destroy
   has_many :extract_ners, :dependent => :destroy
 
-   ##add a plain text record to the preprocesses table
-  def self.add_preprocess(collection)
-    pp = Preprocess.new(:collection_id => collection[:id], :routine_name => "Plain Text", :status => "complete", :file_dir =>collection[:src_datadir]+ "/input", :fname_base => "orig" )
-    if pp.save
-      return true
-    else
-      @create_error  << "Error: Could not create a pre-process record"
-      puts @create_error
-      return false
-    end
-  end
-
-  #load up the documents for the collection
-  def self.load_documents(collection)
-    file_dir =Rails.root.join( "public", "src_corpora", collection[:src_datadir], "input").to_s
-    files = Dir.glob( file_dir + "/*")
-    for file in files
-      fname_list = file.to_s
-      fname_list = fname_list.split("/")
-      fname =fname_list.last
-      dd = Document.new(:collection_id => collection[:id], :name => fname, :file_dir =>collection[:src_datadir]+ "/input")
-      if dd.save
-        cool = 0
-      else
-        @create_error  << "Error: Could not create a pre-process record"
-        puts @create_error
-        return false
-      end
-    end
-    return true
-  end
-
 
 
   #method to recursively delete/destory all dirs and files associated with a collection

@@ -1,45 +1,38 @@
-CollectionImport  = Struct.new( :collection_params, :params, :collection) do
+CollectionImport  = Struct.new( :collection_params, :collection) do
 
   def perform
-    puts "**extracting ners job***"
+    puts "**saving and processing collection files***"
     @collection = collection
     @error = ''
-    job_status =  run_pyjob(server_cmd, ner_infile_cmds, ner_mr_job, load_ners_job)
-    job_outcome = update_status(job_status, extract_topic )
+    upload_status=  update_collection_with_file_info(collection_params,  @collection)
+    job_outcome = update_status(upload_status, @collection )
     puts @error
-    ExtractNersMailer.extract_ner_complete( @collection[:id], job_outcome , @error).deliver
+    CollectionImportMailer.extract_ner_complete( @collection[:id], job_outcome , @error).deliver
+    if job_outcome && @error.size  == 0
+        add_preprocess(@collection)
+        add_documents(@collection)
+    end
   end
-#######
-| name               | varchar(255) | YES  |     | NULL    |                |
-| acquisition_date   | date         | YES  |     | NULL    |                |
-| acquisition_source | varchar(255) | YES  |     | NULL    |                |
-| src_datadir        | varchar(255) | YES  |     | NULL    |                |
-| notes              | text         | YES  |     | NULL    |                |
-| isdir              | tinyint(1)   | YES  |     | NULL    |                |
-| is_processed       | tinyint(1)   | NO   |     | 0       |                |
-| orig_upload_fn     | varchar(255) | YES  |     | NULL    |                |
-| mimetype           | varchar(255) | YES  |     | NULL    |                |
-| filesize           | int(11)      | YES  |     | NULL    |                |
-| file_ext
 
 
- def update_collection_with_file_info(collection_params, params, collection)
+ def update_collection_with_file_info(collection_params,  collection, params)
     uploaded_io = collection_params[:src_datadir]
     filetype = uploaded_io.content_type
     collection_name = collection[:name]
     upload_status, filesize, file_ext, mimetype = parse_file_upload(uploaded_io, filetype, filename, collection_name,  collection_dir)
           if upload_status
-            save_hash[:src_datadir] = collection_dir
-            save_hash[:orig_upload_fn] = filename
-            save_hash[:filesize] = filesize
-            save_hash[:file_ext] = file_ext
-            save_hash[:mimetype] = mimetype
+            @collection[:orig_upload_fn] = filename
+            @collection[:filesize] = filesize
+            @collection[:file_ext] = file_ext
+            @collection[:mimetype] = mimetype
           else
+            @error = "There was an error"
+          end
+      upload_status
+end
 
 
 
-
-  #parse and temporily uploads file to hold a directory
   #creates a unique directory for the collection and tries to unzip the file based on extension
   def self.parse_file_upload(uploaded_io, filetype, filename, collection_name,  collection_dir)
     mimchk, mimefiletype =  self.check_mime_types(filename, filetype)
@@ -156,6 +149,48 @@ CollectionImport  = Struct.new( :collection_params, :params, :collection) do
     end
   end
 
+##update the collection process status in the db
+  def update_status(upload_status, collection )
+    collection_updated = Collection.find(collection[:id])
+    if upload_status
+      collection_updated.update_column(:status, "complete")
+      collection_updated.update(collection)
+    else
+     collection_updated.update_column(:status, "failed")
+    end
+  end
 
+
+    ##add a plain text record to the preprocesses table
+  def add_preprocess(collection)
+    pp = Preprocess.new(:collection_id => collection[:id], :routine_name => "Plain Text", :status => "complete", :file_dir =>collection[:src_datadir]+ "/input", :fname_base => "orig" )
+    if pp.save
+      return true
+    else
+      @create_error  << "Error: Could not create a pre-process record"
+      puts @create_error
+      return false
+    end
+  end
+
+  #load up the documents for the collection
+  def load_documents(collection)
+    file_dir =Rails.root.join( "public", "src_corpora", collection[:src_datadir], "input").to_s
+    files = Dir.glob( file_dir + "/*")
+    for file in files
+      fname_list = file.to_s
+      fname_list = fname_list.split("/")
+      fname =fname_list.last
+      dd = Document.new(:collection_id => collection[:id], :name => fname, :file_dir =>collection[:src_datadir]+ "/input")
+      if dd.save
+        cool = 0
+      else
+        @create_error  << "Error: Could not create a pre-process record"
+        puts @create_error
+        return false
+      end
+    end
+    return true
+  end
 
 end

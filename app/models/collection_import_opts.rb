@@ -7,31 +7,25 @@ class CollectionImportOpts
 
     def make_collection(collection_params)
       @create_error = Array.new
+      chk  = false
       uploaded_io = collection_params[:src_datadir]
       collection_dir = collection_params[:name].gsub(/\s+/, "_")
       collection_chk =  collection_chk?(uploaded_io, collection_params)
       if collection_chk
-        @collection[:acquisition_date] = self.parse_acq_date(collection_params)
-        @collection[:name] = collection_params[:name]
-        @collection[:acquisition_source] = collection_params[:acquisition_source]
-        @collection[:notes] = collection_params[:notes]
-        @collection[:isdir] =collection_params[:isdir]
-        @collection[:src_datadir] = collection_dir
-        @collection[:status] = "Processing"
-      else
-        return @create_error
+        chk = true
       end
-      return @collection
+      return chk, @create_error
     end
+
 
     #check some basic stuff before creating a collection record
     def collection_chk?(uploaded_io, collection_params)
       cname = Collection.find_by(name: collection_params[:name])
       fname = Collection.find_by(orig_upload_fn:  uploaded_io.original_filename)
-      if cname.size > 0
+      cna
         @create_error = "Error: A collection by name already exists. Please double check your collection and try again"
          return false
-      elsif fname.size > 0:
+      elsif fname
         @create_error = "Error: The file you are trying to upload has already been uploaded"
         return false
       elsif collection_params[:src_datadir].nil?
@@ -39,6 +33,7 @@ class CollectionImportOpts
         return false
       else
         return true
+      end
     end
 
   #parses params for the aquistion date

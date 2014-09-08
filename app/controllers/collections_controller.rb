@@ -26,28 +26,23 @@ class CollectionsController < ApplicationController
   # POST /collections.json
 
   def create
-    # Delayed::Job.enqueue ExtractNerRunJob.new( server_cmd, ner_infile_cmds, ner_mr_job, load_ners_job , @collection, @extract_ner)
-    #mycollection, myreturn = Collection.parse_collection_params(collection_params, params)
-    if myreturn
-      @collection = Collection.new(mycollection)
-      if @collection.save
-        pp = Collection.add_preprocess(@collection)
-        dd = Collection.load_documents(@collection)
-        if pp and dd
-          flash[:notice] =  'Collection successfully saved'
+    ip  =  CollectionImportOpts.new()
+    chk, @create_error =   ip.make_collection(collection_params)
+    if chk
+      @collection = Collection.new( collection_params.reject!{ |k| k == :src_datadir} )
+      @collection[:status] = "Processing"
+       if @collection.save
+          flash[:notice] =  "Thank you for your submission. We are attempting to import the " +  @collection[:name] + "You will be sent an email when the job is done."
+          Delayed::Job.enqueue CollectionImport.new(@collection, collection_params, params)
           redirect_to @collection
           session[:collection] = @collection
-        else
-          flash[:error] = "Error: Could not save collection- problem with saving intital preprocess and loading up the documents in the collection"
-          redirect_to new_collection_path
-        end
       else
-        flash[:error] = "Error: Could not save collection"
+        flash[:error] = "Error: Could not save collection-please try uploading the collection again later."
         redirect_to new_collection_path
       end
-    else
-      flash[:error] =  mycollection
-      redirect_to new_collection_path
+   else
+       flash[:error]  = @create_error
+        redirect_to new_collection_path
     end
   end
 
