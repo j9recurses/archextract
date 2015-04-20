@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails'
+gem 'rails',  "~> 4.2.1"
 
 # Use mysql as the database for Active Record
 gem 'mysql2'
@@ -62,7 +62,7 @@ gem 'pdf-reader'
 gem 'yomu'
 
 gem 'friendly_id', '~> 5.1.0'
-gem 'cancan'
+gem 'cancancan', '~> 1.10'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 

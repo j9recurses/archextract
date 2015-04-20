@@ -32,7 +32,11 @@ class CollectionsController < ApplicationController
   def create
     #start off the queue rake jobs:work
     #mycollection, myreturn = Collection.parse_collection_params(collection_params, params)
+   puts collection_params.inspect
+   puts "here"
     @collection = Collection.new(collection_params)
+    puts "broke here"
+    puts @collection.inspect
     @collection[:src_datadir] = collection_params[:name].gsub(/\s+/, "_")
     @collection[:status] = 'uploading files'
     if @collection.save()
@@ -84,15 +88,17 @@ class CollectionsController < ApplicationController
   def collection_params
     params.require(:collection).permit(
       :name,
+      :acquisition_source,
       "acquisition_date(1i)",
       "acquisition_date(2i)",
       "acquisition_date(3i)",
-      :acquisition_source,
       :src_datadir,
       :lib_path,
       :libserver,
       :notes,
       :is_processed,
-    )
+      :slug,
+      :acquisition_date,
+      :status)
   end
 end
