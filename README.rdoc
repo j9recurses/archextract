@@ -1,28 +1,33 @@
 == README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+#ArchExtract:
+##An Information Extraction and Text Exploration Tool for Digital Collections
 
 
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+**ArchExtract is web application that enables archivists and researchers to perform topic modeling, keyword and named entity extraction on a text collection. The web application automates and packages a number of
+existing natural language processes and algorithms for the researcher or archivist.
+Using automated text analysis as the starting point, ArchExtract illuminates the scope and content of a digital text collection and provides
+an web-based interface for text exploration. **
+
+
+##This app requires the following:
+
+### Python libraries
+scipy, numpy, nltk
+
+### Java Dependencies
+* you need to have java installed on the server
+
+###Installing Mallet
+* Mallet is open source software used for topic modeling
+* you can download it here at [http://mallet.cs.umass.edu/download.php]
+* unzip the dowload file
+* put %MALLET_HOME% in your path- needs to point to bin/mallet
+
+##Email Server
+-- this uses a email server; you can either use google or use an email server installed on the server from whe
+from where this is run
+
+
+
+
