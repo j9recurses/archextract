@@ -1,0 +1,18 @@
+  <div class = "item_h1_signup">Change Your Password For ArchExtract</div>
+
+<%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
+  <%= f.error_notification %>
+
+  <%= f.input :reset_password_token, as: :hidden %>
+  <%= f.full_error :reset_password_token %>
+
+  <div class="form-inputs">
+    <%= f.input :password, label: "New password", required: true, autofocus: true, :label_html => { :class => 'field' } %>
+    <%= f.input :password_confirmation, label: "Confirm your new password", required: true, :label_html => { :class => 'field' }  %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit, "Change my password" %>
+  </div>
+<% end %>
+

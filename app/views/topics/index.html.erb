@@ -1,0 +1,35 @@
+
+<div class = "item_header"><h2> <%=@collection.name.titleize%> Collection: <%= @extract_topic[:routine_name].titleize %> </div>
+
+<div class="apple_pagination">
+    <div class="page_info">
+    </div>
+    <%= will_paginate @topics, :container => false %>
+    <div class = "tinybreak">
+    <%= link_to 'Go Back to Topic Model Home', extract_topics_path %>
+    </div>
+  </div>
+    <div class="bottom_padding"></div>
+
+            <% @topics.each do |t| %>
+            <h5><%= link_to "Topic " +t[:topic_number] + ": ", extract_topic_topic_path( t[:extract_topic_id], t[:id]) %></h5>
+            <%=  t[:name]  %>
+              </br>
+              <%end%>
+
+<div class="top_padding"></div>
+<div class="apple_pagination">
+  <%= @extract_topic[:routine_name].titleize %>
+    <div class="page_info">
+      <%= page_entries_info @topics %>
+    </div>
+    <%= will_paginate @topics, :container => false %>
+    <div class = "tinybreak">
+    <%= link_to 'Go Back to Topic Model Home',  extract_topics_path %>
+  </div>
+  </div>
+  <div class="bottom_padding"></div>
+
+</div>
+
+<div id = "extra_push"></div>

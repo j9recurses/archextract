@@ -1,0 +1,40 @@
+
+
+
+<div id = "ner1">
+<div class = "item_h_other"> <%= @ner[:name] %>
+
+<%  if not @similar_items.nil? %>
+<div id = "similiar_docs"> Similar terms:
+  <% counter = 0 %>
+  <% @similar_items.each do | sm_item| %>
+   <% if counter !=  @similar_items.size()  -1 %>
+  <%= link_to sm_item[1] + ",", extract_ner_ner_path(@collection[:id], sm_item[0]) %>
+  <% counter = counter +1  %>
+  <% else %>
+  <%= link_to sm_item[1], extract_ner_ner_path(@collection[:id], sm_item[0]) %>
+<%end%>
+<%end%>
+</div>
+<%end%>
+
+ <h5> Appears <%= @ner[:count] %> times in the following documents: </h5>
+<% @thenerdocs.each do |k,v| %>
+    <% docct = (v[0] + " &#8674; " + v[1].to_s).html_safe %>
+<div class="doclink"> <%= link_to docct, document_path(@collection[:id], k) %></div>
+<%end%>
+</div>
+</div>
+
+<div class="apple_pagination">
+    <div class="page_info">
+    </div>
+    <%= will_paginate @thenerdocs, :container => false %>
+    <div class = "tinybreak">
+  </div>
+  </div>
+    <div class="bottom_padding"></div>
+
+ <div class="link_nav">
+<%= link_to 'Back', extract_ner_ner_path(@collection[:id]) %>
+</div>

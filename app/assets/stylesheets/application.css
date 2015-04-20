@@ -1,0 +1,256 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ * *= require bootstrap_and_overrides
+
+ *= require_self
+ *= require_tree .
+ */
+
+#extra_push{
+  clear: both 
+}
+
+#flash_msgs{
+padding-top:3%;
+margin-bottom:-4%;
+}
+
+
+
+.item_header{
+padding-top:3.5%;
+margin-bottom:-1.25%;
+}
+
+
+.link_nav{
+padding-top:1.75%;
+  font-size:160%;
+}
+
+.link_nav2{
+  font-size:160%;
+}
+
+
+.item_h_other{
+color:#545454;
+font-family: 'Open Sans', sans-serif;
+font-size:22px;
+padding-top:10px;
+padding-bottom:20px;
+}
+
+
+
+
+
+#topbreak{
+  padding-top: 50px;
+}
+
+
+
+
+
+.field{
+font-size: 100%;
+font-family: 'Open Sans', sans-serif;
+margin-bottom:2px;
+margin-top:15px;
+font-style:none;
+}
+
+.description{
+font-size: .8em;
+}
+
+.preform h3 {
+padding:10px;
+background-color:#D8E0CE;
+color:#545454;
+font-family: 'Open Sans', sans-serif;
+font-size:18px;
+}
+
+
+
+.newec_link
+{
+padding-top: 20px;
+font-size: 20px;
+}
+
+
+
+
+
+
+.collection_all  {
+ padding: 20px;
+}
+
+.collection_all h1,h2 {
+padding-top: 5px;
+padding-bottom: 20px;
+}
+
+.collection_all a:hover {
+background-color:LightGreen;
+}
+
+.collections_break{
+  padding-top:25px;
+}
+.collection_single_head {
+  padding-bottom:5px;
+  font-weight:bold;
+  font-size:15px;
+}
+
+.collection_single_item {
+  padding-bottom:20px;
+}
+
+.collection_single {
+   border: 1px solid #000000;
+   padding-left:15px;
+}
+
+.collection_nav {
+  padding-top:10px;
+  font-size:20px;
+}
+
+#mdformsp {   padding-top:10px;
+}
+
+footer {
+    border-top-style:solid;
+    padding-top:10px;
+    border-top-width:1px;
+    border-top-color:#DDDDDD;
+    font-size:10px;
+}
+
+
+.footercenter{
+margin-left: auto;
+   margin-right: auto;
+    width: 95%;
+}
+
+#mynavarch{
+  font-size:60px;
+  color:#FFFFFF;
+  text-shadow: 4px 4px 0px rgba(0,0,0,0.1);
+  font-family: 'Roboto Condensed', sans-serif;
+  float:left;
+  padding-top:4%;
+  padding-right:55%;
+  padding-bottom:1%;
+  padding-left:2%
+}
+
+#user_sgn{
+  font size:6;
+  font-family: 'Open Sans', sans-serif;
+   font-style: italic;
+  float:left;
+  padding-left:30px;
+  padding-top:20px;
+  padding-bottom:2px;
+}
+
+#mynavarch_pic{
+  padding-top:1%;
+  float:left;
+  padding-bottom:1%;
+}
+
+.mynavitems{
+  padding-bottom:2px;
+  padding-top:20px;
+   font-family: 'Open Sans', sans-serif;
+   font-size:15px;
+   float:left;
+   padding-left:12px;
+}
+
+.myfooterpad{
+padding-bottom:100px;
+}
+
+.mynav{
+   background-color:#D8E0CE;
+}
+.original_doc{
+  background-image: url(/images/paperbackground.jpg);
+}
+
+.original_doc_padding {
+  padding: 15px;
+}
+
+.bottom_padding{
+  padding-bottom: 10px;
+}
+.top_padding{
+  padding-top:15px;
+}
+.apple_pagination {
+  background: #f1f1f1;
+  border: 1px solid #e5e5e5;
+  text-align: center;
+  padding: 1em;
+  cursor: default;
+ }
+  .apple_pagination a, .apple_pagination span {
+    padding: 0.2em 0.3em; }
+  .apple_pagination .disabled {
+    color: #aaaaaa; }
+  .apple_pagination .current {
+    font-style: normal;
+    font-weight: bold;
+    background-color: #bebebe;
+    display: inline-block;
+    width: 1.4em;
+    height: 1.4em;
+    line-height: 1.5;
+    -moz-border-radius: 1em;
+    -webkit-border-radius: 1em;
+    border-radius: 1em;
+    text-shadow: rgba(255, 255, 255, 0.8) 1px 1px 1px; }
+  .apple_pagination a {
+    text-decoration: none;
+    color: black; }
+    .apple_pagination a:hover, .apple_pagination a:focus {
+      text-decoration: underline; }
+
+
+
+
+
+.item_h1_signup{
+  color:#545454;
+font-family: 'Open Sans', sans-serif;
+font-size:26px;
+padding-top:30px;
+padding-bottom:20px;
+padding-right:20px;
+}
+
+#similiar_docs{
+color:#545454;
+font-family: 'Open Sans', sans-serif;
+font-size:14px;
+padding-left: 20px;
+font-style: italic;
+}

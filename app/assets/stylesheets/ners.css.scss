@@ -1,0 +1,27 @@
+// Place all the styles related to the ners controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.nercolumn
+{
+  width:210px;
+  float:left;
+  border:1px solid;
+  padding-left:5px;
+  height:1000px;
+}
+
+#ner1{
+background-color:#E8E8EE;
+color:#545454;
+line-height:23px;
+  font: arial;
+font-size:22px;
+padding:10px;
+}
+
+.doclink
+{
+  font-size:14px;
+
+}

@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  nertype: MyString
+  name: MyString
+  docs: 
+  count: 1
+
+two:
+  nertype: MyString
+  name: MyString
+  docs: 
+  count: 1

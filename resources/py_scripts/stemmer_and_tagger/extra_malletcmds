@@ -1,0 +1,10 @@
+
+
+mallet import-dir --input /home/j9/Desktop/bancroft/john_muir/data/plaintxt2 --output corpus.mallet --keep-sequence --remove-stopwords
+
+mallet train-topics --input  corpus.mallet  --num-topics 50 --output-state topic_state.gz --output-topic-keys topic_keys.txt --output-doc-topics doc_topics.txt
+
+python gen-networked-corpus.py --input-dir /home/j9/Desktop/tests --output-dir /var/www/john_muir
+
+
+

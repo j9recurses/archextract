@@ -1,0 +1,37 @@
+
+<div id = "topic_doc">
+ <%= @collection[:name] + " Collection " %>  |  <%= @docname %>
+</div>
+
+<div class = "item_header"><h2>Current Topic: <%= @assoc_topics.values[0] %></h2></div>
+
+</br>
+<h4><a href="<%=@collection[:libserver]+ @collection[:lib_path] + @document[:name] +
+ @document[:filetype]%>" target="_blank">Original Document Contents for <%= @document[:name] %></a>
+</h4>
+
+<iframe src="<%=@collection[:libserver]+ @collection[:lib_path] + "/" + @document[:name] + @document[:filetype]%>"
+  style="width:718px; height:700px;" frameborder="0"></iframe>
+
+
+
+<div class="topicsidebar">
+ <div class="well sidebar-nav">
+<h5> <%= @extract_topic[:routine_name]  %></h5>
+<h5>Top 50 Topics Associated with this Document: </h5>
+<ul class="nav nav-list">
+<% counter = 0  %>
+<% @assoc_topics.each do |k, v| %>
+  <% if counter == 0 %>
+<li>CURRENT TOPIC: <%= link_to v, extract_topic_topic_path( @extract_topic[:id], k) %> &#8674;
+   <%= @topic_scores[counter].round(5) %> </br></br> ADDITIONAL TOPICS:  </li>
+     <% counter = counter + 1   %>
+    <%else%>
+     <li> <%= link_to v, extract_topic_topic_path(@collection[:id], @extract_topic[:id], k) %> &#8674;
+   <%= @topic_scores[counter].round(5) %>   </li></br>
+     <% counter = counter + 1   %>
+     <%end%>
+              </ul>
+    <%end%>
+  </div>
+</div>

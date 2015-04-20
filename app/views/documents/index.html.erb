@@ -1,0 +1,39 @@
+
+
+<div class = "item_header"><h2> Document Listing</h2></div>
+<%counter = 0 %>
+ <% @document_groups.each do | grp | %>
+
+   <div class="panel-group" id="accordion">
+      <div class="panel panel-default">
+          <div class="panel-heading">
+              <h4 class="panel-title">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse<%=counter%>"> The <%= grp["collection_name"] %> Collection</a>
+              </h4>
+          </div>
+          <div id="collapse<%=counter%>" class="panel-collapse collapse out">
+              <div class="panel-body">
+                <% grp["document_group"].each do |document| %>
+                <p>
+                <%= link_to document[:name], document_path(document) %>
+                <p>
+                <%end%>
+                <div class="apple_pagination">
+                    <div class="page_info">
+                      <%= page_entries_info grp["document_group"]  %>
+                    </div>
+                    <%= will_paginate grp["document_group"]  %>
+                    </br>
+
+                  </div>
+              </div>
+          </div>
+      </div>
+    </br>
+  </br>
+      <%counter = counter +1 %>
+  <%end %>
+
+  <div class="link_nav2">
+  <%= link_to "Collection Home", collections_path%>
+  </div>

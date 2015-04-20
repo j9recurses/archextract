@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  collection_id: 
+  preprocess_id: 
+  name: MyText
+  docs: MyText
+
+two:
+  collection_id: 
+  preprocess_id: 
+  name: MyText
+  docs: MyText

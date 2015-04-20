@@ -1,0 +1,33 @@
+<div class = "item_header"><h2> Processed Topic Models</h2> </div>
+
+
+  <table>
+  <thead>
+    <tr>
+      <th>Collection</th>
+      <th>Topic Model</th>
+      <th>Status</th>
+      <% if can? :create, ExtractTopic %>
+      <th>Delete</th>
+      <%end%>
+    </tr>
+  </thead>
+  <tbody>
+    <% @extract_topics.each do |extract| %>
+    <tr>
+      <td> <%= extract[:name].titleize %> </td>
+      <td> <%= link_to extract[:routine_name],  extract_topic_topics_path( extract[:id]) %> </td>
+      <td> <%= extract[:status].titleize %> </td>
+    <% if can? :create, ExtractTopic %>
+    <td><%= link_to 'Delete', extract_topic_path( extract[:id]) , method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <%end%>
+  </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
+
+    <div class="link_nav">
+  <%= link_to 'Add a New Topic Model',  new_extract_topic_path %>
+</div>

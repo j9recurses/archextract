@@ -1,0 +1,49 @@
+// Place all the styles related to the collections controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+
+
+#item_header_collection{
+padding-top:1.5%;
+margin-bottom:-3%;
+}
+
+#single_separator{
+  padding-bottom:2%;
+}
+
+
+.action_item{
+  margin-top:-2%;
+  float:left;
+  font-size:18px;
+  padding-right:1%;
+}
+
+#collection_single_head {
+  padding-bottom:5px;
+  margin-right:50%;
+  font-weight:bold;
+  font-size:16px;
+}
+
+#collection_single_item {
+  padding-bottom:20px;
+}
+
+#singlespacer{
+  padding-bottom:8%;
+}
+
+#collection_single {
+   border: 1px solid #545454;
+   padding-left:2%;
+   width:80%;
+}
+
+#collection_nav {
+  padding-top:10px;
+  font-size:20px;
+}

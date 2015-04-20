@@ -1,0 +1,22 @@
+<div id="singlespacer"></div>
+    <div id="collection_single">
+        <div class = "item_header_collection"><h2>The <%= @collection.name.titleize %> Collection</div>
+          <div class = 'action_item'><%= link_to "Browse Documents ||", documents_path %></div>
+          <div class = 'action_item'><%= link_to "PreProcesses ||",  preprocesses_path(@collection.id) %></div>
+          <div class = 'action_item'><%= link_to "Topic Models ||",   extract_topics_path(@collection.id) %></div>
+          <div class = 'action_item'><%= link_to "Named Entities||",  extract_ners_path(@collection.id) %></div>
+          <div class = 'action_item'><%="Keywords"%></div>
+      <div id= "single_separator"></div>
+        <%= content_tag(:div,"Acquisition Date:".titleize , id:"collection_single_head")%>
+        <%= content_tag(:div, @collection.acquisition_date, id:"collection_single_item") %>
+        <%= content_tag(:div,"Acquisition Source:".titleize , id:"collection_single_head")%>
+        <%= content_tag(:div, @collection.acquisition_source, id:"collection_single_item") %>
+        <%= content_tag(:div,"Collection Notes:".titleize, id:"collection_single_head")%>
+        <%= content_tag(:div, @collection.notes, id:"collection_single_item") %>
+      </div>
+
+    <div class="link_nav">
+      <%= link_to 'Back', collections_path %>|
+      <%= link_to 'Edit', edit_collection_path(@collection) %>|
+      <%= link_to 'Delete', @collection, method: :delete, data: { confirm: 'Are you sure?' } %>
+    </div>

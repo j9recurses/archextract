@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  lda: false
+  num_of_topics: 1
+  ner_people: false
+  ner_organizations: false
+  ner_places: false
+  ner_dates: false
+
+two:
+  lda: false
+  num_of_topics: 1
+  ner_people: false
+  ner_organizations: false
+  ner_places: false
+  ner_dates: false

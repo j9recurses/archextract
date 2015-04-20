@@ -1,0 +1,17 @@
+
+
+<div class="form-inputs">
+  <%= simple_form_for(@collection) do |f| %>
+  <%= render 'layouts/errors', object: f.object %>
+
+    <%= f.input :name , label: "Collection Name", :label_html => { :class => 'field' }%>
+    <%= f.input :acquisition_source, label: "Acquisition Source", :label_html => { :class => 'field' } %>
+    <%= f.input :acquisition_date, as: :date, label: 'Acquisition Date', :label_html => { :class => 'field' }%>
+    <%= f.input :libserver, collection:['http://digitalassets.lib.berkeley.edu'], label: 'Library server where the collection is located', :label_html => { :class => 'field' }%>
+    <%= f.input :lib_path, label: "Path to files on the the library server", hint: 'EX: /somepath/ucb/text/', :input_html => {:style => 'width: 500px'},  :label_html => { :class => 'field' }%>
+    <%= f.input :notes, as: :text,  label: "Collection Notes",  :label_html => { :class => 'field' }, :input_html => {:style => 'width: 500px; height:250px;'}%>
+    <div class="form-actions">
+    <%= f.button  :submit, "Submit" %>
+    </div>
+  </div>
+<% end %>

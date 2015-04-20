@@ -1,0 +1,20 @@
+
+
+<%= simple_form_for([ @extract_ner ]) do |f| %>
+<%= f.error_notification %>
+
+<div class="form-inputs">
+
+ <%= f.input :collection_id,  collection: @collections_array,  prompt: "Select  a collection to use:", label: "Select a Collection to Process" ,:label_html => { :class => 'field' }   %>
+
+  <%= f.input :ner_peeps, inline_label:"Extract People, Places, Organizations and Dates from the Collection", label:false %>
+  <%= f.input :keywords,  inline_label: "Extract Keywords from the Collection", as: :boolean, label:false %>
+
+</div>
+
+  <div class="form-actions">
+  <%= f.button :submit,  'Submit'%>
+  </div>
+
+
+<% end %>

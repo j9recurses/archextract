@@ -1,0 +1,33 @@
+<div class = "item_header"><h2> Pre-Processeses</h2></div>
+    <table>
+      <thead>
+        <tr>
+          <th>Collection</th>
+          <th>Routine Name</th>
+          <th>
+            Status
+          </th>
+          <th> Date </th>
+          <% if can? :delete, Preprocess %>
+          <th>Delete</th>
+          <%end%>
+        </thead>
+        <tbody>
+          <% @preprocesses.each do |preprocess| %>
+            <tr>
+              <td><%= preprocess[:name] %></td>
+              <td><%= preprocess[:routine_name] %></td>
+              <td><%=preprocess[:status].titleize %></td>
+              <td><%=preprocess[:updated_at].to_datetime.strftime("%Y-%m-%d")%></td>
+              <% if can? :create, Collection %>
+              <td><%= link_to 'Delete', preprocesses_path(preprocess[:id]) , method: :delete, data: { confirm: 'Are you sure?' } %></td>
+              <%end%>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% if can? :create, Preprocess %>
+    <div class="link_nav">
+      <%= link_to 'Add a New PreProcess', new_preprocess_path %>
+    </div>
+    <%end%>

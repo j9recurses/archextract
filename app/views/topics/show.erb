@@ -1,0 +1,20 @@
+<div class="topline"> <%= @collection[:name]  + " Collection | " +@extract_topic[:routine_name] %> </div>
+
+
+<div id = "topic_header">
+ <%="Topic " + @topic[:topic_number] + ": " + @topic[:name] %>
+ </div>
+
+
+<h5>Top 50 documents associated with this topic: </h5>
+
+<% counter = 0 %>
+<% @doc_dict.each do |k, v| %>
+      <div class = "doc1">
+      <%= link_to v, extract_topic_topic_doc_path( @extract_topic[:id], k) %>
+      &#8674; <%= @doc_scores[counter].round(5) %>
+      </div>
+                      <% counter = counter + 1   %>
+<%end%>
+
+<%= link_to "&#8674; GO BACK TO TOPIC LISTING".html_safe, extract_topic_topics_path( @extract_topic[:id]) %>

@@ -1,0 +1,29 @@
+
+  <div class = "item_header"><h2>Collection Listing</h2></div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Collection Name</th>
+          <th>Acquisition Date</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @collections.each do |collection| %>
+          <tr>
+            <td><%= link_to collection.name, collection %></td>
+            <td><%= collection.acquisition_date %></td>
+            <td><%= collection.status %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+
+
+  <% if can? :create, Collection %>
+  <div class="link_nav">
+    <%= link_to 'Add a New Collection', new_collection_path %>
+  </div>
+  <%end%>

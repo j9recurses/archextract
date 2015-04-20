@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Lda:</strong>
+  <%= @extract.lda %>
+</p>
+
+<p>
+  <strong>Num of topics:</strong>
+  <%= @extract.num_of_topics %>
+</p>
+
+<p>
+  <strong>Ner people:</strong>
+  <%= @extract.ner_people %>
+</p>
+
+<p>
+  <strong>Ner organizations:</strong>
+  <%= @extract.ner_organizations %>
+</p>
+
+<p>
+  <strong>Ner places:</strong>
+  <%= @extract.ner_places %>
+</p>
+
+<p>
+  <strong>Ner dates:</strong>
+  <%= @extract.ner_dates %>
+</p>
+
+<%= link_to 'Edit', edit_extract_path(@extract) %> |
+<%= link_to 'Back', extracts_path %>

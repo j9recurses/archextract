@@ -1,0 +1,8 @@
+
+<%= @extract_topic.errors.full_messages.first if @extract_topic.errors.any? %>
+
+
+<div class = "item_header"><h2> Create a New Topic Model </h2></div>
+  <%= render 'form' %>
+  <%= link_to 'Topic Modeling Home',  extract_topics_path %>
+</div>
