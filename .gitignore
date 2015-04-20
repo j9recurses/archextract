@@ -31,7 +31,7 @@ config/application.yml
 
 
 
-/public
+/public/src_corpora
 /src
 .DS_Store
 /test
