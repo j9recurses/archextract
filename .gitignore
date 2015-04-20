@@ -34,3 +34,4 @@ config/application.yml
 /public
 /src
 .DS_Store
+/test
