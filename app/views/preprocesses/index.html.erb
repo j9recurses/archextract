@@ -20,12 +20,13 @@
               <td><%=preprocess[:status].titleize %></td>
               <td><%=preprocess[:updated_at].to_datetime.strftime("%Y-%m-%d")%></td>
               <% if can? :create, Collection %>
-              <td><%= link_to 'Delete', preprocesses_path(preprocess[:id]) , method: :delete, data: { confirm: 'Are you sure?' } %></td>
-              <%end%>
+               <td><%= link_to 'Delete', preprocesses_path( preprocess[:id]) , method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                 <%end%>
             </tr>
           <% end %>
         </tbody>
       </table>
+
     <% if can? :create, Preprocess %>
     <div class="link_nav">
       <%= link_to 'Add a New PreProcess', new_preprocess_path %>

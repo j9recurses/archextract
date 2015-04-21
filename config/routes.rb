@@ -3,7 +3,8 @@ Archextract::Application.routes.draw do
 
   devise_for :users, :path_names => { :sign_up => "register", :sign_in => 'login'}
       resources :documents
-      resources :preprocesses
+      resources :preprocesses do
+      end
 
       resources :extract_topics do
          resources :topics

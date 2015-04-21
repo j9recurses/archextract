@@ -27,6 +27,11 @@ class PreprocessesController < ApplicationController
 
   # POST /preprocesses
   def create
+    puts "********"
+    puts preprocess_params[:collection_id]
+    puts preprocess_params
+    puts "******"
+    @collection = Collection.find(preprocess_params[:collection_id])
     pp = Preprocesscollectionopts.new(preprocess_params, @collection )
     @preprocess, @error = pp.get_preprocess_stem_tag_cmd_short
     pp_exists, pp_error = pp.preprocess_exists?(@preprocess, @collection)
@@ -122,7 +127,6 @@ class PreprocessesController < ApplicationController
       :status,
       :tfidf_btm,
       :tfidf_score,
-      :pos => []
-    ).merge(id: params[:id], collection_id: params[:collection_id])
+      :pos => [])
   end
 end

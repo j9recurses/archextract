@@ -19,6 +19,7 @@ class ExtractTopicsController < ApplicationController
     @extract_topic = ExtractTopic.new
     @preprocesses = Preprocess.where(status:"complete")
     @preprocesses_array = {}.tap{ |h| @preprocesses.each{ |c| h[c.routine_name] = c.id } }
+    puts @preprocesses_array
   end
 
   # GET /preprocesses/1/edit
@@ -41,7 +42,7 @@ class ExtractTopicsController < ApplicationController
         mlin, mlout  = ff.cmd_line_args
         dbcmd = ff.cmd_line_args_db(@extract_topic)
         Delayed::Job.enqueue ExtractTopicRunModel.new(mlin, mlout, dbcmd, @extract_topic, @collection)
-        redirect_to collection_extract_topics_path
+        redirect_to extract_topics_path
       else
           flash[:error] = "Could not save process topic model"
           redirect_to collection_extract_topics_path
@@ -64,11 +65,11 @@ class ExtractTopicsController < ApplicationController
   # DELETE /extracts/1
   # DELETE /extracts/1.json
   def destroy
-    #  @extract.destroy
-    #  respond_to do |format|
-    #    format.html { redirect_to extracts_url }
+      @extract.destroy
+      respond_to do |format|
+      format.html { redirect_to extract_topics_path }
     #   format.json { head :no_content }
-    # end
+      end
   end
 
   private

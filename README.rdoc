@@ -13,7 +13,7 @@ an web-based interface for text exploration. **
 ##This app requires the following:
 
 ### Python libraries
-scipy, numpy, nltk
+scipy, numpy, nltk, la (larry), bottleneck, mysql-connector-python
 
 ### Java Dependencies
 * you need to have java installed on the server
