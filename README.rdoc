@@ -6,24 +6,30 @@
 *ArchExtract is web application that enables archivists and researchers to perform topic modeling, keyword and named entity extraction on a text collection. The web application automates and packages a number of
 existing natural language processes and algorithms for the researcher or archivist.
 Using automated text analysis as the starting point, ArchExtract illuminates the scope and content of a digital text collection and provides
-an web-based interface for text exploration. **
+an web-based interface for text exploration.
 
 
 ===This app requires the following:
 
 === Python libraries
-scipy, numpy, nltk, la (larry), bottleneck, mysql-connector-python
+*scipy
+*numpy
+*nltk
+*la (larry)
+*bottleneck
+*mysql-connector-python
+
 
 === Java Dependencies
 * you need to have java installed on the server
 
-#Installing Mallet
+=== Installing Mallet
 * Mallet is open source software used for topic modeling
 * you can download it here at [http://mallet.cs.umass.edu/download.php]
 * unzip the dowload file
 * put %MALLET_HOME% in your path- needs to point to bin/mallet
 
-#Email Server
+=== Email Server
 -- this uses a email server; you can either use google or use an email server installed on the server from whe
 from where this is run
 
