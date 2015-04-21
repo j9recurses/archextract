@@ -18,6 +18,7 @@ an web-based interface for text exploration.
 * la (larry)
 * bottleneck
 * mysql-connector-python
+(use pip to install)
 
 
 === Java Dependencies
@@ -30,8 +31,7 @@ an web-based interface for text exploration.
 * put %MALLET_HOME% in your path- needs to point to bin/mallet
 
 === Email Server
-* this uses a email server; you can either use google or use an email server installed on the server from whe
-from where this is run
+* this uses a email server; you can either use google or use an email server installed on the server
 
 
 
