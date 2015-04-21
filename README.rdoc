@@ -1,7 +1,7 @@
 = README
 
 ==ArchExtract:
-==An Information Extraction and Text Exploration Tool for Digital Collections
+===An Information Extraction and Text Exploration Tool for Digital Collections
 
 
 **ArchExtract is web application that enables archivists and researchers to perform topic modeling, keyword and named entity extraction on a text collection. The web application automates and packages a number of
