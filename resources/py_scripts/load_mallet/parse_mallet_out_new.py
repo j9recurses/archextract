@@ -6,6 +6,10 @@ from optparse import OptionParser
 import mysql.connector
 from datetime import datetime
 import re
+import itertools
+import operator
+import os
+from itertools import izip_longest
 
 class Parse_Mallet_Out:
 
@@ -13,6 +17,8 @@ class Parse_Mallet_Out:
     self.final_docs = []
     self.final_tops = []
     self.collection_id = collection_id
+    print "******"
+    print self.collection_id
     self.preprocess_id = preprocess_id
     self.extract_id = extract_id
     self.dbpasswd = "mypass"
@@ -54,6 +60,7 @@ class Parse_Mallet_Out:
       for n in names:
         docsql = "insert into topic_doc_names (name) values( "
         docsql = docsql + "'"+n +"');"
+        print docsql
         cursor.execute(docsql)
         self.cnx.commit()
     elif typet == "tops":
@@ -83,10 +90,13 @@ class Parse_Mallet_Out:
       spamreader = csv.reader(csvfile, delimiter='\t')
       doc_name_list = []
       for row in spamreader:
-        fulldoc =  row[1][5:].strip()
-        docpathlist  = fulldoc.split("/")
-        docname = docpathlist.pop()
-        doc_name_list.append(docname)
+        if len(row) == 1:
+          next
+        else:
+          fulldoc =  row[1][5:].strip()
+          docpathlist  = fulldoc.split("/")
+          docname = docpathlist.pop()
+          doc_name_list.append(docname)
     typet = "docs"
     tup_doc_list = self.insert_names_into_db(doc_name_list, typet)
     return tup_doc_list
@@ -103,13 +113,45 @@ class Parse_Mallet_Out:
     tup_topic_list = self.insert_names_into_db(topic_name_list, typet)
     return tup_topic_list
 
+  def grouper(self, n, iterable, fillvalue=None):
+    "Collect data into fixed-length chunks or blocks"
+    args = [iter(iterable)] * n
+    return itertools.izip_longest(*args, fillvalue=fillvalue)
+
   #converts the mallet docs file to a matrix
-  def make_doc_model(self, docs_out):
-    dtop = genfromtxt(docs_out)
-    dtopl   = len(dtop)
-    cool =  len(dtop[1])
-    new_dtop = dtop[0:dtopl,2: cool ]
-    return new_dtop
+  def make_doc_model(self, doc_infile):
+    doctopic_triples = []
+    mallet_docnames = []
+    #top_infile
+    with open(doc_infile) as f:
+      f.readline()  # read one line in order to skip the header
+      for line in f:
+        linespt =  line.rstrip().split('\t')
+        docnum = linespt[0]
+        linespt.pop(0)
+        docname = linespt[0]
+        linespt.pop(0)
+        values =  linespt
+        mallet_docnames.append(docname)
+        for topic, share in self.grouper(2, values):
+          triple = (docname, int(topic), float(share))
+          doctopic_triples.append(triple)
+      # sort the triples
+    # triple is (docname, topicnum, share) so sort(key=operator.itemgetter(0,1))
+    # sorts on (docname, topicnum) which is what we want
+    doctopic_triples = sorted(doctopic_triples, key=operator.itemgetter(0,1))
+    # sort the document names rather than relying on MALLET's ordering
+    mallet_docnames = sorted(mallet_docnames)
+    # collect into a document-term matrix
+    num_docs = len(mallet_docnames)
+    num_topics = len(doctopic_triples) // len(mallet_docnames)
+    # the following works because we know that the triples are in sequential order
+    doctopic = np.zeros((num_docs, num_topics))
+    for i, (doc_name, triples) in enumerate(itertools.groupby(doctopic_triples, key=operator.itemgetter(0))):
+      doctopic[i, :] = np.array([share for _, _, share in triples])
+    print doctopic
+    return doctopic
+
 
 
   #gets the topics associated with a document. sorts the docs in desc order with regard to mallet output score
@@ -248,13 +290,27 @@ topsf = topicsfile
 #get the labels
 doc_names =  po.get_doc_names(docsf)
 topic_names = po.get_topics(topsf)
+print "*****topic names*****"
+print len(topic_names)
+print topic_names
+print "********"
+
+print "*******document names*******"
+print len(doc_names)
+print doc_names
+print "********"
 
 #set up the larry label
 label = [doc_names, topic_names]
 
-
+#print "******label****"
+#print label
+#print "****"
 #make a matrix
 new_dtop = po.make_doc_model(docsf)
+print "****************"
+
+print new_dtop[0][0]
 #make a larry object by copying the matrix
 lar = larry(new_dtop.copy(), [list(l) for l in label])
 

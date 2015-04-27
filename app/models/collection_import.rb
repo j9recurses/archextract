@@ -35,7 +35,14 @@ CollectionImport  = Struct.new(:collection) do
       flist << f.text
     end
     fnlistgroup = flist.group_by{ |f| File.extname(f) }
-    if fnlistgroup['.pdf'].size() > 0
+    puts "*****"
+    puts fnlistgroup
+    puts fnlistgroup[".doc"]
+    puts "made it here"
+    if fnlistgroup.has_key?(".pdf")
+      return fnlistgroup,0
+    elsif fnlistgroup.has_key?(".doc")
+      puts "in here"
       return fnlistgroup,0
     else
       error = "Error: No files listed on that path"
@@ -55,8 +62,10 @@ CollectionImport  = Struct.new(:collection) do
               plaintextsuccess = false
               begin
                 puts inputsrc_address+ fn
+                encoded_url = URI.encode(inputsrc_address+ fn)
+                decoded_url = URI.parse(encoded_url)
                 #grab the file off the ftp
-                yomu = Yomu.new inputsrc_address+ fn
+                yomu = Yomu.new decoded_url
                 pagetext = yomu.text
                 unless pagetext.nil?
                   goodtext = checkText(pagetext)

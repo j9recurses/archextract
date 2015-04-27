@@ -5,9 +5,10 @@ import sys, re, math, unicodedata
 from optparse import OptionParser
 import nltk
 from nltk.stem.wordnet import WordNetLemmatizer
-from nltk.tokenize.punkt import PunktWordTokenizer
 from nltk.stem.porter import *
 import os
+import nltk.data
+from nltk.tokenize import word_tokenize
 
 def remove_stopwords(text):
     # remove punctuation
@@ -17,14 +18,19 @@ def remove_stopwords(text):
             '»', '«', '°', '’']
     for c in chars:
         text = text.replace(c, ' ')
-    text = text.split()
+    text = text.decode('utf-8')
+    text = text.encode('ascii', 'ignore')
+    #text =  text.decode("utf8")
+    tokens = nltk.word_tokenize(text)
     stopwords = nltk.corpus.stopwords.words('english')
-    content = [w for w in text if w.lower().strip() not in stopwords]
+    content = [w for w in tokens if w.lower().strip() not in stopwords]
     return content
 
 #tokenize the text
 def tokenize(text):
-    tokens = PunktWordTokenizer().tokenize(text)
+    #tokens = PunktWordTokenizer().tokenize(text)
+    text =  text.decode("utf8")
+    tokens = nltk.word_tokenize(text)
     # don't return any single letters
     tokens = [t for t in tokens if len(t) > 1 and not t.isdigit()]
     return tokens
@@ -134,11 +140,11 @@ def write_results_to_file(result, outdir, f, mycmdopts_fname, usefirst):
     fnew.write(f + "\n\n")
     for l in result:
         if usefirst:
-            print l
-            fnew.write( l + '\n')
+            #print l
+            fnew.write( l.encode('ascii', 'ignore') + '\n')
         else:
-            print l[0]
-            fnew.write( l[0] + '\n')
+            #print l[0]
+            fnew.write(l[0].encode('ascii', 'ignore') + '\n')
     fnew.close()
 
 ####Main######
@@ -210,7 +216,7 @@ if pos:
         pos_str = '-'.join(pos)
 
 counter = 0
-for f in all_files:
+for f in all_files[:2]:
     mycmdopts = ''
     doc_words_pre    = open(f).read()
     doc_words = get_doc_words(doc_words_pre, stopwords)

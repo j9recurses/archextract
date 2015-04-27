@@ -2,9 +2,6 @@ class PreprocessesController < ApplicationController
   before_filter :authenticate_user!
   before_action :set_preprocess, only: [:show, :edit, :update, :destroy]
 
-
-
-
   # GET /preprocesses
   def index
     @preprocesses = Preprocess.joins(:collection).where.not(routine_name: "plain text").select('preprocesses.id, preprocesses.routine_name, collections.name, preprocesses.status, preprocesses.updated_at')

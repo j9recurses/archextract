@@ -5,8 +5,10 @@ import os
 import sys, re, math, unicodedata
 from optparse import OptionParser
 import nltk
+import nltk.data
 from nltk.stem.wordnet import WordNetLemmatizer
 from nltk.tokenize.punkt import PunktSentenceTokenizer
+from nltk.tokenize import word_tokenize
 """
 File: tfidf.py
 
@@ -131,9 +133,17 @@ def write_results_to_file(result, outdir, f, mycmdopts_fname):
     fnew = open(fname,'w')
     ##fnew.write(f + "\n\n")
     for l in result:
-        fnew.write(l + '\n')
+        fnew.write(l.encode('ascii', 'ignore') + '\n')
     fnew.close()
 
+
+def rarewords(global_terms_in_doc):
+#You'll have to do 2 passes through the file:
+#In pass 1:
+#Build a dictionary using the words as keys and their occurrences as values (i.e. each time you read a word, add 1 to its value in the dictionary)
+#Then pre-process the list to remove all keys with a value greater than 1. This is now your "blacklist"
+#In pass 2:
+#Read through the file again and remove any word that has a match in the blacklist.
 # __main__ execution
 
 
@@ -220,7 +230,7 @@ all_files = [os.path.join(dp, f) for dp, dn, filenames in os.walk(basedir) for f
 num_docs  = len(all_files)
 
 print('initializing..')
-for f in all_files:
+for f in all_files[:2]:
     #print f
     # local term frequency map
     terms_in_doc = {}
@@ -228,7 +238,9 @@ for f in all_files:
     if stopwords:
         doc_words    = remove_stopwords(doc_words)
     else:
-        doc_words    = nltk.tokenize(doc_words)
+        tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
+        doc_words = doc_words.decode("utf8")
+        doc_words    = word_tokenize(doc_words)
     # increment local count
     for word in doc_words:
         if word in terms_in_doc:
@@ -242,13 +254,22 @@ for f in all_files:
         else:
             global_term_freq[word]  = 1
     global_terms_in_doc[f] = terms_in_doc
-   # print('working through documents.. ')
+    print('working through documents.. ')
+
+#if remove_rare:
+ #   result = []
+  #  print global_terms_in_doc.keys()
+    #filter(lambda a: a != 2, x)
+    # iterate over terms in f, calculate their tf-idf, put in new list
+   # for (term,freq) in global_terms_in_doc.items():
+   #     print term
+   #     print freq
 
 #####Check to see if the user wants to exclude words that fall below the mean tf-idf score
 if  below_tm :
     median_list = []
     ##iterate through to get the mean tf-idf score
-    for f in all_files:
+    for f in all_files[:2]:
         result = get_tf_idf_score(f, global_terms_in_doc, num_docs)
         #convert list of list into a list of tuples
         tup_list = [tuple(l) for l in result]
@@ -257,7 +278,7 @@ if  below_tm :
     ##calculate the mean tf-idf score
     mean_tfidf = sum(median_list) / float(len( median_list))
     print "Mean tf-idf score: " + str(mean_tfidf)
-    for f in all_files:
+    for f in all_files[:2]:
         new_result =  []
         result = get_tf_idf_score(f, global_terms_in_doc, num_docs)
         result = sorted(result, reverse=True)
@@ -268,7 +289,7 @@ if  below_tm :
 
 #or if peeps want all the words above a tf-idf score, then do that
 else:
-    for f in all_files:
+    for f in all_files[:2]:
         result = get_tf_idf_score(f, global_terms_in_doc, num_docs)
         result = sorted(result, reverse=True)
          #if the tf-idf is above the mean, put it into the results list

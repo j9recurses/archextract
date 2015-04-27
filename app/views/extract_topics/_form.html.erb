@@ -4,6 +4,9 @@
 
 <div class="preform">
 <H3> Topic Modeling </H3>
+
+<%= f.input :collection_id, collection: @collections, prompt: "Select a Collection", :label_html => { :class => 'field' }  %>
+
 <div class="field">
  <%= f.input :preprocess_id,  collection: @preprocesses_array,  prompt: "Select  pre-process to use:", label: "Build a Topic Model" ,:label_html => { :class => 'field' }   %>
 </div>

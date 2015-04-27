@@ -35,7 +35,6 @@ class CollectionsController < ApplicationController
    puts collection_params.inspect
    puts "here"
     @collection = Collection.new(collection_params)
-    puts "broke here"
     puts @collection.inspect
     @collection[:src_datadir] = collection_params[:name].gsub(/\s+/, "_")
     @collection[:status] = 'uploading files'

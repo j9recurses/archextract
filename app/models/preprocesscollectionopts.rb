@@ -87,6 +87,7 @@ class Preprocesscollectionopts
 
   def rarewords
     if @preprocess[:rarewords]
+      puts "in here"
       @outdir << "rare_words"
       @routine << "Removed Rare Words"
     end

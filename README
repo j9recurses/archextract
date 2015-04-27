@@ -13,6 +13,7 @@ an web-based interface for text exploration. **
 
 ### Python libraries
 scipy, numpy, nltk, la (larry), bottleneck, mysql-connector-python
+* for nltk, you will also need to download the nltk data => nltk.download()
 
 ### Java Dependencies
 * you need to have java installed on the server

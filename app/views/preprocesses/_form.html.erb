@@ -9,7 +9,7 @@
   <h3> Stop Word Filtering </h3>
   </br>
   <%= f.input :stopwords, label: "Removes Stop Words: Removes common words like the, a, it", as: :radio_buttons, :label_html => { :class => 'field' }  %>
-  <%= f.input :rarewords,  label:"Removes Rare Words: Removes words that only appear once in the document",  as: :radio_buttons, :label_html => { :class => 'field' }%>
+  <%= f.input :rarewords, label: "Removes Rare Words: Removes words that only appear once in the document",  as: :radio_buttons, :label_html => { :class => 'field' }%>
   <%=f.input :custom_stoplist,  label:"Upload a Custom Stoplist: Removes words that apear in the uploaded list",  as: :file, :label_html => { :class => 'field' } %>
    </br>
   <h3> Tagging - Part of Speech Filtering </h3>
