@@ -1,10 +1,7 @@
-#deletepreprocess
-
-Deletepreprocess  = Struct.new(:preprocess_id) do
-
+Deletepreprocess  = Struct.new(:preprocess) do
   def perform
-    @preprocess = Preprocess.find(preprocess_id)
-    filedir = Rails.root.join(@preprocess[:file_dir])
+    @preprocess = Preprocess.find(preprocess)
+    filedir = Rails.root.join("public", "src_corpora", @preprocess[:file_dir])
     cool = FileUtils.rm_rf(filedir)
     if cool
       @preprocess.destroy

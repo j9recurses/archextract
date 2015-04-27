@@ -4,4 +4,5 @@ class Preprocess < ActiveRecord::Base
     greater_than_or_equal_to: 0, less_than_or_equal_to: 3
   } , :allow_nil => true
   has_many :extract_topics, :dependent => :destroy
+  validates :collection_id, presence: true
 end

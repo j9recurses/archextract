@@ -4,9 +4,9 @@ from __future__ import division
 import os
 import sys, re, math, unicodedata
 from optparse import OptionParser
+import nltk
 from nltk.stem.wordnet import WordNetLemmatizer
-from nltk.tokenize.punkt import PunktWordTokenizer
-
+from nltk.tokenize.punkt import PunktSentenceTokenizer
 """
 File: tfidf.py
 
@@ -64,7 +64,7 @@ def check_score(score):
 # function to tokenize text, and put words back to their roots
 def tokenize(text):
     #text = ' '.join(text)
-    tokens = PunktWordTokenizer().tokenize(text)
+    tokens =  nltk.word_tokenize(text)
      # lemmatize words. try both noun and verb lemmatizations
     lmtzr = WordNetLemmatizer()
     for i in range(0,len(tokens)):
@@ -228,7 +228,7 @@ for f in all_files:
     if stopwords:
         doc_words    = remove_stopwords(doc_words)
     else:
-        doc_words    = tokenize(doc_words)
+        doc_words    = nltk.tokenize(doc_words)
     # increment local count
     for word in doc_words:
         if word in terms_in_doc:

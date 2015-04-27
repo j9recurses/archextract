@@ -1,5 +1,5 @@
 class PreprocessesController < ApplicationController
-   before_filter :authenticate_user!
+  before_filter :authenticate_user!
   before_action :set_preprocess, only: [:show, :edit, :update, :destroy]
 
 
@@ -7,7 +7,7 @@ class PreprocessesController < ApplicationController
 
   # GET /preprocesses
   def index
-    @preprocesses = Preprocess.joins(:collection).where.not(routine_name: "plain text").select('preprocesses.routine_name, collections.name, preprocesses.status, preprocesses.updated_at')
+    @preprocesses = Preprocess.joins(:collection).where.not(routine_name: "plain text").select('preprocesses.id, preprocesses.routine_name, collections.name, preprocesses.status, preprocesses.updated_at')
   end
 
   # GET /preprocesses/1
@@ -28,31 +28,35 @@ class PreprocessesController < ApplicationController
   # POST /preprocesses
   def create
     puts "********"
-    puts preprocess_params[:collection_id]
-    puts preprocess_params
+    puts params
     puts "******"
-    @collection = Collection.find(preprocess_params[:collection_id])
-    pp = Preprocesscollectionopts.new(preprocess_params, @collection )
-    @preprocess, @error = pp.get_preprocess_stem_tag_cmd_short
-    pp_exists, pp_error = pp.preprocess_exists?(@preprocess, @collection)
-    if pp_exists
-      puts pp_error
-      flash[:error] =  pp_error
-      redirect_to new_preprocess_path(@collection[:id])
+    if preprocess_params[:collection_id].blank?
+      flash[:error] =  'Error: Please select a collection to run the preprocess on!'
+      redirect_to new_preprocess_path
     else
-      if @error.present?
-        flash[:message] =  @error
+      @collection = Collection.find(preprocess_params[:collection_id])
+      pp = Preprocesscollectionopts.new(preprocess_params, @collection )
+      @preprocess, @error = pp.get_preprocess_stem_tag_cmd_short
+      pp_exists, pp_error = pp.preprocess_exists?(@preprocess, @collection)
+      if pp_exists
+        puts pp_error
+        flash[:error] =  pp_error
         redirect_to new_preprocess_path(@collection[:id])
       else
-        @preprocess[:status] = "processing"
-        @preprocess = Preprocess.new(@preprocess)
-        if @preprocess.save
-          flash[:notice] =  'Thank you for your submission: The Pre-Process job for the '+  @collection[:name] + ' is now running. You will be sent an email when the job is done.'
-          Delayed::Job.enqueue Preprocesscollection.new(preprocess_params, params[:collection_id], @preprocess )
-          redirect_to preprocesses_path
+        if @error.present?
+          flash[:message] =  @error
+          redirect_to new_preprocess_path(@collection[:id])
         else
-          flash[:error] =  'Error: Your Preprocess routine for the ' + @collection[:name] + ' could not be completed!'
-          redirect_to preprocesses_path
+          @preprocess[:status] = "processing"
+          @preprocess = Preprocess.new(@preprocess)
+          if @preprocess.save
+            flash[:notice] =  'Thank you for your submission: The Pre-Process job for the '+  @collection[:name] + ' is now running. You will be sent an email when the job is done.'
+            Delayed::Job.enqueue Preprocesscollection.new(preprocess_params, @collection[:id], @preprocess )
+            redirect_to preprocesses_path
+          else
+            flash[:error] =  'Error: Your Preprocess routine for the ' + @collection[:name] + ' could not be completed!'
+            redirect_to preprocesses_path
+          end
         end
       end
     end
@@ -81,28 +85,14 @@ class PreprocessesController < ApplicationController
   # DELETE /preprocesses/1
   # DELETE /preprocesses/1.json
   def destroy
+    @preprocess = Preprocess.find(params[:id])
+    @collection = Collection.find(@preprocess[:collection_id])
+    @preprocess[:status] = "deleting"
+    @preprocess.save
+    cool = Delayed::Job.enqueue Deletepreprocess.new(@preprocess)
     flash[:notice] = "The  " + @collection[:name] + " Collection is being deleted. An email will be sent when this job is done."
-    cool = Delayed::Job.enqueue Deletepreprocess.new(@preprocess[:id])
-    puts cool
     redirect_to preprocesses_path
   end
-
-  # PATCH/PUT /preprocesses/1
-  # PATCH/PUT /preprocesses/1.json
-  def update
-    respond_to do |format|
-      if @preprocess.update(preprocess_params)
-        format.html { redirect_to @preprocess, notice: 'Preprocess was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: 'edit' }
-        format.json { render json: @preprocess.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-
-
 
   private
   # Use callbacks to share common setup or constraints between actions.
@@ -127,6 +117,6 @@ class PreprocessesController < ApplicationController
       :status,
       :tfidf_btm,
       :tfidf_score,
-      :pos => [])
+    :pos => [])
   end
 end

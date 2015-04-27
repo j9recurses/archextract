@@ -131,7 +131,7 @@ Preprocesscollection  = Struct.new( :preprocess, :collection_id, :preprocessdb) 
   #checks and makes a dir for a  collection
   def check_and_make_dir(mydir_base, mydir)
     if FileTest::directory?(mydir)
-      puts "error here"
+      puts  here"
       @error = "Error: A directory for the collection you entered already exists- Please try again"
       return false
     else

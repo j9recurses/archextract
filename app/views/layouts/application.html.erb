@@ -27,13 +27,9 @@
     <!-- Size should be 32 x 32 pixels -->
     <%= favicon_link_tag 'favicon.ico', :rel => 'shortcut icon' %>
     <%= javascript_include_tag "application" %>
-    <%= javascript_include_tag :all %>
   </head>
   <body>
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
-    <% if  session[:collection_id] %>
-    <%  @usrcollectionid  = session[:collection_id]%>
-    <%end%>
     <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
         <div class="mynav">
@@ -43,16 +39,14 @@
             </div>
             <div id="mynavarch">
               ArchExtract
-          </div>
+            </div>
             <% if user_signed_in? %>
             <div class="mynavitems"> <%= link_to "Collections", collections_path  %></div>
-            <%  if  session[:collection_id] %>
             <div class="mynavitems"><%= link_to "Documents",  documents_path %></div>
             <div class="mynavitems"><%= link_to "Pre-Processes", preprocesses_path  %></div>
             <div class="mynavitems"><%= link_to "Topic Models", extract_topics_path  %></div>
             <div class="mynavitems"><%= link_to "Named Entities", extract_ners_path  %></div>
-           <div class="mynavitems"> Keywords </div>
-            <% end %>
+            <div class="mynavitems"> Keywords </div>
             <div class="mynavitems"><a href="http://bancroft.berkeley.edu/"> Bancroft Home</a></div>
             <div class="mynavitems"><%= link_to "Sign out", destroy_user_session_path, :method => :delete %> </div>
             <% else %>
@@ -68,15 +62,12 @@
           </div>
         </div>
       </div>
-    </div>A
-
-
+    </div>
+    </div>
     <div class="container">
       <div class="span9">
-
         <%= render "layouts/flash_messages", flash: flash %>
-          <%= yield %>
-
+        <%= yield %>
       </div>
       <div class ="myfooterpad"></div>
       <footer>
@@ -84,6 +75,6 @@
           &copy <a href="http://bancroft.berkeley.edu/"> Bancroft Library 2014</a>
         </div>
       </footer>
-    </div> <!-- /container -->
-  </body>
-</html>
+      </div> <!-- /container -->
+    </body>
+  </html>

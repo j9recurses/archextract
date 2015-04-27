@@ -63,6 +63,12 @@ gem 'yomu'
 
 gem 'friendly_id', '~> 5.1.0'
 gem 'cancancan', '~> 1.10'
+
+group :passenger do
+  # passenger server
+  gem "passenger"
+end
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 

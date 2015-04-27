@@ -6,7 +6,7 @@ class Collection < ActiveRecord::Base
   validates :src_datadir, presence: true, uniqueness: true
   validates :lib_path, presence: true
   validates :libserver, presence: true
-  has_many :preprocesses, dependent: :destroy, :primary_key => 'id'
+  has_many :preprocesses, dependent: :destroy
   has_many :extract_topics, dependent: :destroy
   has_many :topics , :dependent => :destroy
   has_many :topic_docs, :dependent => :destroy
