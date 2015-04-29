@@ -1,6 +1,7 @@
 
+<a href="url"><img src="http://www.goines.net/Poster_art8/220_bancroft_library_lg.jpg" align="left" height="48" width="48" ></a>
 
-# ![alt text](http://www.goines.net/Poster_art8/220_bancroft_library_lg.jpg "Bancroft Library") Archextract
+#Archextract
 
 ## An Information Extraction and Text Exploration Tool for Digital Collections
 
