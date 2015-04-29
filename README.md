@@ -1,5 +1,5 @@
 
-# ArchExtract  <a href="url"><img src="http://www.goines.net/Poster_art8/220_bancroft_library_lg.jpg" align="right" height="150" width="120" ></a>
+# ArchExtract  <img src="http://www.goines.net/Poster_art8/220_bancroft_library_lg.jpg" align="right" height="150" width="120" >
 
 ## An Information Extraction and Text Exploration Tool for Digital Collections
 
@@ -8,7 +8,7 @@ existing natural language processes and algorithms for the researcher or archivi
 Using automated text analysis as the starting point, ArchExtract illuminates the scope and content of a digital text collection and provides
 an web-based interface for text exploration.
 
-## Prerequisites:
+## Prerequisites
 #### Python libraries
   * Scipy, numpy, nltk, la (larry), bottleneck, mysql-connector-python, pyner
   * For nltk, you will also need to download the nltk data => nltk.download()
