@@ -36,7 +36,8 @@
     ner_infile_cmds= "python " + ner_scripts_dir + "/get_ner_in_files.py " + " -b " + inputdir + " -o " + @ner_outdir + " -c " + @collection[:src_datadir]  + " -i " + @collection[:id].to_s + " -v development"
     ner_mr_job = "python " + ner_scripts_dir + "/ner_mrjob.py " + @ner_outdir+ "/" + @collection[:src_datadir] + "_ner_infile.txt > " + @ner_outdir+ "/" + @collection[:src_datadir] + "_ner_processed_ners.txt"
     load_ners_job =  "python " + ner_scripts_dir + "/ner_load_to_db.py  -i " + @ner_outdir+ "/" + @collection[:src_datadir] + "_ner_processed_ners.txt -c " + @collection[:id].to_s + " -v development -n " + ner_extract_id.to_s
-    return server_cmd, ner_infile_cmds, ner_mr_job, load_ners_job
+    resolve_ners_job = "python " + ner_scripts_dir + "/resolve_ners.py -v development -c " + @collection[:id].to_s + " -v development -n " + ner_extract_id.to_s
+    return server_cmd, ner_infile_cmds, ner_mr_job, load_ners_job, resolve_ners_job
   end
 
 

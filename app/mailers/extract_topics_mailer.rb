@@ -9,7 +9,7 @@ class ExtractTopicsMailer < ActionMailer::Base
     @status_msg=  make_msg(cmd_complete)
     @subject = get_subject(cmd_complete)
     @error = error
-    mail(:to => current_user.email, :subject => @subject)
+    mail(:to => "user@example.com", :subject => @subject)
   end
 
   def make_msg( cmd_complete)

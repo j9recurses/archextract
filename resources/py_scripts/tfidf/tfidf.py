@@ -137,7 +137,7 @@ def write_results_to_file(result, outdir, f, mycmdopts_fname):
     fnew.close()
 
 
-def rarewords(global_terms_in_doc):
+#def rarewords(global_terms_in_doc):
 #You'll have to do 2 passes through the file:
 #In pass 1:
 #Build a dictionary using the words as keys and their occurrences as values (i.e. each time you read a word, add 1 to its value in the dictionary)
@@ -230,7 +230,7 @@ all_files = [os.path.join(dp, f) for dp, dn, filenames in os.walk(basedir) for f
 num_docs  = len(all_files)
 
 print('initializing..')
-for f in all_files[:2]:
+for f in all_files:
     #print f
     # local term frequency map
     terms_in_doc = {}
@@ -254,7 +254,7 @@ for f in all_files[:2]:
         else:
             global_term_freq[word]  = 1
     global_terms_in_doc[f] = terms_in_doc
-    print('working through documents.. ')
+    #print('working through documents.. ')
 
 #if remove_rare:
  #   result = []
@@ -269,7 +269,7 @@ for f in all_files[:2]:
 if  below_tm :
     median_list = []
     ##iterate through to get the mean tf-idf score
-    for f in all_files[:2]:
+    for f in all_files:
         result = get_tf_idf_score(f, global_terms_in_doc, num_docs)
         #convert list of list into a list of tuples
         tup_list = [tuple(l) for l in result]
@@ -278,7 +278,7 @@ if  below_tm :
     ##calculate the mean tf-idf score
     mean_tfidf = sum(median_list) / float(len( median_list))
     print "Mean tf-idf score: " + str(mean_tfidf)
-    for f in all_files[:2]:
+    for f in all_files:
         new_result =  []
         result = get_tf_idf_score(f, global_terms_in_doc, num_docs)
         result = sorted(result, reverse=True)
@@ -289,7 +289,7 @@ if  below_tm :
 
 #or if peeps want all the words above a tf-idf score, then do that
 else:
-    for f in all_files[:2]:
+    for f in all_files:
         result = get_tf_idf_score(f, global_terms_in_doc, num_docs)
         result = sorted(result, reverse=True)
          #if the tf-idf is above the mean, put it into the results list

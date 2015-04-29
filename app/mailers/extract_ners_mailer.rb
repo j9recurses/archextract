@@ -8,7 +8,7 @@ class ExtractNersMailer < ActionMailer::Base
     @status_msg=  make_msg(job_outcome)
     @subject = get_subject(job_outcome)
     @error = error
-    mail(:to => current_user.email, :subject => @subject)
+    mail(:to => "user@example.com", :subject => @subject)
   end
 
   def make_msg( cmd_complete)

@@ -17,7 +17,7 @@ h5{
 }
 
 #topic_header {
-  font: arial;
+font-family: 'Open Sans', sans-serif;
 font-size:22px;
 padding-left:30px;
 padding-top:30px;
@@ -27,6 +27,14 @@ color:#545454;
 line-height:23px;
 }
 
+#top_items {
+  float:left;
+}
+
+#topic_num{
+  float:left;
+
+}
 
 .topline {
   color:#545454;

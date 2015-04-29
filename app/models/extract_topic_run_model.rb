@@ -23,7 +23,6 @@ ExtractTopicRunModel  = Struct.new( :cmd_in, :cmd_out, :dbcmd,  :extract_topic, 
         puts dbcmd
         dbcmd_complete = system(dbcmd)
         if dbcmd_complete
-          return true
           puts "sucessfully loaded mallet into the db"
         else
           @error = "Error:  Job failed importing results into the database"

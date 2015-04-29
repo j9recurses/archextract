@@ -27,7 +27,8 @@
 </table>
 
 
-
+ <% if can? :create, ExtractTopic %>
     <div class="link_nav">
   <%= link_to 'Add a New Topic Model',  new_extract_topic_path %>
 </div>
+ <% end %>

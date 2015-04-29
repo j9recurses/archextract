@@ -44,6 +44,8 @@ CollectionImport  = Struct.new(:collection) do
     elsif fnlistgroup.has_key?(".doc")
       puts "in here"
       return fnlistgroup,0
+    elsif fnlistgroup.has_key?(".XLS") or fnlistgroup.has_key?(".xls")
+      return fnlistgroup,0
     else
       error = "Error: No files listed on that path"
       return 0, error
@@ -54,7 +56,7 @@ CollectionImport  = Struct.new(:collection) do
   def txtDownloadFilesPdf(collection, rootdir, fnames, inputsrc_address)
     counter = 0
     if FileTest::directory?(Rails.root.join(rootdir, collection[:src_datadir], 'input'))
-      filetypes = [".pdf", ".doc", ".docx", ".xls", ".xlsx", ".ppt", ".pptx"]
+      filetypes = [".pdf", ".doc", ".docx", ".XLS", ".xls", ".xlsx", ".ppt", ".pptx"]
       filetypes.each do | filetype|
         unless fnames[filetype].nil?
           fnames[filetype].each do | fn|

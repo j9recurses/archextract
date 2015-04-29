@@ -42,8 +42,9 @@ class ExtractNersController < ApplicationController
         @extract_ner = ExtractNer.new(@extract_ner)
         if @extract_ner.save
           flash[:notice]  = 'Thank you for your submission: The Topic Model job for the '+  @collection[:name] + ' is now running. You will be sent an email when the job is done.'
-          server_cmd, ner_infile_cmds, ner_mr_job, load_ners_job = nr.make_cmdlines(@extract_ner[:id])
-          Delayed::Job.enqueue ExtractNerRunJob.new( server_cmd, ner_infile_cmds, ner_mr_job, load_ners_job , @collection, @extract_ner)
+          server_cmd, ner_infile_cmds, ner_mr_job, load_ners_job, resolve_ners_job = nr.make_cmdlines(@extract_ner[:id])
+          puts resolve_ners_job
+          Delayed::Job.enqueue ExtractNerRunJob.new( server_cmd, ner_infile_cmds, ner_mr_job, load_ners_job , resolve_ners_job,  @collection, @extract_ner)
           redirect_to extract_ners_path(@collection[:id])
         else
           flash[:error] = "Could not save Named Entities Job"

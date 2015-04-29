@@ -34,6 +34,10 @@ an web-based interface for text exploration.
   * This web app uses the [delayed job library] (https://github.com/collectiveidea/delayed_job)  to execute a number of python and java processes in the background.
   * You can invoke `rake jobs:work` which will start the background jobs.
   * You can cancel the rake task with cntr-c and all all background jobs with the command rake `jobs:clear`
+  * Or, you can start multiple worker threads like this:
+   ```RAILS_ENV=development bin/delayed_job -n4 start```
+    ```The above cmds will start four workers```
+  * for more cmd options checkout the [delayed job documentation](https://github.com/collectiveidea/delayed_job/wiki/Delayed-job-command-details)
 
 ##### Email Server
   * This app sends out emails to notify users when certain background processing jobs are done

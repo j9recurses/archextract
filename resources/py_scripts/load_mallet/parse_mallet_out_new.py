@@ -58,9 +58,9 @@ class Parse_Mallet_Out:
       tablename ="topic_doc_names"
       self.doc_max_id = self.get_intial_db_id(self.cnx, "id",  tablename)
       for n in names:
+        n = n.replace("'", "")
         docsql = "insert into topic_doc_names (name) values( "
         docsql = docsql + "'"+n +"');"
-        print docsql
         cursor.execute(docsql)
         self.cnx.commit()
     elif typet == "tops":

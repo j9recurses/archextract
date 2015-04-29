@@ -26,7 +26,9 @@ class Preprocesscollectionopts
 
   #checks to see if the preprocess exists
   def preprocess_exists?(preprocess, collection)
-    preprocess_chk = Preprocess.find_by routine_name: preprocess[:routine_name]
+    puts preprocess.inspect
+    puts collection.inspect
+    preprocess_chk = Preprocess.where(["routine_name = ? and collection_id = ?" , preprocess[:routine_name], collection.id]).first
     if preprocess_chk
       pp_error = 'Error: Your preprocess routine for the ' + collection[:name] + ' collection already exists!'
       return true, pp_error

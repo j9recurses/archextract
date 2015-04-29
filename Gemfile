@@ -63,6 +63,7 @@ gem 'yomu'
 
 gem 'friendly_id', '~> 5.1.0'
 gem 'cancancan', '~> 1.10'
+gem "daemons"
 
 group :passenger do
   # passenger server

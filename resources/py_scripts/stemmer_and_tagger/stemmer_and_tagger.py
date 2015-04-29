@@ -216,7 +216,7 @@ if pos:
         pos_str = '-'.join(pos)
 
 counter = 0
-for f in all_files[:2]:
+for f in all_files:
     mycmdopts = ''
     doc_words_pre    = open(f).read()
     doc_words = get_doc_words(doc_words_pre, stopwords)
