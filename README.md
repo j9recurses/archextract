@@ -1,7 +1,7 @@
 
 <a href="url"><img src="http://www.goines.net/Poster_art8/220_bancroft_library_lg.jpg" align="left" height="120" width="90" ></a>
 
-#Archextract
+<span style="font-size:15, margin-left: 25 px"> Archextract </span>
 
 ## An Information Extraction and Text Exploration Tool for Digital Collections
 
@@ -10,7 +10,7 @@ existing natural language processes and algorithms for the researcher or archivi
 Using automated text analysis as the starting point, ArchExtract illuminates the scope and content of a digital text collection and provides
 an web-based interface for text exploration.
 
-***********
+***
 
 ### Prerequisites:
 
@@ -41,12 +41,11 @@ an web-based interface for text exploration.
 * If run locally, you can use the (mailcatcher gem)cp to handle email [http://mailcatcher.me]
 * Or, if you're running this on a web server, use gmail, posfix, whatever floats your boat.
 
-**********
-
+****
 ### Contributing to ArchExtract
 * Fork, fix, then send me a pull request.
 
-***********
+***
 
 ### Credits
 * ArchExtract was created as an experimental research tool for UC Berkeley's Bancroft Library.
