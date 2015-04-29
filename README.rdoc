@@ -1,13 +1,12 @@
 
+=ArchExtract
 
-# ![alt text](http://www.goines.net/Poster_art8/220_bancroft_library_lg.jpg "Bancroft Library")Archextract
+==An Information Extraction and Text Exploration Tool for Digital Collections
 
-## An Information Extraction and Text Exploration Tool for Digital Collections
-
-ArchExtract is web application that enables archivists and researchers to perform topic modeling, keyword and named entity extraction on a text collection. The web application automates and packages a number of
+* ArchExtract is web application that enables archivists and researchers to perform topic modeling, keyword and named entity extraction on a text collection. The web application automates and packages a number of
 existing natural language processes and algorithms for the researcher or archivist.
 Using automated text analysis as the starting point, ArchExtract illuminates the scope and content of a digital text collection and provides
-an web-based interface for text exploration.
+an web-based interface for text exploration. *
 
 ### This app requires the following:
 
@@ -21,7 +20,7 @@ an web-based interface for text exploration.
 #### Installing Mallet
 * Mallet is open source software used for topic modeling
 * [Download](http://mallet.cs.umass.edu/download.php) mallet and unzip it on your system.
-* Put ```%MALLET_HOME%``` in your path =>  needs to point to where ever bin/mallet is on your system.
+* Put `%MALLET_HOME%` in your path =>  needs to point to where ever bin/mallet is on your system.
 
 #### Installing the Stanford Ner toolkit for Named Entities
 * Download and unzip the [Stanford NER](http://nlp.stanford.edu/software/CRF-NER.shtml#Download)
@@ -29,8 +28,7 @@ an web-based interface for text exploration.
 * You will need to start the Stanford NER server on separate port from where this web app is run.
 * [PyNer](https://github.com/dat/pyner) is a python interface to the Stanford Named Entity Recognizer.
 * Here's an example of how to start the Named Entity Recognizer server:
-
-> ```java -mx1000m -cp /your/path/to/archextract/resources/py_scripts/ner_extract/stanford-ner-2015-04-20/stanford-ner.jar edu.stanford.nlp.ie.NERServer -loadClassifier /your/path/to/archextract/resources/py_scripts/ner_extract/stanford-ner-2015-04-20/classifiers/english.muc.7class.distsim.crf.ser.gz -port 9000 -outputFormat inlineXML```
+> `java -mx1000m -cp /your/path/to/archextract/resources/py_scripts/ner_extract/stanford-ner-2015-04-20/stanford-ner.jar edu.stanford.nlp.ie.NERServer -loadClassifier /your/path/to/archextract/resources/py_scripts/ner_extract/stanford-ner-2015-04-20/classifiers/english.muc.7class.distsim.crf.ser.gz -port 9000 -outputFormat inlineXML`
 
 #### Email Server
 * This app sends out emails to notify users when certain processing jobs are done
