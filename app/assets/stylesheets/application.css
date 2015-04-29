@@ -25,13 +25,13 @@ margin-bottom:-4%;
 
 
 .item_header{
-padding-top:3.5%;
+padding-top:4.5%;
 margin-bottom:-1.25%;
 }
 
 
 .link_nav{
-padding-top:1.75%;
+padding-top:2%;
   font-size:160%;
 }
 
@@ -40,15 +40,10 @@ padding-top:1.75%;
 }
 
 
-.item_h_other{
-color:#545454;
-font-family: 'Open Sans', sans-serif;
-font-size:22px;
-padding-top:10px;
-padding-bottom:20px;
+
+#form_checkbox_pos_right {
+  padding-left:2%;
 }
-
-
 
 
 

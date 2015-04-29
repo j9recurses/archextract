@@ -1,6 +1,8 @@
 class ExtractTopicsController < ApplicationController
   before_filter  :authenticate_user!
   before_action :set_extract, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource
+  skip_authorize_resource :except => [:index, :show]
 
   # GET /preprocesses
   def index
@@ -29,8 +31,6 @@ class ExtractTopicsController < ApplicationController
   # POST /extracts
   # POST /extracts.json
   def create
-    puts "***"
-    puts params
     if extract_topic_params[:collection_id].blank?
       flash[:error] =  'Error: Please select a collection to run the topic modeling on'
       redirect_to new_extract_topic_path

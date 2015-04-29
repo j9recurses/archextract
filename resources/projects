@@ -10,7 +10,7 @@ export PATH=$PATH:/usr/lib/jvm/java-1.7.0-openjdk-amd64/bin
 export MALLET_HOME=/home/j9/Mallet/
 export PATH=$PATH:export PATH=$PATH:/home/j9/Mallet/bin
 
-#set up mysql 
+#set up mysql
 CREATE USER 'janine'@'localhost' IDENTIFIED BY 'yr_passwd_here';
 GRANT ALL PRIVILEGES ON *archextract_development* TO 'janine'@'localhost' WITH GRANT OPTION;
 FLUSH PRIVILEGES;

@@ -9,8 +9,6 @@ class NersController < ApplicationController
   # GET /ners.json
   def index
     @ner = ExtractNer.find(params[:extract_ner_id])
-    puts "******"
-    puts @ner[:collection_id]
     @collection = Collection.find(@ner[:collection_id])
     @ner_dates, @ner_orgs, @ner_peeps, @ner_places = Ner.get_types(@collection)
   end
@@ -21,9 +19,8 @@ class NersController < ApplicationController
     @ner = Ner.find(params[:id])
     @ner_ext = ExtractNer.find(params[:extract_ner_id])
     puts @ner.inspect
-    #@collection = Collection.find(@ner_ext[:collection_id])
+    @collection = Collection.find(@ner[:collection_id])
     @thenerdocs = Ner.ner_documents(@ner)
-    @collection = ()
     @thenerdocs = @thenerdocs.paginate(:page => params[:page])
     @similar_items =Ner.ner_similar_items(@ner)
   end

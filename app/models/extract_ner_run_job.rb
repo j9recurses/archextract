@@ -5,9 +5,11 @@ ExtractNerRunJob  = Struct.new( :server_cmd, :ner_infile_cmds, :ner_mr_job, :loa
     @collection = collection
     @error = ''
     job_status =  run_pyjob(server_cmd, ner_infile_cmds, ner_mr_job, load_ners_job)
+    puts "******made it here!!****"
     job_outcome = update_status(job_status, extract_ner )
+    puts job_outcome
     puts @error
-    ExtractNersMailer.extract_ners_complete( @collection[:id], job_outcome , @error).deliver
+    ExtractNersMailer.extract_ners_complete( @collection, job_outcome , @error).deliver
   end
 
 

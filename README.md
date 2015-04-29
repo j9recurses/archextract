@@ -10,7 +10,7 @@ an web-based interface for text exploration.
 
 ## Prerequisites
 ##### Python libraries
-  * Scipy, numpy, nltk, la (larry), bottleneck, mysql-connector-python, pyner, mr.job
+  * Scipy, numpy and la (for matrix manipulation), nltk (for language processing), bottleneck, mysql-connector-python, pyner (for stanford ner), mr.job (for python mapreduce), fuzzy_wuzzy and python-Levenshtein(computing string edit distances and similarities)
   * For nltk, you will also need to download the nltk data => nltk.download()
 
 ##### Java Dependencies

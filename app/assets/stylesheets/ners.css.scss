@@ -14,14 +14,35 @@
 #ner1{
 background-color:#E8E8EE;
 color:#545454;
-line-height:23px;
-  font: arial;
+font: arial;
 font-size:22px;
-padding:10px;
+margin-top:9%;
+padding:2%;
+margin-bottom:2%;
+}
+
+
+.item_h_other{
+color:#545454;
+font-family: 'Open Sans', sans-serif;
+font-size:22px;
+padding-top:10px;
+padding-bottom:20px;
+float:left;
 }
 
 .doclink
 {
   font-size:14px;
+}
 
+#ner_cn_name{
+  float:left;
+   font-size:12px;
+}
+
+#sim_terms{
+  font-weight: bold;
+   font-size:16px;
+   clear: both;
 }

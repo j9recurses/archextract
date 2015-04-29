@@ -1,11 +1,10 @@
-<div class = "item_header"><h2> Keywords and Named Entities</h2></div>
+<div class = "item_header"><h2> Named Entities</h2></div>
 
 <table>
   <thead>
     <tr>
     <th> Collection Name </th>
       <th>Named Entities</th>
-      <th>Keywords</th>
       <th>Status</th>
       <th>Delete</th>
     </tr>
@@ -16,7 +15,6 @@
       <tr>
       <td><%=  link_to extract_ner[:name], collections_path(extract_ner[:collection_id]) %></td>
       <td><%= link_to "People, Places, Organizations, Dates", extract_ner_ners_path(extract_ner[:id]) %></td>
-        <td> </td>
         <td><%= extract_ner.status.titleize %></td>
         <td><%= link_to 'Delete', extract_ner_path( extract_ner[:id]), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
