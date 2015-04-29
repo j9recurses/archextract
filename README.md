@@ -10,7 +10,7 @@ an web-based interface for text exploration.
 
 ## Prerequisites
 ##### Python libraries
-  * Scipy, numpy, nltk, la (larry), bottleneck, mysql-connector-python, pyner
+  * Scipy, numpy, nltk, la (larry), bottleneck, mysql-connector-python, pyner, mr.job
   * For nltk, you will also need to download the nltk data => nltk.download()
 
 ##### Java Dependencies
@@ -30,11 +30,18 @@ an web-based interface for text exploration.
 
   ```java -mx1000m -cp /your/path/to/archextract/resources/py_scripts/ner_extract/stanford-ner-2015-04-20/stanford-ner.jar edu.stanford.nlp.ie.NERServer -loadClassifier /your/path/to/archextract/resources/py_scripts/ner_extract/stanford-ner-2015-04-20/classifiers/english.muc.7class.distsim.crf.ser.gz -port 9000 -outputFormat inlineXML```
 
+##### Background Processing jobs
+  * This web app uses the [delayed job library] (https://github.com/collectiveidea/delayed_job)  to execute a number of python and java scripts in the background.
+  * You can invoke `rake jobs:work` which will start the background jobs.
+  * You can cancel the rake task with cntr-c and all all background jobs with the command rake `jobs:clear`
+
 ##### Email Server
-  * This app sends out emails to notify users when certain processing jobs are done
+  * This app sends out emails to notify users when certain background processing jobs are done
   * As a result, you will need hook this app to an email server
   * If run locally, you can use the [mailcatcher gem] (http://mailcatcher.me) to handle email
   * Or, if you're running this on a web server, use gmail, posfix, whatever floats your boat to send email.
+
+
 
 ## Contributing to ArchExtract
   * Fork, fix, then send me a pull request.
