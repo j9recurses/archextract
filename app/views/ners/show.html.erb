@@ -17,21 +17,16 @@
     <%end%>
   </div>
 
-
+   <div id="nerdocs">
     <h4> Appears <%= @ner[:count] %> times in the following documents: </h4>
     <% @thenerdocs.each do |k,v| %>
         <% docct = (v[0] + " &#8674; " + v[1].to_s).html_safe %>
-        <div class="doclink"> <%= link_to docct, document_path(@collection[:id], k) %></div>
+        <div class="doclink"> <%= link_to docct, document_path(k) %></div>
     <%end%>
-
-
-
-<div class="apple_pagination">
-  <div class="page_info"></div>
-  <%= will_paginate @thenerdocs, :container => false %>
-  <div class = "tinybreak"></div>
 </div>
 
+<div id="nershift">
 <div class="link_nav">
   <%= link_to 'Back', extract_ner_ners_path %>
+</div>
 </div>

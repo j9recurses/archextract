@@ -1,15 +1,11 @@
 class NersController < ApplicationController
   before_action :set_ner, only: [:show, :edit, :update, :destroy]
    before_filter :authenticate_user!
-
-
-
-
   # GET /ners
   # GET /ners.json
   def index
     @ner = ExtractNer.find(params[:extract_ner_id])
-    @collection = Collection.find(@ner[:collection_id])
+      @collection = Collection.find(@ner[:collection_id])
     @ner_dates, @ner_orgs, @ner_peeps, @ner_places = Ner.get_types(@collection)
   end
 
@@ -17,11 +13,8 @@ class NersController < ApplicationController
   # GET /ners/1.json
   def show
     @ner = Ner.find(params[:id])
-    @ner_ext = ExtractNer.find(params[:extract_ner_id])
-    puts @ner.inspect
     @collection = Collection.find(@ner[:collection_id])
     @thenerdocs = Ner.ner_documents(@ner)
-    @thenerdocs = @thenerdocs.paginate(:page => params[:page])
     @similar_items =Ner.ner_similar_items(@ner)
   end
 

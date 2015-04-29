@@ -21,7 +21,7 @@ class DocumentsController < ApplicationController
 
   # GET /documents/1
   def show
-    @document = Document.friendly.find(params[:id])
+    @document = Document.find(params[:id])
     @doc_collection  = Collection.find(@document[:collection_id])
     #@contents = Document.get_original_text(@document, @collection_src)
   end
@@ -50,7 +50,7 @@ class DocumentsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_document
-      @document = Document.friendly.find(params[:id])
+      @document = Document.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

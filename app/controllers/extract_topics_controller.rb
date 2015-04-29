@@ -79,10 +79,12 @@ class ExtractTopicsController < ApplicationController
   # DELETE /extracts/1
   # DELETE /extracts/1.json
   def destroy
+    @extact = ExtractTopic.find(extract_topic_params[:id])
     @extract.destroy
     respond_to do |format|
       format.html { redirect_to extract_topics_path }
-      #   format.json { head :no_content }
+       format.json { head :no_content }
+       format.js {render :layout => false}
     end
   end
 

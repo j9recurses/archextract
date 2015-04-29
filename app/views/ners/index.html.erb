@@ -1,43 +1,76 @@
-<div class = "item_header"><h2>Named Entites for the  <%= @collection[:name] %> Collection</h2></div>
-
-<div class = "nercolumn">
-<h4> Top 50 Dates </h4>
-<h6> Name &#8674; Count </h6>
-<% @ner_dates.each do | item|  %>
-  <div class = "neritem">
-  <%= link_to item[:name].titleize,  extract_ner_ner_path(@collection[:id], item[:id]) %> &#8674; <%= item[:count]%>
-   </div>
- <% end %>
-</div>
-
-<div class = "nercolumn">
-<h4> Top 50 People </h4>
-<h6> Name &#8674; Count </h6>
-<% @ner_peeps.each do | item|  %>
-  <div class = "neritem">
-    <%= link_to item[:name].titleize,  extract_ner_ner_path(item[:extract_ner_id], item[:id]) %> &#8674; <%= item[:count]%>
-  </div>
- <% end %>
-</div>
-
-<div class = "nercolumn">
-  <h4> Top 50 Organizations </h4>
-  <h6> Name &#8674; Count </h6>
-  <% @ner_orgs.each do | item|  %>
-  <div class = "neritem">
-    <%= link_to item[:name].titleize,  extract_ner_ner_path(item[:extract_ner_id], item[:id]) %> &#8674; <%= item[:count]%>
-   </div>
-   <% end %>
- </div>
-
-<div class = "nercolumn">
-  <h4> Top 50 Places </h4>
-  <h6> Name &#8674; Count </h6>
-  <% @ner_places.each do | item|  %>
-    <div class = "neritem">
-      <%= link_to item[:name].titleize,  extract_ner_ner_path(item[:extract_ner_id], item[:id]) %> &#8674; <%= item[:count]%>
+<div class = "item_header_ner"><h2>Named Entites for the  <%= @collection[:name] %> Collection</h2></div>
+<div class="offset_ner">
+  <ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#sectionA"><h4>Top 50 People</h4></a></li>
+    <li><a data-toggle="tab" data-target="#sectionB"><h4>Top 50 Organizations</h4></a></li>
+    <li><a data-toggle="tab" data-target="#sectionC"><h4>Top 50 Places</h4> </a></li>
+    <li><a data-toggle="tab" data-target="#sectionD"><h4>Top 50 Dates</h4> </a></li>
+  </ul>
+  <div class="tab-content">
+    <div class="nerhead"> NAME &#8674; COUNT </div>
+    <div id="sectionA" class="tab-pane fade in active">
+      <div class="border row">
+        <div class="offset_ner2">
+          <% date_chunks = @ner_peeps.each_slice(18).to_a %>
+          <% date_chunks.each do | chunk| %>
+          <div class="border col-md-3">
+            <% chunk.each do |item| %>
+            <div class = "ner_item">
+              <%= link_to item[:name].titleize,  extract_ner_ner_path(@collection[:id], item[:id]) %> &#8674; <%= item[:count]%>
+            </div>
+            <% end %>
+          </div>
+          <% end %>
+        </div>
+      </div>
     </div>
-    <% end %>
+    <div id="sectionB" class="tab-pane fade in active">
+      <div class="border row">
+        <div class="offset_ner2">
+          <% date_chunks = @ner_orgs.each_slice(18).to_a %>
+          <% date_chunks.each do | chunk| %>
+          <div class="border col-md-3">
+            <% chunk.each do |item| %>
+            <div class = "ner_item">
+              <%= link_to item[:name].titleize,  extract_ner_ner_path(@collection[:id], item[:id]) %> &#8674; <%= item[:count]%>
+            </div>
+            <% end %>
+          </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <div id="sectionC" class="tab-pane fade in active">
+      <div class="border row">
+        <div class="offset_ner2">
+          <% date_chunks = @ner_places.each_slice(18).to_a %>
+          <% date_chunks.each do | chunk| %>
+          <div class="border col-md-3">
+            <% chunk.each do |item| %>
+            <div class = "ner_item">
+              <%= link_to item[:name].titleize,  extract_ner_ner_path(@collection[:id], item[:id]) %> &#8674; <%= item[:count]%>
+            </div>
+            <% end %>
+          </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <div id="sectionD" class="tab-pane fade in active">
+      <div class="border row">
+        <div class="offset_ner2">
+          <% date_chunks = @ner_dates.each_slice(18).to_a %>
+          <% date_chunks.each do | chunk| %>
+          <div class="border col-md-3">
+            <% chunk.each do |item| %>
+            <div class = "ner_item">
+              <%= link_to item[:name].titleize,  extract_ner_ner_path(@collection[:id], item[:id]) %> &#8674; <%= item[:count]%>
+            </div>
+            <% end %>
+          </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-
-<div id="extra_push"> </div>
