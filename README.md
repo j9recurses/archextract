@@ -14,14 +14,14 @@ an web-based interface for text exploration.
   * For nltk, you will also need to download the nltk data => nltk.download()
 
 ##### Java Dependencies
-  * you need to have java installed on the server, java 7 or above; java 8 is preferable
+  * You need to have java installed on the server, java 7 or above; java 8 is preferable
 
 ##### Installing Mallet
   * Mallet is open source software used for topic modeling
   * [Download](http://mallet.cs.umass.edu/download.php) mallet and unzip it on your system.
   * Put `%MALLET_HOME%` in your path =>  needs to point to where ever bin/mallet is on your system.
 
-##### Installing the Stanford Ner toolkit for Named Entities
+##### Installing the Stanford Named Entity Recognizer
   * Download and unzip the [Stanford NER](http://nlp.stanford.edu/software/CRF-NER.shtml#Download)
     into the `/resources/py_scripts/ner_extract` directory package.
   * You will need to start the Stanford NER server on separate port from where this web app is run.
@@ -33,8 +33,8 @@ an web-based interface for text exploration.
 ##### Email Server
   * This app sends out emails to notify users when certain processing jobs are done
   * As a result, you will need hook this app to an email server
-  * If run locally, you can use the (mailcatcher gem)cp to handle email [http://mailcatcher.me]
-  * Or, if you're running this on a web server, use gmail, posfix, whatever floats your boat.
+  * If run locally, you can use the [mailcatcher gem] (http://mailcatcher.me) to handle email
+  * Or, if you're running this on a web server, use gmail, posfix, whatever floats your boat to send email.
 
 ## Contributing to ArchExtract
   * Fork, fix, then send me a pull request.
