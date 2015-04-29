@@ -9,19 +9,19 @@ Using automated text analysis as the starting point, ArchExtract illuminates the
 an web-based interface for text exploration.
 
 ## Prerequisites
- <dt> Python libraries </dt>
+##### Python libraries
   * Scipy, numpy, nltk, la (larry), bottleneck, mysql-connector-python, pyner
   * For nltk, you will also need to download the nltk data => nltk.download()
 
- <dt>Java Dependencies </dt>
+##### Java Dependencies
   * you need to have java installed on the server, java 7 or above; java 8 is preferable
 
-#### Installing Mallet
+##### Installing Mallet
   * Mallet is open source software used for topic modeling
   * [Download](http://mallet.cs.umass.edu/download.php) mallet and unzip it on your system.
   * Put `%MALLET_HOME%` in your path =>  needs to point to where ever bin/mallet is on your system.
 
-#### Installing the Stanford Ner toolkit for Named Entities
+##### Installing the Stanford Ner toolkit for Named Entities
   * Download and unzip the [Stanford NER](http://nlp.stanford.edu/software/CRF-NER.shtml#Download)
     into the `/resources/py_scripts/ner_extract` directory package.
   * You will need to start the Stanford NER server on separate port from where this web app is run.
@@ -30,7 +30,7 @@ an web-based interface for text exploration.
 
   ```java -mx1000m -cp /your/path/to/archextract/resources/py_scripts/ner_extract/stanford-ner-2015-04-20/stanford-ner.jar edu.stanford.nlp.ie.NERServer -loadClassifier /your/path/to/archextract/resources/py_scripts/ner_extract/stanford-ner-2015-04-20/classifiers/english.muc.7class.distsim.crf.ser.gz -port 9000 -outputFormat inlineXML```
 
-#### Email Server
+##### Email Server
   * This app sends out emails to notify users when certain processing jobs are done
   * As a result, you will need hook this app to an email server
   * If run locally, you can use the (mailcatcher gem)cp to handle email [http://mailcatcher.me]
