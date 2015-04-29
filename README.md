@@ -31,7 +31,7 @@ an web-based interface for text exploration.
   ```java -mx1000m -cp /your/path/to/archextract/resources/py_scripts/ner_extract/stanford-ner-2015-04-20/stanford-ner.jar edu.stanford.nlp.ie.NERServer -loadClassifier /your/path/to/archextract/resources/py_scripts/ner_extract/stanford-ner-2015-04-20/classifiers/english.muc.7class.distsim.crf.ser.gz -port 9000 -outputFormat inlineXML```
 
 ##### Background Processing jobs
-  * This web app uses the [delayed job library] (https://github.com/collectiveidea/delayed_job)  to execute a number of python and java scripts in the background.
+  * This web app uses the [delayed job library] (https://github.com/collectiveidea/delayed_job)  to execute a number of python and java processes in the background.
   * You can invoke `rake jobs:work` which will start the background jobs.
   * You can cancel the rake task with cntr-c and all all background jobs with the command rake `jobs:clear`
 
