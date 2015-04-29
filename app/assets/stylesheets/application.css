@@ -14,7 +14,7 @@
  */
 
 #extra_push{
-  clear: both 
+  clear: both
 }
 
 #flash_msgs{
@@ -64,6 +64,15 @@ padding-bottom:20px;
 font-size: 100%;
 font-family: 'Open Sans', sans-serif;
 margin-bottom:2px;
+margin-top:15px;
+font-style:none;
+}
+
+
+.field2{
+font-size: 110%;
+font-family: 'Open Sans', sans-serif;
+margin-bottom:0.5%;
 margin-top:15px;
 font-style:none;
 }

@@ -9,7 +9,8 @@ class ExtractTopicOpts
     @error = ''
     @extract_topic_params = extract_topic_params
     @collection = collection
-    @preprocess = Preprocess.find(extract_topic_params[:preprocess_id])
+    @preprocess = Preprocess.where(["routine_name = ? and collection_id = ?",extract_topic_params[:routine_name],  collection[:id]]).first
+    puts @preprocess.inspect
     @mlinout = ''
     @cn_outkeys = ''
     @cn_tops  = ''
@@ -36,7 +37,7 @@ class ExtractTopicOpts
 
   #check the params for funny biz
   def check_params
-    if !@extract_topic_params[:preprocess_id].present?
+    if !@extract_topic_params[:routine_name].present?
         @error=  "Error: Please enter a pre-process to generate a topic model from"
       elsif !@extract_topic_params[:num_of_topics].present?
         @error = "Error: Please enter the number of topics you'd like to generate"

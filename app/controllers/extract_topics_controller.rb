@@ -18,8 +18,8 @@ class ExtractTopicsController < ApplicationController
     @extract_topic = ExtractTopic.new
     @collections = Collection.all
     @collections_array = {}.tap{ |h| @collections.each{ |c| h[c.name] = c.id } }
-    @preprocesses = Preprocess.where(status:"complete")
-    @preprocesses_array = {}.tap{ |h| @preprocesses.each{ |c| h[c.routine_name] = c.id } }
+    @preprocesses = Preprocess.joins(:collection).where(status:"complete")
+    @preprocesses_array = {}.tap{ |h| @preprocesses.each{ |c| h[c.routine_name] = c.routine_name } }
   end
 
   # GET /preprocesses/1/edit
@@ -36,11 +36,12 @@ class ExtractTopicsController < ApplicationController
       redirect_to new_extract_topic_path
     else
       @collection = Collection.find(extract_topic_params[:collection_id])
+      puts params[:extract_topic].inspect
       ff = ExtractTopicOpts.new(params[:extract_topic], @collection)
       @extract_topic, @error = ff.fetch_fets
       if @error.size >1
         flash[:error] = @error
-        redirect_to collection_extract_topics_path
+        redirect_to new_extract_topic_path
       else
         @extract_topic = ExtractTopic.new(@extract_topic)
         if @extract_topic.save

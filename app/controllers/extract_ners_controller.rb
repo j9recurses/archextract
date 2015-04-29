@@ -28,22 +28,26 @@ class ExtractNersController < ApplicationController
   # POST /extract_ners
   # POST /extract_ners.json
   def create
+    collection_id = extract_ner_params[:collection_id]
+    puts collection_id.inspect
+    puts "****"
+    @collection = Collection.find(collection_id)
     nr =  ExtractNerOpts.new(@collection, extract_ner_params )
     ners,  @extract_ner  =  nr.chk_if_ners_exist
     if ners
-      @extract_ner = ExtractNer.new(@extract_ner )
+      @extract_ner = ExtractNer.new(@extract_ner)
        if @extract_ner.save
         flash[:notice]  = 'Thank you for your submission: The Topic Model job for the '+  @collection[:name] + ' is now running. You will be sent an email when the job is done.'
         server_cmd, ner_infile_cmds, ner_mr_job, load_ners_job = nr.make_cmdlines(@extract_ner[:id])
         Delayed::Job.enqueue ExtractNerRunJob.new( server_cmd, ner_infile_cmds, ner_mr_job, load_ners_job , @collection, @extract_ner)
-        redirect_to collection_extract_ners_path(@collection[:id])
+        redirect_to extract_ners_path(@collection[:id])
       else
         flash[:error] = "Could not save Named Entities Job"
-        redirect_to collection_extract_ners_path(@collection[:id])
+        redirect_to extract_ners_path(@collection[:id])
       end
      else
         flash[:error] = "Error: Named Entities for the collection already exist"
-        redirect_to collection_extract_ners_path(@collection[:id])
+        redirect_to extract_ners_path(@collection[:id])
     end
   end
 
@@ -65,7 +69,7 @@ class ExtractNersController < ApplicationController
   # DELETE /extract_ners/1.json
   def destroy
     @extract_ner.destroy
-        redirect_to collection_extract_ners_path(@collection[:id])
+        redirect_to extract_ners_path
   end
 
   private
@@ -76,6 +80,6 @@ class ExtractNersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def extract_ner_params
-      params.require(:extract_ner).permit(:status, :fname_base, :file_dir, :status)
+      params.require(:extract_ner).permit(:status, :fname_base, :file_dir, :status, :collection_id, :ner_peeps)
     end
 end

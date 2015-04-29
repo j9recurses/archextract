@@ -1,21 +1,21 @@
 <%= simple_form_for( [@extract_topic]) do |f| %>
 
+
 <div class="form-inputs">
-
 <div class="preform">
-<H3> Topic Modeling </H3>
 
-<%= f.input :collection_id, collection: @collections, prompt: "Select a Collection", :label_html => { :class => 'field' }  %>
-
-<div class="field">
- <%= f.input :preprocess_id,  collection: @preprocesses_array,  prompt: "Select  pre-process to use:", label: "Build a Topic Model" ,:label_html => { :class => 'field' }   %>
-</div>
+<%= f.input :collection_id, collection: @collections, prompt: "Select a Collection", :label_html => { :class => 'field2' }  %>
 
 <div id="mdformsp"></div>
-  <%= f.input :num_of_topics, label: "Number of Topics to Generate", :label_html => { :class => 'field' }  %>
+ <%= f.input :routine_name,  collection: @preprocesses_array,  prompt: "Select  pre-process to use:", label: "Build a Topic Model" ,:label_html => { :class => 'field2' }   %>
+
+<div id="mdformsp"></div>
+  <%= f.input :num_of_topics, label: "Number of Topics to Generate", :label_html => { :class => 'field2' }  %>
+
+<div id="mdformsp"></div>
 
   <div class="form-actions">
-   <%= f.button :submit,  'Submit'%>
+  <%= f.button :submit,  'Submit'%>
   </div>
 </div>
 </div>
