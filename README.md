@@ -7,7 +7,8 @@ ArchExtract is web application that enables archivists and researchers to perfor
 existing natural language processes and algorithms for the researcher or archivist.
 Using automated text analysis as the starting point, ArchExtract illuminates the scope and content of a digital text collection and provides
 an web-based interface for text exploration.
-
+Alt-H2
+------
 ## Prerequisites:
 
 ## Python libraries
