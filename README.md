@@ -1,7 +1,5 @@
 
-# <a href="url"><img src="http://www.goines.net/Poster_art8/220_bancroft_library_lg.jpg" align="left" height="120" width="90" >Archextract </a>
-
-## An Information Extraction and Text Exploration Tool for Digital Collections
+# <a href="url"><img src="http://www.goines.net/Poster_art8/220_bancroft_library_lg.jpg" align="left" height="120" width="90" ></a>   ArchExtract: An Information Extraction and Text Exploration Tool for Digital Collections
 
 ArchExtract is web application that enables archivists and researchers to perform topic modeling, keyword and named entity extraction on a text collection. The web application automates and packages a number of
 existing natural language processes and algorithms for the researcher or archivist.
