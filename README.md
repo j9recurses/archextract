@@ -9,11 +9,11 @@ Using automated text analysis as the starting point, ArchExtract illuminates the
 an web-based interface for text exploration.
 
 ## Prerequisites
-#### Python libraries
+ <dt> Python libraries </dt>
   * Scipy, numpy, nltk, la (larry), bottleneck, mysql-connector-python, pyner
   * For nltk, you will also need to download the nltk data => nltk.download()
 
-#### Java Dependencies
+ <dt>Java Dependencies </dt>
   * you need to have java installed on the server, java 7 or above; java 8 is preferable
 
 #### Installing Mallet
