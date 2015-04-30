@@ -3,6 +3,6 @@ class Topic < ActiveRecord::Base
   serialize :docs
   serialize :doc_vals
   belongs_to :extract_ner
-  has_one :topic_name, :dependent => :destroy
+  #has_one :topic_name, :dependent => :destroy
   self.per_page = 10
 end

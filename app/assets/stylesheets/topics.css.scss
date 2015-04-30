@@ -3,6 +3,7 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .doc1{
+  padding-top:2%;
   float:left;
     width:400px;
 }
@@ -27,14 +28,36 @@ color:#545454;
 line-height:23px;
 }
 
+#del{
+  color:red;
+  font-size:20;
+  float:left;
+  padding-right:3%;
+}
+
 #top_items {
   float:left;
+  font-size:15px;
+  width:70%;
+  font-size:16px;
+}
+#wtf{
+  clear:both;
+}
+
+#wtf2{
+   padding-left:4%;
+   padding-top:2%;
 }
 
 #topic_num{
   float:left;
-
+  margin-right:1%;
+  font-weight: bold;
+  font-size:18px;
 }
+
+
 
 .topline {
   color:#545454;

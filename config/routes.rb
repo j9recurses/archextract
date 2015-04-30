@@ -15,6 +15,9 @@ Archextract::Application.routes.draw do
       resources :ners
     end
 
+    resources :topics
+
+
 
 
   # The priority is based upon order of creation: first created -> highest priority.
@@ -24,6 +27,7 @@ Archextract::Application.routes.draw do
   resources :collections
   root :to =>  'collections#index'
 
+delete 'topics/destroy/:id', :to => 'topics#destroy', :as => 'delete_topic'
 
 
 

@@ -21,7 +21,8 @@
     <% end %>
   </tbody>
 </table>
-
+ <% if can? :create, ExtractNer %>
  <div class="link_nav">
 <%= link_to 'Extract Keywords and Name Enties From the Collection', new_extract_ner_path %>
 </div>
+<%end%>

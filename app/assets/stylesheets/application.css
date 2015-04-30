@@ -13,6 +13,18 @@
  *= require_tree .
  */
 
+
+#omg {
+  font-size:12px;
+  padding-top:1%;
+  font-style: italic;
+  padding-left: 1%;
+}
+
+#force{
+  padding-left: 3%;
+  padding-top:3%;
+}
 #extra_push{
   clear: both
 }
