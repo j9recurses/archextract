@@ -15,6 +15,7 @@ class CollectionsController < ApplicationController
   def show
     session[:collection_id] = @collection[:id]
     @collection = Collection.friendly.find(params[:id])
+    #@collection_size = Document.where('colleciton_id', @collection[:id).count
   end
 
   # GET /collections/new

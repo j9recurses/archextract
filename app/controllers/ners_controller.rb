@@ -25,10 +25,14 @@ class NersController < ApplicationController
   # DELETE /ners/1
   # DELETE /ners/1.json
   def destroy
+  @extract_ner_id = @ner.extract_ner_id
+   puts @ner.inspect
+
     @ner.destroy
     respond_to do |format|
-      format.html { redirect_to ners_url }
+      #format.html { redirect_to extract_ner_ners_url(@extract_ner_id) }
       format.json { head :no_content }
+      format.js {render :layout => false}
     end
   end
 

@@ -1,0 +1,10 @@
+$(document).ready(
+     function(){
+  $(".chunk").bind('ajax:success', function() {
+        var chunk =  $(".chunk").children();
+        console.log(chunk);
+        console.log("in here");
+        $( ".chunk" ).children().css( "text-decoration", "line-through" );
+  });
+});
+

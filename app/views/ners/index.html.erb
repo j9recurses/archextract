@@ -15,8 +15,11 @@
           <% date_chunks.each do | chunk| %>
           <div class="border col-md-3">
             <% chunk.each do |item| %>
+          <div class="chunk">
+            <div id="del"> <%=link_to '&#10008;'.html_safe, extract_ner_ner_path(@collection[:id], item[:id]), method: :delete, data: { confirm: 'Are you sure?' }, :remote => true, :class => 'delete_topic' %></div>
             <div class = "ner_item">
               <%= link_to item[:name].titleize,  extract_ner_ner_path(@collection[:id], item[:id]) %> &#8674; <%= item[:count]%>
+            </div>
             </div>
             <% end %>
           </div>

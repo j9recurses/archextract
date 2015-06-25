@@ -1,15 +1,25 @@
 <div class = "item_header"><h2> <%=@collection.name.titleize%> Collection: <%= @extract_topic[:routine_name].titleize %> </div>
 <div class="row-fluid">
+<div class="searchpad">
+      <input class="searchbox" type="text" name="search"><br>
+      <input  class="searchsubmit" type="submit" value="search topics">
+<div>
+</div>
+ <div class="spacer"> </div>
+<div class="row-fluid">
   <div class="apple_pagination">
     <div class="page_info">
     </div>
     <%= will_paginate @topics, :container => false %>
-    <div class = "tinybreak">
+    <div class="tinybreak">
       <%= link_to 'Go Back to Topic Model Home', extract_topics_path %>
     </div>
   </div>
 </div>
+
 <div class="bottom_padding"></div>
+
+
 
 <div id="delete"> You can delete topics by clicking on the x </div>
 <% @topics.each do |t| %>

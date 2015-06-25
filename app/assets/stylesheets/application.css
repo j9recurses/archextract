@@ -12,7 +12,24 @@
  *= require_self
  *= require_tree .
  */
+.spacer{
+  padding-top:1%;
+}
 
+.searchpad {
+  padding-top:0.5%;
+}
+.searchbox {
+display: block;
+  margin-bottom: -0.5%;
+  width: 75%;
+  font-size: 18px;
+  appearance: none;
+  box-shadow: none;
+  border-radius: none;
+}
+.search_submit{
+}
 
 #omg {
   font-size:12px;
@@ -22,8 +39,10 @@
 }
 
 #force{
+  clear: both;
   padding-left: 3%;
   padding-top:3%;
+
 }
 #extra_push{
   clear: both
@@ -170,7 +189,7 @@ margin-left: auto;
   font-family: 'Roboto Condensed', sans-serif;
   float:left;
   padding-top:4%;
-  padding-right:55%;
+  padding-right:60%;
   padding-bottom:1%;
   padding-left:2%
 }

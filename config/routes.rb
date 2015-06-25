@@ -28,6 +28,7 @@ Archextract::Application.routes.draw do
   root :to =>  'collections#index'
 
 delete 'topics/destroy/:id', :to => 'topics#destroy', :as => 'delete_topic'
+delete 'ners/destroy/:id', :to => 'ners#destroy', :as => 'delete_ner'
 
 
 
