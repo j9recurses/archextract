@@ -28,7 +28,8 @@ display: block;
   box-shadow: none;
   border-radius: none;
 }
-.search_submit{
+.searchsubmit{
+  background-color:#F1F1F1;
 }
 
 #omg {
@@ -283,9 +284,31 @@ padding-right:20px;
 }
 
 #similiar_docs{
-color:#545454;
+color:#5454545
 font-family: 'Open Sans', sans-serif;
 font-size:14px;
 padding-left: 20px;
 font-style: italic;
+}
+
+.searchpadners{
+  padding-top:1%;
+   padding-bottom:2%;
+   padding-left:6%;
+}
+.searchboxners{
+display: block;
+  margin-bottom: -0.5%;
+  width: 65%;
+  font-size: 18px;
+  appearance: none;
+  box-shadow: none;
+  border-radius: none;
+}
+.searchsubmitners{
+background-color:#F1F1F1;
+appearance: none;
+  box-shadow: none;
+  border-radius: none;
+  box-sizing:none;
 }
